@@ -1,0 +1,113 @@
+/* line 1, ../sass/index.sass */
+.login-register {
+  background-color: #e5e9ea;
+  height: 100%;
+  width: 100%;
+}
+/* line 7, ../sass/index.sass */
+.login-register .back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: none;
+  z-index: 2;
+}
+/* line 17, ../sass/index.sass */
+.login-register .back img {
+  height: 50px;
+  width: 50px;
+}
+/* line 22, ../sass/index.sass */
+.login-register .layer {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+}
+/* line 29, ../sass/index.sass */
+.login-register .caption {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+/* line 36, ../sass/index.sass */
+.login-register .caption img {
+  height: 100px;
+  width: 100px;
+}
+/* line 41, ../sass/index.sass */
+.login-register .caption h1, .login-register .caption h2 {
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+/* line 46, ../sass/index.sass */
+.login-register .caption h1 {
+  font-size: 26px;
+  color: #576971;
+}
+/* line 51, ../sass/index.sass */
+.login-register .caption h2 {
+  color: #7a8082;
+  font-size: 18px;
+  margin-top: 0px;
+  font-family: RobotoCondensedRegular;
+}
+/* line 58, ../sass/index.sass */
+.login-register .form-holder {
+  position: absolute;
+  top: 240px;
+  left: 0;
+  right: 0;
+  max-width: 250px;
+  margin: auto;
+  text-align: center;
+}
+/* line 71, ../sass/index.sass */
+.login-register .form-holder input {
+  display: block;
+  background-color: white;
+  border: 1px solid #d6cece;
+  height: 50px;
+  margin: auto;
+  margin-bottom: 7px;
+  border-radius: 25px;
+  width: 100%;
+  font-family: RobotoLight;
+  font-size: 16px;
+}
+/* line 85, ../sass/index.sass */
+.login-register .form-holder input[type="text"],
+.login-register .form-holder input[type="password"],
+.login-register .form-holder input[type="email"] {
+  padding-left: 30px;
+}
+/* line 91, ../sass/index.sass */
+.login-register .form-holder input[type="submit"] {
+  background-color: #00a1eb;
+  color: white;
+  font-size: 18px;
+}
+/* line 97, ../sass/index.sass */
+.login-register .login-link {
+  font-family: RobotoLight;
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  text-decoration: underline;
+  color: #3d4243;
+  text-align: center;
+}
+/* line 111, ../sass/index.sass */
+.login-register #forgetLink {
+  position: relative;
+  top: 30px;
+}
+/* line 116, ../sass/index.sass */
+.login-register .register {
+  text-align: center;
+}
+/* line 120, ../sass/index.sass */
+.login-register .login {
+  text-align: center;
+  display: none;
+}
