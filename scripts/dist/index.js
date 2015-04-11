@@ -4846,42 +4846,15 @@ module.exports = function(address) {
 };
 
 },{}],"D:\\xampp\\htdocs\\jik\\scripts\\js\\ad.js":[function(require,module,exports){
-var ad_units, admobid, network, registerAdEvents;
+var network;
 
 network = require('./network');
 
-registerAdEvents = function() {
-  return document.addEventListener(admob.Event.onInterstitialReceive, function() {
+if (typeof admob !== "undefined" && admob !== null) {
+  admob.initAdmob("ca-app-pub-3850619128711801/1412784928", "ca-app-pub-3850619128711801/3214895722");
+  document.addEventListener(admob.Event.onInterstitialReceive, function() {
     return admob.showInterstitial();
   }, false);
-};
-
-admobid = '';
-
-if (typeof admob !== "undefined" && admob !== null) {
-  ad_units = {
-    ios: {
-      banner: 'ca-app-pub-3850619128711801/1412784928',
-      interstitial: 'ca-app-pub-3850619128711801/3214895722'
-    },
-    android: {
-      banner: 'ca-app-pub-3850619128711801/1412784928',
-      interstitial: 'ca-app-pub-3850619128711801/3214895722'
-    },
-    wp8: {
-      banner: 'ca-app-pub-3850619128711801/1412784928',
-      interstitial: 'ca-app-pub-3850619128711801/3214895722'
-    }
-  };
-  if (/(android)/i.test(navigator.userAgent)) {
-    admobid = ad_units.android;
-  } else if (/(iphone|ipad)/i.test(navigator.userAgent)) {
-    admobid = ad_units.ios;
-  } else {
-    admobid = ad_units.wp8;
-  }
-  admob.initAdmob(admobid.banner, admobid.interstitial);
-  registerAdEvents();
   if (network.status) {
     admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
     setTimeout(function() {
@@ -4910,7 +4883,7 @@ module.exports = {
   },
   remove: function() {
     if (typeof admob !== "undefined" && admob !== null) {
-      AdMob.hideBanner();
+      admob.hideBanner();
       return setTimeout(function() {
         return window.dispatchEvent(new Event('resize'));
       }, 500);
