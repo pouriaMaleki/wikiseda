@@ -310,6 +310,13 @@ html, body {
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-scroll-chaining: none;
+  -ms-overflow-style: none;
+  -ms-content-zooming: none;
+  -ms-scroll-rails: none;
+  -ms-content-zoom-limit-min: 100%;
+  -ms-content-zoom-limit-max: 100%;
 }
 
 /* line 1, ../sass/parts/_flashMessage.sass */
@@ -607,26 +614,31 @@ html, body {
   /* line 166, ../sass/parts/_loading.sass */
   0% {
     transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
   }
 
-  /* line 168, ../sass/parts/_loading.sass */
+  /* line 169, ../sass/parts/_loading.sass */
   25% {
     transform: rotateZ(90deg);
-  }
-
-  /* line 170, ../sass/parts/_loading.sass */
-  50% {
-    transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(90deg);
   }
 
   /* line 172, ../sass/parts/_loading.sass */
-  75% {
-    transform: rotateZ(270deg);
+  50% {
+    transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
   }
 
-  /* line 174, ../sass/parts/_loading.sass */
+  /* line 175, ../sass/parts/_loading.sass */
+  75% {
+    transform: rotateZ(270deg);
+    -webkit-transform: rotateZ(270deg);
+  }
+
+  /* line 178, ../sass/parts/_loading.sass */
   100% {
     transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
   }
 }
 
@@ -844,7 +856,7 @@ html, body {
   text-align: center;
 }
 /* line 244, ../sass/parts/main/_item.sass */
-.app-page #failed-refresh .circleLoading, .app-page #sync-not-find .circleLoading, .app-page #play-all-downloaded .circleLoading {
+.app-page #failed-refresh .circleLoading, .app-page #sync-not-find .circleLoading, .app-page #load-more-items .circleLoading {
   -webkit-animation: none;
   -webkit-animation-timing-function: linear;
   -moz-animation: none;
@@ -864,47 +876,57 @@ html, body {
   color: #7a8082;
 }
 /* line 268, ../sass/parts/main/_item.sass */
-.app-page #sync-not-find .circleLoading, .app-page #no-result .circleLoading, .app-page #play-all-downloaded .circleLoading {
+.app-page #sync-not-find .circleLoading, .app-page #no-result .circleLoading {
   display: none;
 }
 /* line 272, ../sass/parts/main/_item.sass */
-.app-page #sync-not-find .circleLoading-text, .app-page #no-result .circleLoading-text, .app-page #play-all-downloaded .circleLoading-text {
+.app-page #sync-not-find .circleLoading-text, .app-page #no-result .circleLoading-text {
   top: 35px;
 }
 /* line 276, ../sass/parts/main/_item.sass */
+.app-page #play-all-downloaded {
+  height: 50px;
+  width: 100%;
+  color: #b7bdbe;
+  font-family: RobotoCondensedRegular;
+  font-size: 18px;
+  padding-top: 15px;
+  text-align: center;
+}
+/* line 289, ../sass/parts/main/_item.sass */
 .app-page #refresh {
   height: 50px;
   text-align: center;
 }
-/* line 281, ../sass/parts/main/_item.sass */
+/* line 294, ../sass/parts/main/_item.sass */
 .app-page .main-item-ending {
   text-align: center;
 }
-/* line 285, ../sass/parts/main/_item.sass */
+/* line 298, ../sass/parts/main/_item.sass */
 .app-page .maxWidth {
   width: 100%;
 }
-/* line 289, ../sass/parts/main/_item.sass */
+/* line 302, ../sass/parts/main/_item.sass */
 .app-page .playing-icon {
   display: none;
 }
-/* line 303, ../sass/parts/main/_item.sass */
+/* line 316, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-poster {
   border-radius: 50%;
 }
-/* line 316, ../sass/parts/main/_item.sass */
+/* line 329, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-title {
   top: 20px;
   font-size: 22px;
   font-family: RobotoLight;
 }
-/* line 322, ../sass/parts/main/_item.sass */
+/* line 335, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist {
   top: 50px;
   font-size: 16px;
   font-family: Roboto;
 }
-/* line 328, ../sass/parts/main/_item.sass */
+/* line 341, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist:before {
   content: " ";
   background: transparent url("../../assets/icons/icon-fans.png") no-repeat 0 center/contain;
@@ -913,25 +935,25 @@ html, body {
   display: inline-block;
   float: left;
 }
-/* line 337, ../sass/parts/main/_item.sass */
+/* line 350, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist small {
   color: #b3b9bb;
   font-family: RobotoCondensedRegular;
 }
-/* line 342, ../sass/parts/main/_item.sass */
+/* line 355, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-view {
   top: 65px;
   display: none;
 }
-/* line 347, ../sass/parts/main/_item.sass */
+/* line 360, ../sass/parts/main/_item.sass */
 .app-page #item-album {
   padding-top: 90px;
 }
-/* line 351, ../sass/parts/main/_item.sass */
+/* line 364, ../sass/parts/main/_item.sass */
 .app-page #item-album .main-item-poster {
   border-radius: 10%;
 }
-/* line 355, ../sass/parts/main/_item.sass */
+/* line 368, ../sass/parts/main/_item.sass */
 .app-page #item-album .menu-item-pause-icon {
   top: 17px;
   left: -5px;
@@ -940,7 +962,7 @@ html, body {
   width: 30px;
   background: transparent url("../../assets/icons/play-white.png") no-repeat center center/cover;
 }
-/* line 366, ../sass/parts/main/_item.sass */
+/* line 379, ../sass/parts/main/_item.sass */
 .app-page #item-album .main-item-album-song-humberger-icon {
   border-top: 15px solid transparent;
   border-left: 20px solid transparent;
@@ -948,7 +970,7 @@ html, body {
   height: 30px;
   width: 30px;
 }
-/* line 378, ../sass/parts/main/_item.sass */
+/* line 391, ../sass/parts/main/_item.sass */
 .app-page .main-item-album-song {
   height: 50px;
   width: 100%;
@@ -959,14 +981,14 @@ html, body {
   -o-transition: background 0.15s;
   transition: background 0.15s;
 }
-/* line 391, ../sass/parts/main/_item.sass */
+/* line 404, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-number {
   position: absolute;
   top: 20px;
   left: 40px;
   display: none;
 }
-/* line 400, ../sass/parts/main/_item.sass */
+/* line 413, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-title {
   overflow: hidden;
   font-family: RobotoCondensedRegular;
@@ -981,7 +1003,7 @@ html, body {
   text-transform: capitalize;
   text-overflow: ellipsis;
 }
-/* line 421, ../sass/parts/main/_item.sass */
+/* line 434, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-view {
   font-family: RobotoCondensedLight;
   position: absolute;
@@ -991,7 +1013,7 @@ html, body {
   padding: 10px;
   padding-top: 20px;
 }
-/* line 431, ../sass/parts/main/_item.sass */
+/* line 444, ../sass/parts/main/_item.sass */
 .app-page .main-item-album-songs {
   display: none;
   display: block;
@@ -999,33 +1021,33 @@ html, body {
   background: #e5e9ea;
   border-radius: 5px;
 }
-/* line 439, ../sass/parts/main/_item.sass */
+/* line 452, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-follow {
   color: #3ab6e9;
   display: inline-block;
   padding-left: 10px;
 }
-/* line 445, ../sass/parts/main/_item.sass */
+/* line 458, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-header {
   background-color: #eeeeee;
   border-left: 5px solid white;
   border-right: 5px solid white;
 }
-/* line 451, ../sass/parts/main/_item.sass */
+/* line 464, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-header img {
   width: 100%;
   max-width: 490px;
   border-radius: 20px;
 }
-/* line 458, ../sass/parts/main/_item.sass */
+/* line 471, ../sass/parts/main/_item.sass */
 .app-page .main-item-titles-fans {
   float: left;
 }
-/* line 462, ../sass/parts/main/_item.sass */
+/* line 475, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item {
   height: 230px;
 }
-/* line 466, ../sass/parts/main/_item.sass */
+/* line 479, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-back {
   background: transparent url("../../assets/icons/back_.png") no-repeat center center/cover;
   height: 60px;
@@ -1035,7 +1057,7 @@ html, body {
   left: 10px;
   z-index: 1;
 }
-/* line 478, ../sass/parts/main/_item.sass */
+/* line 491, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster {
   position: absolute;
   top: 20px;
@@ -1044,24 +1066,24 @@ html, body {
   overflow: initial;
   left: 0;
 }
-/* line 487, ../sass/parts/main/_item.sass */
+/* line 500, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster .main-item-poster-holder {
   height: 130px;
   width: 130px;
   margin: auto;
 }
-/* line 494, ../sass/parts/main/_item.sass */
+/* line 507, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster .main-item-poster-holder img {
   border-radius: 50%;
 }
-/* line 498, ../sass/parts/main/_item.sass */
+/* line 511, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles {
   height: 230px;
   text-align: center;
   left: 0;
   right: 0;
 }
-/* line 505, ../sass/parts/main/_item.sass */
+/* line 518, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-title {
   top: 20px;
   font-size: 22px;
@@ -1070,11 +1092,11 @@ html, body {
   position: relative;
   top: 160px;
 }
-/* line 515, ../sass/parts/main/_item.sass */
+/* line 528, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-artist {
   top: 50px;
 }
-/* line 519, ../sass/parts/main/_item.sass */
+/* line 532, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-become {
   position: absolute;
   top: 20px;
@@ -1083,11 +1105,11 @@ html, body {
   width: 30px;
   background: transparent url("../../assets/icons/icon-become.png") no-repeat 0 0/contain;
 }
-/* line 530, ../sass/parts/main/_item.sass */
+/* line 543, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-isfan {
   background: transparent url("../../assets/icons/icon-isfan.png") no-repeat 0 0/contain !important;
 }
-/* line 534, ../sass/parts/main/_item.sass */
+/* line 547, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc {
   position: absolute;
   left: 0;
@@ -1096,7 +1118,7 @@ html, body {
   height: 30px;
   text-align: center;
 }
-/* line 545, ../sass/parts/main/_item.sass */
+/* line 558, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field {
   height: inherit;
   font-size: 18px;
@@ -1105,7 +1127,7 @@ html, body {
   padding-left: 10px;
   padding-right: 10px;
 }
-/* line 555, ../sass/parts/main/_item.sass */
+/* line 568, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field:before {
   content: " ";
   height: 15px;
@@ -1115,34 +1137,34 @@ html, body {
   position: relative;
   top: 3px;
 }
-/* line 566, ../sass/parts/main/_item.sass */
+/* line 579, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field small {
   color: #b3b9bb;
   font-family: RobotoCondensedRegular;
 }
-/* line 573, ../sass/parts/main/_item.sass */
+/* line 586, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-fans:before {
   background: transparent url("../../assets/icons/icon-fans.png") no-repeat 0 0/contain;
 }
-/* line 579, ../sass/parts/main/_item.sass */
+/* line 592, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-albums:before {
   background: transparent url("../../assets/icons/icon-albums.png") no-repeat 0 0/contain;
 }
-/* line 585, ../sass/parts/main/_item.sass */
+/* line 598, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-songs:before {
   background: transparent url("../../assets/icons/icon-songs.png") no-repeat 0 0/contain;
 }
-/* line 589, ../sass/parts/main/_item.sass */
+/* line 602, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist {
   height: 100px;
   padding-top: 80px !important;
 }
-/* line 594, ../sass/parts/main/_item.sass */
+/* line 607, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-poster {
   height: 70px;
   width: 70px;
 }
-/* line 599, ../sass/parts/main/_item.sass */
+/* line 612, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .menu-item-pause-icon {
   position: absolute !important;
   top: 10px !important;
@@ -1157,18 +1179,18 @@ html, body {
   transition: opacity 0.3s !important;
   background: rgba(0, 0, 0, 0.5) url("../../assets/icons/play-white.png") no-repeat center center/cover !important;
 }
-/* line 614, ../sass/parts/main/_item.sass */
+/* line 627, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs {
   margin-top: 20px;
 }
-/* line 619, ../sass/parts/main/_item.sass */
+/* line 632, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs .main-item-poster {
   top: 10px !important;
   border-radius: 0 !important;
   height: 50px !important;
   width: 50px !important;
 }
-/* line 626, ../sass/parts/main/_item.sass */
+/* line 639, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs .main-item-album-song {
   position: relative;
   height: 70px;
@@ -1183,7 +1205,7 @@ html, body {
   -o-transition: background 0.15s;
   transition: background 0.15s;
 }
-/* line 646, ../sass/parts/main/_item.sass */
+/* line 659, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-title {
   position: absolute;
   left: 75px;
@@ -1195,7 +1217,7 @@ html, body {
   color: #454648;
   height: 90px;
 }
-/* line 658, ../sass/parts/main/_item.sass */
+/* line 671, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-artist {
   font-family: RobotoLight;
   position: absolute;
@@ -1209,7 +1231,7 @@ html, body {
   white-space: nowrap;
   text-transform: capitalize;
 }
-/* line 675, ../sass/parts/main/_item.sass */
+/* line 688, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-view {
   font-family: RobotoCondensedLight;
   position: absolute;
@@ -1219,7 +1241,7 @@ html, body {
   color: #bec2c4;
   padding-bottom: 3px !important;
 }
-/* line 685, ../sass/parts/main/_item.sass */
+/* line 698, ../sass/parts/main/_item.sass */
 .app-page .main-item-playlist-image {
   position: absolute;
   top: 15px;
@@ -1227,7 +1249,7 @@ html, body {
   height: 60px;
   width: 60px;
 }
-/* line 695, ../sass/parts/main/_item.sass */
+/* line 708, ../sass/parts/main/_item.sass */
 .app-page .main-item-username {
   font-size: 18px;
   color: #576971;
@@ -1235,7 +1257,7 @@ html, body {
   line-height: 60px;
   margin-left: 10px;
 }
-/* line 705, ../sass/parts/main/_item.sass */
+/* line 718, ../sass/parts/main/_item.sass */
 .app-page .main-item-logout {
   position: absolute;
   top: 15px;
@@ -1248,7 +1270,7 @@ html, body {
   background-color: #b8bdbe;
   border-radius: 3px;
 }
-/* line 724, ../sass/parts/main/_item.sass */
+/* line 737, ../sass/parts/main/_item.sass */
 .app-page #new-playlist {
   height: inherit;
   width: inherit;
