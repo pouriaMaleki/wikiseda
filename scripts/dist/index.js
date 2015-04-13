@@ -2586,7 +2586,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
 }
 
 },{"./FlashMessage":"D:\\xampp\\htdocs\\jik\\scripts\\js\\FlashMessage.js","./Loading":"D:\\xampp\\htdocs\\jik\\scripts\\js\\Loading.js"}],"D:\\xampp\\htdocs\\jik\\scripts\\js\\BackButton.js":[function(require,module,exports){
-var BackButton, backButton, backButtonEventHandler;
+var BackButton, backButton;
 
 BackButton = (function() {
   function BackButton() {
@@ -2602,7 +2602,8 @@ BackButton = (function() {
   BackButton.prototype.activate = function(id) {
     this.deactive(id);
     this.activeCbs.push(this.cbs[id]);
-    return this.activeIds.push(id);
+    this.activeIds.push(id);
+    return window.location.hash = id;
   };
 
   BackButton.prototype.deactive = function(id) {
@@ -2626,14 +2627,6 @@ BackButton = (function() {
 })();
 
 backButton = new BackButton;
-
-backButtonEventHandler = function(event) {
-  backButton.backPressed();
-  event.preventDefault();
-  return false;
-};
-
-document.addEventListener("backbutton", backButtonEventHandler);
 
 module.exports = backButton;
 
@@ -4846,17 +4839,58 @@ module.exports = function(address) {
 };
 
 },{}],"D:\\xampp\\htdocs\\jik\\scripts\\js\\ad.js":[function(require,module,exports){
-var network;
+var adPublisherIds, admobid, isAppForeground, network, onAdmobEvent, onPause, resume;
 
 network = require('./network');
 
+isAppForeground = true;
+
 if (typeof admob !== "undefined" && admob !== null) {
-  admob.initAdmob("ca-app-pub-3850619128711801/1412784928", "ca-app-pub-3850619128711801/3214895722");
-  document.addEventListener(admob.Event.onInterstitialReceive, function() {
-    return admob.showInterstitial();
-  }, false);
+  adPublisherIds = {
+    ios: {
+      banner: "ca-app-pub-3850619128711801/1412784928",
+      interstitial: "ca-app-pub-3850619128711801/3214895722"
+    },
+    android: {
+      banner: "ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",
+      interstitial: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII"
+    }
+  };
+  admobid = /(android)/i.test(navigator.userAgent) ? adPublisherIds.android : adPublisherIds.ios;
+  admob.setOptions({
+    publisherId: admobid.banner,
+    interstitialAdId: admobid.interstitial
+  });
+  onPause = function() {
+    if (isAppForeground) {
+      admob.destroyBannerView();
+      return isAppForeground = false;
+    }
+  };
+  resume = function() {
+    if (!isAppForeground) {
+      if (network.status) {
+        setTimeout(admob.createBannerView, 1);
+        setTimeout(function() {
+          return window.dispatchEvent(new Event('resize'));
+        }, 500);
+      }
+      return isAppForeground = true;
+    }
+  };
+  document.addEventListener("pause", onPause, false);
+  document.addEventListener("resume", resume, false);
+  onAdmobEvent = function() {
+    return setTimeout(function() {
+      return window.dispatchEvent(new Event('resize'));
+    }, 500);
+  };
+  document.addEventListener(admob.Event.onAdmobBannerDismiss, onAdmobEvent, false);
+  document.addEventListener(admob.Event.onAdmobBannerFailedReceive, onAdmobEvent, false);
+  document.addEventListener(admob.Event.onAdmobBannerPresent, onAdmobEvent, false);
+  document.addEventListener(admob.Event.onAdmobBannerReceive, onAdmobEvent, false);
   if (network.status) {
-    admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+    setTimeout(admob.createBannerView, 1);
     setTimeout(function() {
       return window.dispatchEvent(new Event('resize'));
     }, 500);
@@ -4867,14 +4901,14 @@ module.exports = {
   interstitial: function() {
     if (typeof admob !== "undefined" && admob !== null) {
       if (network.status) {
-        return admob.cacheInterstitial();
+        return admob.requestInterstitialAd();
       }
     }
   },
   banner: function() {
     if (typeof admob !== "undefined" && admob !== null) {
       if (network.status) {
-        admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+        admob.createBannerView();
         return setTimeout(function() {
           return window.dispatchEvent(new Event('resize'));
         }, 500);
@@ -4883,10 +4917,7 @@ module.exports = {
   },
   remove: function() {
     if (typeof admob !== "undefined" && admob !== null) {
-      admob.hideBanner();
-      return setTimeout(function() {
-        return window.dispatchEvent(new Event('resize'));
-      }, 500);
+      return admob.destroyBannerView();
     }
   }
 };
