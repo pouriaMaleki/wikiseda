@@ -4864,7 +4864,10 @@ if (typeof admob !== "undefined" && admob !== null) {
   onPause = function() {
     if (isAppForeground) {
       admob.destroyBannerView();
-      return isAppForeground = false;
+      isAppForeground = false;
+      return setTimeout(function() {
+        return window.dispatchEvent(new Event('resize'));
+      }, 500);
     }
   };
   resume = function() {
@@ -4917,7 +4920,10 @@ module.exports = {
   },
   remove: function() {
     if (typeof admob !== "undefined" && admob !== null) {
-      return admob.destroyBannerView();
+      admob.destroyBannerView();
+      return setTimeout(function() {
+        return window.dispatchEvent(new Event('resize'));
+      }, 500);
     }
   }
 };
