@@ -2177,6 +2177,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
               if (_this.timeCallback != null) {
                 _this.timeCallback(result.progress / 1000);
               }
+              loadingAnimation.hide();
             } else if (result.type === 'state') {
               if (parseInt(result.state) === 1) {
                 loadingAnimation.hide();
@@ -2253,6 +2254,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
               if (_this.timeCallback != null) {
                 _this.timeCallback(result.progress / 1000);
               }
+              loadingAnimation.hide();
             } else if (result.type === 'state') {
               if (parseInt(result.state) === 1) {
                 loadingAnimation.hide();
@@ -2308,7 +2310,16 @@ if (typeof cordova !== "undefined" && cordova !== null) {
           }
           loadingAnimation.show();
         }
-        window.audioplayer.playfile(successCallback, failureCallback, this.src, {}, 0, {});
+        window.audioplayer.playfile(successCallback, failureCallback, this.src, {
+          "title": window.playingMusicData.songname || "Wikiseda",
+          "artist": window.playingMusicData.artist || "Wikiseda",
+          "image": {
+            "url": window.playingMusicData.poster || ""
+          },
+          "imageThumbnail": {
+            "url": window.playingMusicData.poster || ""
+          }
+        }, 0, {});
         this.playing = true;
         if (this.playStatusCallback != null) {
           return this.playStatusCallback(true);
@@ -2586,7 +2597,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
 }
 
 },{"./FlashMessage":"D:\\xampp\\htdocs\\jik\\scripts\\js\\FlashMessage.js","./Loading":"D:\\xampp\\htdocs\\jik\\scripts\\js\\Loading.js"}],"D:\\xampp\\htdocs\\jik\\scripts\\js\\BackButton.js":[function(require,module,exports){
-var BackButton, backButton;
+var BackButton, backButton, backButtonEventHandler;
 
 BackButton = (function() {
   function BackButton() {
@@ -2602,8 +2613,7 @@ BackButton = (function() {
   BackButton.prototype.activate = function(id) {
     this.deactive(id);
     this.activeCbs.push(this.cbs[id]);
-    this.activeIds.push(id);
-    return window.location.hash = id;
+    return this.activeIds.push(id);
   };
 
   BackButton.prototype.deactive = function(id) {
@@ -2619,6 +2629,12 @@ BackButton = (function() {
     if (this.activeIds.length > 0) {
       this.activeIds.pop();
       return this.activeCbs.pop()();
+    } else {
+      return navigator.Backbutton.goBack(function() {
+        return console.log("ok");
+      }, function() {
+        return console.log("cancel");
+      });
     }
   };
 
@@ -2627,6 +2643,14 @@ BackButton = (function() {
 })();
 
 backButton = new BackButton;
+
+backButtonEventHandler = function(event) {
+  backButton.backPressed();
+  event.preventDefault();
+  return false;
+};
+
+document.addEventListener("backbutton", backButtonEventHandler);
 
 module.exports = backButton;
 
@@ -4163,7 +4187,7 @@ miniPlayerNode = document.querySelector(".mini-player");
 
 miniPlayerHeight = miniPlayerNode.getBoundingClientRect().height;
 
-move = window.innerHeight - miniPlayerHeight;
+move = window.innerHeight - miniPlayerHeight + 20;
 
 open = false;
 
@@ -4176,7 +4200,7 @@ setTimeout(function() {
 }, 200);
 
 window.addEventListener('resize', function() {
-  move = window.innerHeight - miniPlayerHeight;
+  move = window.innerHeight - miniPlayerHeight + 20;
   if (open === true) {
     setSlideShowPosition(0);
   } else {
@@ -4765,7 +4789,7 @@ gotFs = (function(_this) {
   return function(fileSystem) {
     window.fs = fileSystem;
     tries = 0;
-    fileSystem.root.getDirectory("wikiseda/", {
+    fileSystem.root.getDirectory("Wikiseda/", {
       create: true,
       exclusive: false
     }, gotDir, function(event) {
@@ -4839,7 +4863,7 @@ module.exports = function(address) {
 };
 
 },{}],"D:\\xampp\\htdocs\\jik\\scripts\\js\\ad.js":[function(require,module,exports){
-var adPublisherIds, admobid, isAppForeground, network, onAdmobEvent, onPause, resume;
+var adEvent, adPublisherIds, admobid, isAppForeground, network, onPause, resume;
 
 network = require('./network');
 
@@ -4852,8 +4876,8 @@ if (typeof admob !== "undefined" && admob !== null) {
       interstitial: "ca-app-pub-3850619128711801/3214895722"
     },
     android: {
-      banner: "ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",
-      interstitial: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII"
+      banner: "ca-app-pub-3850619128711801/7390109729",
+      interstitial: "ca-app-pub-3850619128711801/8866842923"
     }
   };
   admobid = /(android)/i.test(navigator.userAgent) ? adPublisherIds.android : adPublisherIds.ios;
@@ -4883,15 +4907,16 @@ if (typeof admob !== "undefined" && admob !== null) {
   };
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", resume, false);
-  onAdmobEvent = function() {
+  adEvent = function() {
+    window.dispatchEvent(new Event('resize'));
     return setTimeout(function() {
       return window.dispatchEvent(new Event('resize'));
     }, 500);
   };
-  document.addEventListener(admob.Event.onAdmobBannerDismiss, onAdmobEvent, false);
-  document.addEventListener(admob.Event.onAdmobBannerFailedReceive, onAdmobEvent, false);
-  document.addEventListener(admob.Event.onAdmobBannerPresent, onAdmobEvent, false);
-  document.addEventListener(admob.Event.onAdmobBannerReceive, onAdmobEvent, false);
+  document.addEventListener(admob.events.onAdClosed, adEvent, false);
+  document.addEventListener(admob.events.onAdFailedToLoad, adEvent, false);
+  document.addEventListener(admob.events.onAdLoaded, adEvent, false);
+  document.addEventListener(admob.events.onAdOpened, adEvent, false);
   if (network.status) {
     setTimeout(admob.createBannerView, 1);
     setTimeout(function() {
