@@ -2246,7 +2246,6 @@ if (typeof cordova !== "undefined" && cordova !== null) {
         }
         successCallback = (function(_this) {
           return function(result) {
-            console.log(result);
             if (result.type === 'progress') {
               if (_this.timePercentCallback != null) {
                 _this.timePercentCallback(result.progress / result.duration);
@@ -2267,6 +2266,16 @@ if (typeof cordova !== "undefined" && cordova !== null) {
                 _this.playing = false;
                 if (_this.playStatusCallback != null) {
                   _this.playStatusCallback(false);
+                }
+              } else if (parseInt(result.state) === 5) {
+                loadingAnimation.show();
+              } else if (parseInt(result.state) === 6) {
+                _this.playing = false;
+                if (_this.changeSongCallback != null) {
+                  _this.changeSongCallback();
+                }
+                if (_this.playToEndCallback != null) {
+                  _this.playToEndCallback();
                 }
               }
             } else if (result.type === 'error') {
