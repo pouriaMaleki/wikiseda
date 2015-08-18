@@ -17,47 +17,48 @@
       <div id="back-button" class="back"><img src="./assets/icons/back_.png"/></div>
       <div data-z="65" data-room="30" class="layer">
         <div class="caption"><img src="./assets/images/logo.png"/>
-          <h1>Wikiseda</h1>
-          <h2>Source of Iranian music</h2>
+          <h1 id="label-wikiseda">Wikiseda</h1>
+          <h2 id="label-wikiseda-desc">Source of Iranian music</h2>
         </div>
       </div>
       <div class="form-holder">
         <form class="register">
-          <input type="text" name="username" placeholder="Username"/>
-          <input type="email" name="email" placeholder="Email"/>
-          <input type="password" name="password" placeholder="Password"/>
-          <input type="submit" name="register-submit" value="Join!"/>
+          <input id="label-register-username" type="text" name="username" placeholder="Username"/>
+          <input id="label-register-email" type="email" name="email" placeholder="Email"/>
+          <input id="label-register-password" type="password" name="password" placeholder="Password"/>
+          <input id="label-register-submit" type="submit" name="register-submit" value="Join!"/>
           <div id="login-link" class="login-link">Have account?  Login</div>
         </form>
         <form class="login">
-          <input type="text" name="username" placeholder="Username"/>
-          <input type="password" name="password" placeholder="Password"/>
-          <input type="submit" name="login-submit" value="Login"/><a id="forgetLink" onclick="window.open('https://www.wikiseda.com/user/forgotPassword', '_system')" class="login-link">Forgot Password?</a>
+          <input id="label-login-username" type="text" name="username" placeholder="Username"/>
+          <input id="label-login-password" type="password" name="password" placeholder="Password"/>
+          <input id="label-login-submit" type="submit" name="login-submit" value="Login"/><a id="forgetLink" onclick="window.open('https://www.wikiseda.com/user/forgotPassword', '_system')" class="login-link">Forgot Password?</a>
         </form>
       </div>
+      <div id="change-lang">فا</div>
     </div>
     <div class="app-page">
       <div class="main"></div>
       <div class="bottom">
         <div id="icon-home" class="bottom-complex-icon">
           <div class="bottom-icon bottom-icon-home"></div>
-          <div class="bottom-icon-text">Home</div>
+          <div id="label-bottom-home" class="bottom-icon-text">Home</div>
         </div>
         <div id="icon-artist" class="bottom-complex-icon">
           <div class="bottom-icon bottom-icon-artist"></div>
-          <div class="bottom-icon-text">Artists</div>
+          <div id="label-bottom-artists" class="bottom-icon-text">Artists</div>
         </div>
         <div id="icon-song" class="bottom-complex-icon">
           <div class="bottom-icon bottom-icon-song"></div>
-          <div class="bottom-icon-text">Songs</div>
+          <div id="label-bottom-songs" class="bottom-icon-text">Songs</div>
         </div>
         <div id="icon-album" class="bottom-complex-icon">
           <div class="bottom-icon bottom-icon-album"></div>
-          <div class="bottom-icon-text">Albums</div>
+          <div id="label-bottom-albums" class="bottom-icon-text">Albums</div>
         </div>
         <div id="icon-playlist" class="bottom-complex-icon">
           <div class="bottom-icon bottom-icon-playlist"></div>
-          <div class="bottom-icon-text">More</div>
+          <div id="label-bottom-more" class="bottom-icon-text">More</div>
         </div>
       </div>
       <div id="top" class="top">
@@ -68,8 +69,8 @@
           </div>
           <div id="top-tab-slide" class="top-tab-slide">
             <div id="player-titles" class="top-titles">
-              <div class="top-titles-song-name">Wikiseda</div>
-              <div class="top-titles-artist">Source of Iranian Music</div>
+              <div id="label-player-wikiseda" class="top-titles-song-name">Wikiseda</div>
+              <div id="label-player-wikiseda-sesc" class="top-titles-artist">Source of Iranian Music</div>
             </div>
             <div class="top-tab-slide-segment">
               <div id="cover" class="top-tab-slide-segment-cover">
@@ -112,8 +113,8 @@
         <div id="player-expand" class="mini-player">
           <div class="mini-player-image"><img src="./assets/images/logo.png" id="mini-player-image"/></div>
           <div id="mini-player-titles" class="mini-player-titles">
-            <div class="mini-player-titles-song-name">Wikiseda</div>
-            <div class="mini-player-titles-artist">Source of Iranian music</div>
+            <div id="label-miniplayer-wikiseda" class="mini-player-titles-song-name">Wikiseda</div>
+            <div id="label-miniplayer-wikiseda-desc" class="mini-player-titles-artist">Source of Iranian music</div>
           </div>
           <div class="mini-player-icons">
             <div id="player-play" class="mini-player-icons-play"></div>
@@ -128,101 +129,101 @@
         <div class="menu-box">
           <div id="menu-box-add-to-queue" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-add-to-queue"></div>
-            <div class="menu-box-item-text">Add to queue</div>
+            <div id="label-menu-box-add-to-queue" class="menu-box-item-text">Add to queue</div>
           </div>
           <div id="menu-box-play-next" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play-next"></div>
-            <div class="menu-box-item-text">Play next</div>
+            <div id="label-menu-box-play-next" class="menu-box-item-text">Play next</div>
           </div>
           <div id="menu-box-add-to-playlist" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-add-to-playlist"></div>
-            <div class="menu-box-item-text">Add to playlist</div>
+            <div id="label-menu-box-add-to-playlist" class="menu-box-item-text">Add to playlist</div>
           </div>
           <div id="menu-box-sync" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-sync"></div>
-            <div class="menu-box-item-text">Download</div>
+            <div id="label-menu-box-sync" class="menu-box-item-text">Download</div>
           </div>
           <div id="menu-box-music-share" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-share"></div>
-            <div class="menu-box-item-text">Share music</div>
+            <div id="label-menu-box-music-share" class="menu-box-item-text">Share music</div>
           </div>
           <div id="menu-box-info" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-info"></div>
-            <div class="menu-box-item-text">Song info</div>
+            <div id="label-menu-box-info" class="menu-box-item-text">Song info</div>
           </div>
           <div id="menu-box-cancel" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-cancel"></div>
-            <div class="menu-box-item-text">Cancel</div>
+            <div id="label-menu-box-cancel" class="menu-box-item-text label-multi-music">Cancel</div>
           </div>
         </div>
         <div class="menu-box">
           <div id="menu-box-follow" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-follow"></div>
-            <div class="menu-box-item-text">Become a fan</div>
+            <div id="label-menu-box-follow" class="menu-box-item-text">Become a fan</div>
           </div>
           <div id="menu-box-play-top" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play"></div>
-            <div class="menu-box-item-text">Play top songs</div>
+            <div id="label-menu-box-play-top" class="menu-box-item-text">Play top songs</div>
           </div>
           <div id="menu-box-artist-share" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-share"></div>
-            <div class="menu-box-item-text">Share artist</div>
+            <div id="label-menu-box-artist-share" class="menu-box-item-text">Share artist</div>
           </div>
           <div id="menu-box-cancel" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-cancel"></div>
-            <div class="menu-box-item-text">Cancel</div>
+            <div id="label-menu-box-cancel" class="menu-box-item-text label-multi-artist">Cancel</div>
           </div>
         </div>
         <div class="menu-box">
           <div id="menu-box-play-album" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play"></div>
-            <div class="menu-box-item-text">Play this album</div>
+            <div id="label-menu-box-play-album" class="menu-box-item-text label-multi-album">Play this album</div>
           </div>
           <div id="menu-box-album-add-to-queue" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-add-to-queue"></div>
-            <div class="menu-box-item-text">Add all to queue</div>
+            <div id="label-menu-box-album-add-to-queue" class="menu-box-item-text label-multi-album">Add all to queue</div>
           </div>
           <div id="menu-box-album-play-next" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play-next"></div>
-            <div class="menu-box-item-text">Play all next</div>
+            <div id="label-menu-box-album-play-next" class="menu-box-item-text label-multi-album">Play all next</div>
           </div>
           <div id="menu-box-sync-album" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-sync"></div>
-            <div class="menu-box-item-text">Download all musics</div>
+            <div id="label-menu-box-sync-album" class="menu-box-item-text">Download all musics</div>
           </div>
           <div id="menu-box-album-share" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-share"></div>
-            <div class="menu-box-item-text">Share album</div>
+            <div id="label-menu-box-album-share" class="menu-box-item-text">Share album</div>
           </div>
           <div id="menu-box-cancel" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-cancel"></div>
-            <div class="menu-box-item-text">Cancel</div>
+            <div id="label-menu-box-cancel" class="menu-box-item-text label-multi-album">Cancel</div>
           </div>
         </div>
         <div class="menu-box">
           <div id="menu-box-play-album" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play"></div>
-            <div class="menu-box-item-text">Play this playlist</div>
+            <div id="label-menu-box-play-album" class="menu-box-item-text label-multi-playlist">Play this playlist</div>
           </div>
           <div id="menu-box-album-add-to-queue" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-add-to-queue"></div>
-            <div class="menu-box-item-text">Add all to queue</div>
+            <div id="label-menu-box-album-add-to-queue" class="menu-box-item-text label-multi-playlist">Add all to queue</div>
           </div>
           <div id="menu-box-album-play-next" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-play-next"></div>
-            <div class="menu-box-item-text">Play all next</div>
+            <div id="label-menu-box-album-play-next" class="menu-box-item-text label-multi-playlist">Play all next</div>
           </div>
           <div id="menu-box-sync-playlist" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-sync"></div>
-            <div class="menu-box-item-text">Download all musics</div>
+            <div id="label-menu-box-sync-playlist" class="menu-box-item-text">Download all musics</div>
           </div>
           <div id="menu-box-remove-playlist" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-remove"></div>
-            <div class="menu-box-item-text">Remove this playlist</div>
+            <div id="label-menu-box-remove-playlist" class="menu-box-item-text">Remove this playlist</div>
           </div>
           <div id="menu-box-cancel" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-cancel"></div>
-            <div class="menu-box-item-text">Cancel</div>
+            <div id="label-menu-box-cancel" class="menu-box-item-text label-multi-playlist">Cancel</div>
           </div>
         </div>
         <div id="menu-box-subpage" class="menu-box-subpage"></div>
@@ -239,6 +240,7 @@
     <div class="flash-message"></div>
     <script src="./cordova.js"></script>
     <script src="./intelxdk.js"></script>
+    <script src="./scripts/dist/fuse.min.js"></script>
     <script src="./scripts/dist/index.js"></script>
   </body>
 </html>
