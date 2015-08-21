@@ -1,0 +1,67 @@
+/* line 1, ../../../sass/parts/top/tabQueue.sass */
+.top-tab-queue {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  width: 100%;
+  display: none;
+  overflow-y: scroll;
+}
+
+/* line 12, ../../../sass/parts/top/tabQueue.sass */
+.queue-item {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #222222;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+/* line 23, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-number {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* line 28, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-name {
+  padding-left: 10px;
+}
+
+/* line 32, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-artist {
+  padding-left: 10px;
+  color: #555555;
+}
+
+/* line 38, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-playing-icon {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  height: 20px;
+  width: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+  background: #d3d4d8 url("../../assets/icons/play.png") no-repeat center center/20px;
+}
+
+/* line 53, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-playing {
+  color: #3ab6e9;
+}
+/* line 57, ../../../sass/parts/top/tabQueue.sass */
+.queue-item-playing .queue-item-artist {
+  color: #0490cd;
+}
+
+/* line 61, ../../../sass/parts/top/tabQueue.sass */
+.top-tab-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: transparent url("../../assets/icons/close.png") no-repeat center center/cover;
+}

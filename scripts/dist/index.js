@@ -3459,6 +3459,11 @@ showMenu = function(number) {
       return menu.children[number].style.webkitTransform = "translateY(0px)";
     };
   })(this), 10);
+  if (number === 5) {
+    menu.style.bottom = "67px";
+  } else {
+    menu.style.bottom = "";
+  }
 };
 
 hideMenu = function() {
@@ -6699,7 +6704,8 @@ enTexts = {};
     document.querySelector("#more-option-Downloaded_Media").children[1].innerHTML = "دانلود ها";
     document.querySelector("#more-option-Recent_Media").children[1].innerHTML = "آخرین پخش شده ها";
     document.querySelector("#more-option-Playlists").children[1].innerHTML = "لیست های پخش";
-    return document.querySelector("#more-option-Settings").children[1].innerHTML = "تنظیمات";
+    document.querySelector("#more-option-Settings").children[1].innerHTML = "تنظیمات";
+    return document.querySelector(".flash-message").style.direction = "rtl";
   } else {
     document.getElementById("label-wikiseda").innerHTML = enTexts["label-wikiseda"];
     document.getElementById("label-wikiseda-desc").innerHTML = enTexts["label-wikiseda-desc"];
@@ -6749,7 +6755,8 @@ enTexts = {};
     document.querySelector("#more-option-Downloaded_Media").children[1].innerHTML = enTexts["#more-option-Downloaded_Media"];
     document.querySelector("#more-option-Recent_Media").children[1].innerHTML = enTexts["#more-option-Recent_Media"];
     document.querySelector("#more-option-Playlists").children[1].innerHTML = enTexts["#more-option-Playlists"];
-    return document.querySelector("#more-option-Settings").children[1].innerHTML = enTexts["#more-option-Settings"];
+    document.querySelector("#more-option-Settings").children[1].innerHTML = enTexts["#more-option-Settings"];
+    return document.querySelector(".flash-message").style.direction = "ltr";
   }
 })();
 
@@ -7056,7 +7063,7 @@ Touch.onTap("setting-logout").onStart((function(_this) {
 })(this));
 
 },{"./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\main.js":[function(require,module,exports){
-var BianLian, PageManager, SongManagement, Touch, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, flashMessage, followArtist, getFS, id, initPage, jumpToDownloads, loadSongs, login, main, morePage, musicDataCache, network, openArtist, pm, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedMenuItem, selectedSegmented, settingStorage, types, _i, _lastType, _len, _query, _segment, _type;
+var BianLian, MenuManagement, PageManager, SongManagement, Touch, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, flashMessage, followArtist, getFS, id, initPage, loadSongs, login, main, morePage, musicDataCache, network, openArtist, pm, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedMenuItem, selectedSegmented, settingStorage, types, _i, _lastType, _len, _query, _segment, _type;
 
 window.TIMEOUT = 6000;
 
@@ -7075,8 +7082,6 @@ require('./playlist');
 morePage = require('./morePage');
 
 require('./infoInMenu');
-
-require('./MenuManagement');
 
 require('./removePlaylist');
 
@@ -7123,6 +7128,8 @@ types = {
 searchHistory = require('./searchHistory');
 
 searchEvent = require('./searchEvent');
+
+MenuManagement = require('./MenuManagement');
 
 network = require('./network');
 
@@ -7231,8 +7238,6 @@ morePage.onSelect(function() {
   return main.appendChild(morePage.getNode());
 });
 
-jumpToDownloads = function() {};
-
 Touch.onTap("downloads-more-shortcut").onStart((function(_this) {
   return function(event) {
     return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
@@ -7246,7 +7251,7 @@ Touch.onTap("downloads-more-shortcut").onStart((function(_this) {
     selectedSegmented.classList.remove('segmented-label-selected');
     selectedSegmented = event.listener;
     selectedSegmented.classList.add('segmented-label-selected');
-    return jumpToDownloads();
+    return morePage.jumpToDownloads();
   };
 })(this));
 
@@ -7263,7 +7268,7 @@ Touch.onTap("segmented-downloads").onStart((function(_this) {
     selectedSegmented.classList.remove('segmented-label-selected');
     selectedSegmented = event.listener;
     selectedSegmented.classList.add('segmented-label-selected');
-    return jumpToDownloads();
+    return morePage.jumpToDownloads();
   };
 })(this));
 
@@ -7485,7 +7490,6 @@ bottomIconDoneTouchHandler = (function(_this) {
         _segment = "new";
         break;
       case "playlist":
-        jumpToDownloads();
         _query = "";
         return;
       default:
@@ -7496,6 +7500,7 @@ bottomIconDoneTouchHandler = (function(_this) {
     } else {
       backButton.activate('home');
     }
+    MenuManagement.closeMenu();
     _query = "";
     setTimeout(initPage, 200);
     selectedMenuItem.style.backgroundColor = '';
@@ -7754,7 +7759,7 @@ network.onConnectionStatus(function(status) {
       msgTxt = "شما آفلاین شدید";
     }
     flashMessage.show(msgTxt);
-    jumpToDownloads();
+    morePage.jumpToDownloads();
     return ad.remove();
   }
 });
@@ -7812,6 +7817,13 @@ morePage = (function() {
 
   morePage.prototype.onSelect = function(selectCb) {
     this.selectCb = selectCb;
+  };
+
+  morePage.prototype.jumpToDownloads = function() {
+    this.selectCb();
+    this.node.innerHTML = "";
+    this.node.appendChild(this.items[0].page.getNode());
+    return this.back.activate();
   };
 
   morePage.prototype.setEventsOnce = function() {
