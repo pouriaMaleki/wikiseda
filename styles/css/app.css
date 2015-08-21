@@ -2043,31 +2043,23 @@ html, body {
 }
 /* line 3, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-box-subpage {
-  width: inherit;
-  max-height: 80%;
   min-height: 200px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  overflow-y: scroll;
-  display: none;
 }
-/* line 20, ../sass/parts/menu/_subpage.sass */
+/* line 7, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-box-subpage h3 {
   text-align: center;
 }
-/* line 24, ../sass/parts/menu/_subpage.sass */
+/* line 11, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-box-subpage h4 {
   text-align: center;
   color: #3ab6e9;
   text-decoration: underline;
 }
-/* line 32, ../sass/parts/menu/_subpage.sass */
+/* line 19, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-subpage-info-divs {
   overflow-x: hidden;
 }
-/* line 36, ../sass/parts/menu/_subpage.sass */
+/* line 23, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-subpage-info-text {
   position: relative;
   left: 10px;
@@ -2075,7 +2067,7 @@ html, body {
   height: 40px;
   line-height: 40px;
 }
-/* line 44, ../sass/parts/menu/_subpage.sass */
+/* line 31, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-subpage-info-text-lyric {
   position: relative;
   font-weight: bold;
@@ -2084,7 +2076,7 @@ html, body {
   padding-left: 20px;
   border-bottom: 1px #666 solid;
 }
-/* line 58, ../sass/parts/menu/_subpage.sass */
+/* line 45, ../sass/parts/menu/_subpage.sass */
 .app-page .menu-subpage-info-text-lyric-content {
   text-align: center;
 }

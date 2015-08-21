@@ -3426,17 +3426,61 @@ Loading = (function() {
 module.exports = new Loading;
 
 },{}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js":[function(require,module,exports){
-var Touch, backButton, closeMenu, menu, menuRequest;
+var Touch, backButton, hideMenu, menu, menuRequest, showMenu;
 
 Touch = require('simple-touch');
-
-closeMenu = require('./closeMenu');
 
 menuRequest = require('./MenuRequest');
 
 backButton = require('./BackButton');
 
 menu = document.querySelector('.menu');
+
+showMenu = function(number) {
+  var child, index, _i, _len, _ref;
+  backButton.activate('menu');
+  menu.style.visibility = "visible";
+  _ref = menu.children;
+  for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
+    child = _ref[index];
+    if (index === 0) {
+      continue;
+    }
+    if (index === number) {
+      child.style.display = "";
+    } else {
+      child.style.display = "none";
+    }
+  }
+  setTimeout((function(_this) {
+    return function() {
+      menu.children[0].style.opacity = .6;
+      menu.children[number].style.transform = "translateY(0px)";
+      return menu.children[number].style.webkitTransform = "translateY(0px)";
+    };
+  })(this), 10);
+};
+
+hideMenu = function() {
+  var child, index, menuHeight, _i, _len, _ref;
+  backButton.deactive('menu');
+  menuHeight = menu.getBoundingClientRect().height;
+  _ref = menu.children;
+  for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
+    child = _ref[index];
+    if (index === 0) {
+      child.style.opacity = 0;
+    } else {
+      child.style.transform = "translateY(" + menuHeight + "px)";
+      child.style.webkitTransform = "translateY(" + menuHeight + "px)";
+    }
+  }
+  return setTimeout((function(_this) {
+    return function() {
+      return menu.style.visibility = "hidden";
+    };
+  })(this), 500);
+};
 
 Touch.onTap("item-song-humberger").onStart((function(_this) {
   return function(event) {
@@ -3449,17 +3493,7 @@ Touch.onTap("item-song-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    backButton.activate('menu');
-    menu.style.visibility = "visible";
-    menu.children[1].style.display = "";
-    menu.children[2].style.display = "none";
-    menu.children[3].style.display = "none";
-    menu.children[4].style.display = "none";
-    return setTimeout(function() {
-      menu.children[0].style.opacity = .6;
-      menu.children[1].style.transform = "translateY(0px)";
-      return menu.children[1].style.webkitTransform = "translateY(0px)";
-    }, 10);
+    return showMenu(1);
   };
 })(this));
 
@@ -3474,17 +3508,7 @@ Touch.onTap("item-album-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    backButton.activate('menu');
-    menu.style.visibility = "visible";
-    menu.children[1].style.display = "none";
-    menu.children[2].style.display = "none";
-    menu.children[3].style.display = "";
-    menu.children[4].style.display = "none";
-    return setTimeout(function() {
-      menu.children[0].style.opacity = .6;
-      menu.children[3].style.transform = "translateY(0px)";
-      return menu.children[3].style.webkitTransform = "translateY(0px)";
-    }, 10);
+    return showMenu(3);
   };
 })(this));
 
@@ -3499,17 +3523,7 @@ Touch.onTap("item-artist-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    backButton.activate('menu');
-    menu.style.visibility = "visible";
-    menu.children[1].style.display = "none";
-    menu.children[2].style.display = "";
-    menu.children[3].style.display = "none";
-    menu.children[4].style.display = "none";
-    return setTimeout(function() {
-      menu.children[0].style.opacity = .6;
-      menu.children[2].style.transform = "translateY(0px)";
-      return menu.children[2].style.webkitTransform = "translateY(0px)";
-    }, 10);
+    return showMenu(2);
   };
 })(this));
 
@@ -3524,17 +3538,22 @@ Touch.onTap("item-playlist-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    backButton.activate('menu');
-    menu.style.visibility = "visible";
-    menu.children[1].style.display = "none";
-    menu.children[2].style.display = "none";
-    menu.children[3].style.display = "none";
-    menu.children[4].style.display = "";
-    return setTimeout(function() {
-      menu.children[0].style.opacity = .6;
-      menu.children[4].style.transform = "translateY(0px)";
-      return menu.children[4].style.webkitTransform = "translateY(0px)";
-    }, 10);
+    return showMenu(4);
+  };
+})(this));
+
+Touch.onTap("icon-playlist").onStart((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+  };
+})(this)).onEnd((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onDone((function(_this) {
+  return function(event) {
+    menuRequest.data = event.listener.parentNode;
+    return showMenu(5);
   };
 })(this));
 
@@ -3548,40 +3567,37 @@ Touch.onTap("menu-box-cancel").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    return closeMenu();
+    return hideMenu();
   };
 })(this));
 
 Touch.onTap("menu-close").onStart((function(_this) {
   return function(event) {
-    return closeMenu();
+    return hideMenu();
   };
 })(this));
 
 backButton.add('menu', function() {
-  return closeMenu();
+  return hideMenu();
 });
 
 module.exports = {
   openMenu: (function(_this) {
     return function() {
-      backButton.activate('menu');
-      menu.style.visibility = "visible";
-      menu.children[1].style.display = "none";
-      menu.children[2].style.display = "none";
-      menu.children[3].style.display = "none";
-      menu.children[4].style.display = "none";
-      menu.children[5].style.display = "";
-      return setTimeout(function() {
-        menu.children[0].style.opacity = .6;
-        menu.children[5].style.transform = "translateY(0px)";
-        return menu.children[5].style.webkitTransform = "translateY(0px)";
-      }, 10);
+      return showMenu(6);
     };
-  })(this)
+  })(this),
+  closeMenu: (function(_this) {
+    return function() {
+      return hideMenu();
+    };
+  })(this),
+  updateSubpageContent: function(div) {
+    return menu.children[6].innerHTML = div;
+  }
 };
 
-},{"./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js":[function(require,module,exports){
+},{"./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js":[function(require,module,exports){
 module.exports = {
   data: null
 };
@@ -3908,7 +3924,7 @@ module.exports = Queue = (function() {
 })();
 
 },{}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\SongManagement.js":[function(require,module,exports){
-var Queue, QueueItem, Touch, ad, audio, backButton, closeMenu, closePlayer, cover, covercover, disableSlideshowMove, errorTimes, failedUpdateSegments, fav, findMusicInPlaylist, flashMessage, hideNowPlayingAndQueue, historyManage, info, infoDate, infoDesc, infoDivs, infoDownloads, infoLength, infoLoading, infoRate, infoSize, infoViews, jumpToNowPlaying, lastMp3Div, loadTrackDetail, lyric, main, menuRequest, miniImageNode, miniPlayNode, miniPlayerHeight, miniPlayerNode, miniTitlesNode, move, musicDataCache, nowPlaying, nowPlayingSelector, open, openPlayer, openedOn, playDiv, playMusic, playNode, playQueue, playQueueSelector, playerNode, queue, repositionCover, repositionCoverOndemend, seekBarMove, selects, setSlideShowPosition, setTransform, setTransition, settingsStorage, showLastOpened, showNowPlaying, showPlayQueue, slideshowPos, subtitle, timeout, timeoutToRemoveAll, titlesNode, top, updatePlayer, updateQueue, updateQueueOnDemend, updateSegments, _setCoverPosition;
+var MenuManagement, Queue, QueueItem, Touch, ad, audio, backButton, closePlayer, cover, covercover, disableSlideshowMove, errorTimes, failedUpdateSegments, fav, findMusicInPlaylist, flashMessage, hideNowPlayingAndQueue, historyManage, info, infoDate, infoDesc, infoDivs, infoDownloads, infoLength, infoLoading, infoRate, infoSize, infoViews, jumpToNowPlaying, lastMp3Div, loadTrackDetail, lyric, main, menuRequest, miniImageNode, miniPlayNode, miniPlayerHeight, miniPlayerNode, miniTitlesNode, move, musicDataCache, nowPlaying, nowPlayingSelector, open, openPlayer, openedOn, playDiv, playMusic, playNode, playQueue, playQueueSelector, playerNode, queue, repositionCover, repositionCoverOndemend, seekBarMove, selects, setSlideShowPosition, setTransform, setTransition, settingsStorage, showLastOpened, showNowPlaying, showPlayQueue, slideshowPos, subtitle, timeout, timeoutToRemoveAll, titlesNode, top, updatePlayer, updateQueue, updateQueueOnDemend, updateSegments, _setCoverPosition;
 
 settingsStorage = require('./Tools/SettingStorage');
 
@@ -3922,7 +3938,7 @@ flashMessage = require('./FlashMessage');
 
 menuRequest = require('./MenuRequest');
 
-closeMenu = require('./closeMenu');
+MenuManagement = require('./MenuManagement');
 
 audio = require('./AudioManager');
 
@@ -4246,7 +4262,7 @@ Touch.onTap("menu-box-add-to-queue").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var msgTxt, musicData;
-    closeMenu();
+    MenuManagement.closeMenu();
     msgTxt = "Added to end of play queue";
     if (window.lang === "fa") {
       msgTxt = "به انتهای لیست پخش افزوده شد";
@@ -4268,7 +4284,7 @@ Touch.onTap("menu-box-play-next").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var msgTxt, musicData;
-    closeMenu();
+    MenuManagement.closeMenu();
     msgTxt = "It will play next";
     if (window.lang === "fa") {
       msgTxt = "بعد از این موسیقی پخش میشود";
@@ -4290,7 +4306,7 @@ Touch.onTap("menu-box-play-album").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData, albumSongDiv, i, msgTxt, musicData, _i, _len, _ref, _results;
-    closeMenu();
+    MenuManagement.closeMenu();
     albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
     if (albumData != null) {
       msgTxt = "Playing " + albumData.album + " of " + albumData.artist;
@@ -4337,7 +4353,7 @@ Touch.onTap("menu-box-album-add-to-queue").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData, albumSongDiv, i, msgTxt, _i, _len, _ref, _results;
-    closeMenu();
+    MenuManagement.closeMenu();
     albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
     if (albumData != null) {
       msgTxt = "" + albumData.album + " of " + albumData.artist + " added to queue";
@@ -4374,7 +4390,7 @@ Touch.onTap("menu-box-album-play-next").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData, albumSongDiv, i, msgTxt, _i, _len, _ref, _results;
-    closeMenu();
+    MenuManagement.closeMenu();
     albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
     if (albumData != null) {
       msgTxt = "" + albumData.album + " of " + albumData.artist + " will play next";
@@ -5012,7 +5028,7 @@ Touch.onTap("item-queue-clear").onStart((function(_this) {
   };
 })(this));
 
-},{"./AudioManager":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\AudioManager.js","./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/QueueItem":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\QueueItem.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Queue":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Queue.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./ad":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ad.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./findMusicInPlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\findMusicInPlaylist.js","./historyManage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\historyManage.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./setTransform":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransform.js","./setTransition":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransition.js","./subtitle":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\subtitle.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js":[function(require,module,exports){
+},{"./AudioManager":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\AudioManager.js","./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/QueueItem":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\QueueItem.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Queue":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Queue.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./ad":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ad.js","./findMusicInPlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\findMusicInPlaylist.js","./historyManage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\historyManage.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./setTransform":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransform.js","./setTransition":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransition.js","./subtitle":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\subtitle.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js":[function(require,module,exports){
 var SettingsStorage, settingsStorage;
 
 SettingsStorage = (function() {
@@ -5221,38 +5237,8 @@ module.exports = {
   }
 };
 
-},{"./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js":[function(require,module,exports){
-var backButton, closeMenu, menu, menuSubpage;
-
-menuSubpage = require('./menuSubpage');
-
-backButton = require('./BackButton');
-
-menu = document.querySelector('.menu');
-
-module.exports = closeMenu = (function(_this) {
-  return function() {
-    var menuHeight;
-    backButton.deactive('menu');
-    menuHeight = menu.getBoundingClientRect().height;
-    menu.children[0].style.opacity = 0;
-    menu.children[1].style.transform = "translateY(" + menuHeight + "px)";
-    menu.children[2].style.transform = "translateY(" + menuHeight + "px)";
-    menu.children[3].style.transform = "translateY(" + menuHeight + "px)";
-    menu.children[4].style.transform = "translateY(" + menuHeight + "px)";
-    menu.children[1].style.webkitTransform = "translateY(" + menuHeight + "px)";
-    menu.children[2].style.webkitTransform = "translateY(" + menuHeight + "px)";
-    menu.children[3].style.webkitTransform = "translateY(" + menuHeight + "px)";
-    menu.children[4].style.webkitTransform = "translateY(" + menuHeight + "px)";
-    menuSubpage.hide();
-    return setTimeout(function() {
-      return menu.style.visibility = "hidden";
-    }, 500);
-  };
-})(this);
-
-},{"./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./menuSubpage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\menuSubpage.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\download.js":[function(require,module,exports){
-var Downloader, SongDownloading, Touch, closeMenu, dl, downloadSong, downloadingDivs, flashMessage, getFS, menuRequest, musicDataCache, network, settingStorage;
+},{"./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\download.js":[function(require,module,exports){
+var Downloader, MenuManagement, SongDownloading, Touch, dl, downloadSong, downloadingDivs, flashMessage, getFS, menuRequest, musicDataCache, network, settingStorage;
 
 settingStorage = require('./Tools/SettingStorage');
 
@@ -5262,7 +5248,7 @@ flashMessage = require('./FlashMessage');
 
 menuRequest = require('./MenuRequest');
 
-closeMenu = require('./closeMenu');
+MenuManagement = require('./MenuManagement');
 
 network = require('./network');
 
@@ -5641,7 +5627,7 @@ Touch.onTap("menu-box-sync").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var musicData, view;
-    closeMenu();
+    MenuManagement.closeMenu();
     musicData = musicDataCache.data[menuRequest.data.getAttribute('data-song-id')];
     view = menuRequest.data.querySelector(".main-item-titles-view");
     if (view == null) {
@@ -5662,7 +5648,7 @@ Touch.onTap("menu-box-sync-album").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData, albumSongDiv, i, view, _i, _len, _ref, _results;
-    closeMenu();
+    MenuManagement.closeMenu();
     if (typeof cordova !== "undefined" && cordova !== null) {
       albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
       flashMessage.show("Downloading " + albumData.album + " of " + albumData.artist);
@@ -5689,7 +5675,7 @@ Touch.onTap("menu-box-sync-playlist").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumSongDiv, i, playlistData, view, _i, _len, _ref, _results;
-    closeMenu();
+    MenuManagement.closeMenu();
     if (typeof cordova !== "undefined" && cordova !== null) {
       playlistData = musicDataCache.data["playlist" + menuRequest.data.getAttribute('data-playlist-id')];
       flashMessage.show("Downloading playlist " + playlistData.groupname);
@@ -5779,7 +5765,7 @@ module.exports = function() {
   return divs;
 };
 
-},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/SongDownloading":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\SongDownloading.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./Tools/getFS":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\getFS.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\findMusicInPlaylist.js":[function(require,module,exports){
+},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/SongDownloading":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\SongDownloading.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./Tools/getFS":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\getFS.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\findMusicInPlaylist.js":[function(require,module,exports){
 var playlists;
 
 playlists = require('./getPlaylists');
@@ -5807,7 +5793,7 @@ module.exports = function(plName, songId, cb) {
 };
 
 },{"./getPlaylists":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\getPlaylists.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\followArtist.js":[function(require,module,exports){
-var FollowArtist, Touch, artist, cache, closeMenu, flashMessage, login, menuRequest, musicDataCache, serialize;
+var FollowArtist, MenuManagement, Touch, artist, cache, flashMessage, login, menuRequest, musicDataCache, serialize;
 
 Touch = require('simple-touch');
 
@@ -5821,7 +5807,7 @@ musicDataCache = require('./musicDataCache');
 
 menuRequest = require('./MenuRequest');
 
-closeMenu = require('./closeMenu');
+MenuManagement = require('./MenuManagement');
 
 cache = require('js-cache');
 
@@ -5964,7 +5950,7 @@ Touch.onTap("menu-box-follow").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var artistItem, elText, fans, id;
-    closeMenu();
+    MenuManagement.closeMenu();
     artistItem = menuRequest.data;
     id = artistItem.getAttribute('data-artist-id');
     fans = artistItem.querySelector(".main-item-titles-artist");
@@ -6018,7 +6004,7 @@ Touch.onTap("menu-box-follow").onStart((function(_this) {
   };
 })(this));
 
-},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","js-cache":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\js-cache\\index.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\getPlaylists.js":[function(require,module,exports){
+},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","js-cache":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\js-cache\\index.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\getPlaylists.js":[function(require,module,exports){
 var Playlists, login, playlists, serialize;
 
 login = require('./login');
@@ -6466,7 +6452,7 @@ forms = new Forms;
 module.exports = forms;
 
 },{"./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./setTransform":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransform.js","./setTransition":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransition.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\infoInMenu.js":[function(require,module,exports){
-var Touch, failedUpdateSegments, flashMessage, loadTrackDetail, menuRequest, menuSubpage, musicData, musicDataCache, updateSegments;
+var MenuManagement, Touch, failedUpdateSegments, flashMessage, loadTrackDetail, menuRequest, musicData, musicDataCache, updateSegments;
 
 loadTrackDetail = require('./loadTrackDetail');
 
@@ -6476,7 +6462,7 @@ flashMessage = require('./FlashMessage');
 
 menuRequest = require('./MenuRequest');
 
-menuSubpage = require('./menuSubpage');
+MenuManagement = require('./MenuManagement');
 
 Touch = require('simple-touch');
 
@@ -6493,7 +6479,7 @@ Touch.onTap("menu-box-info").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     musicData = musicDataCache.data[menuRequest.data.getAttribute('data-song-id')];
-    menuSubpage.show();
+    MenuManagement.openMenu();
     updateSegments();
     return loadTrackDetail(musicData.id, updateSegments, failedUpdateSegments);
   };
@@ -6514,16 +6500,16 @@ updateSegments = function(data) {
   } else {
     x = "<h5>Loading info</h5>";
   }
-  return menuSubpage.updateContent(x);
+  return MenuManagement.updateSubpageContent(x);
 };
 
 failedUpdateSegments = function(data) {
   var x;
   x = "<h5>Loading failed</h5>";
-  return menuSubpage.updateContent(x);
+  return MenuManagement.updateSubpageContent(x);
 };
 
-},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./menuSubpage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\menuSubpage.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\language.js":[function(require,module,exports){
+},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\language.js":[function(require,module,exports){
 var Touch, changeStatics, enTexts, readTexts, settingStorage;
 
 Touch = require('simple-touch');
@@ -6656,7 +6642,11 @@ enTexts = {};
   enTexts[".label-multi-playlist#label-menu-box-album-play-next"] = document.querySelector(".label-multi-playlist#label-menu-box-album-play-next").innerHTML;
   enTexts["label-menu-box-sync-playlist"] = document.getElementById("label-menu-box-sync-playlist").innerHTML;
   enTexts["label-menu-box-remove-playlist"] = document.getElementById("label-menu-box-remove-playlist").innerHTML;
-  return enTexts[".label-multi-playlist#label-menu-box-cancel"] = document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML;
+  enTexts[".label-multi-playlist#label-menu-box-cancel"] = document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML;
+  enTexts["#more-option-Downloaded_Media"] = document.querySelector("#more-option-Downloaded_Media").children[1].innerHTML;
+  enTexts["#more-option-Recent_Media"] = document.querySelector("#more-option-Recent_Media").children[1].innerHTML;
+  enTexts["#more-option-Playlists"] = document.querySelector("#more-option-Playlists").children[1].innerHTML;
+  return enTexts["#more-option-Settings"] = document.querySelector("#more-option-Settings").children[1].innerHTML;
 })();
 
 (changeStatics = function() {
@@ -6705,7 +6695,11 @@ enTexts = {};
     document.querySelector(".label-multi-playlist#label-menu-box-album-play-next").innerHTML = "پخش لیست بعد از این موسیقی";
     document.getElementById("label-menu-box-sync-playlist").innerHTML = "دانلود";
     document.getElementById("label-menu-box-remove-playlist").innerHTML = "حذف لیست";
-    return document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML = "خروج";
+    document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML = "خروج";
+    document.querySelector("#more-option-Downloaded_Media").children[1].innerHTML = "دانلود ها";
+    document.querySelector("#more-option-Recent_Media").children[1].innerHTML = "آخرین پخش شده ها";
+    document.querySelector("#more-option-Playlists").children[1].innerHTML = "لیست های پخش";
+    return document.querySelector("#more-option-Settings").children[1].innerHTML = "تنظیمات";
   } else {
     document.getElementById("label-wikiseda").innerHTML = enTexts["label-wikiseda"];
     document.getElementById("label-wikiseda-desc").innerHTML = enTexts["label-wikiseda-desc"];
@@ -6751,7 +6745,11 @@ enTexts = {};
     document.querySelector(".label-multi-playlist#label-menu-box-album-play-next").innerHTML = enTexts[".label-multi-playlist#label-menu-box-album-play-next"];
     document.getElementById("label-menu-box-sync-playlist").innerHTML = enTexts["label-menu-box-sync-playlist"];
     document.getElementById("label-menu-box-remove-playlist").innerHTML = enTexts["label-menu-box-remove-playlist"];
-    return document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML = enTexts[".label-multi-playlist#label-menu-box-cancel"];
+    document.querySelector(".label-multi-playlist#label-menu-box-cancel").innerHTML = enTexts[".label-multi-playlist#label-menu-box-cancel"];
+    document.querySelector("#more-option-Downloaded_Media").children[1].innerHTML = enTexts["#more-option-Downloaded_Media"];
+    document.querySelector("#more-option-Recent_Media").children[1].innerHTML = enTexts["#more-option-Recent_Media"];
+    document.querySelector("#more-option-Playlists").children[1].innerHTML = enTexts["#more-option-Playlists"];
+    return document.querySelector("#more-option-Settings").children[1].innerHTML = enTexts["#more-option-Settings"];
   }
 })();
 
@@ -7058,7 +7056,7 @@ Touch.onTap("setting-logout").onStart((function(_this) {
 })(this));
 
 },{"./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\main.js":[function(require,module,exports){
-var BianLian, PageManager, SongManagement, Touch, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, closeMenu, flashMessage, followArtist, getFS, id, initPage, jumpToDownloads, loadSongs, login, main, morePage, musicDataCache, network, openArtist, pm, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedMenuItem, selectedSegmented, settingStorage, types, _i, _lastType, _len, _query, _segment, _type;
+var BianLian, PageManager, SongManagement, Touch, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, flashMessage, followArtist, getFS, id, initPage, jumpToDownloads, loadSongs, login, main, morePage, musicDataCache, network, openArtist, pm, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedMenuItem, selectedSegmented, settingStorage, types, _i, _lastType, _len, _query, _segment, _type;
 
 window.TIMEOUT = 6000;
 
@@ -7097,8 +7095,6 @@ Touch = require('simple-touch');
 BianLian = require('./Item/BianLian');
 
 segmented = require('./Item/Segmented');
-
-closeMenu = require('./closeMenu');
 
 backButton = require('./BackButton');
 
@@ -7223,7 +7219,7 @@ Touch.onTap("segmented-top").onStart((function(_this) {
   };
 })(this));
 
-jumpToDownloads = function() {
+morePage.onSelect(function() {
   selectedMenuItem.style.backgroundColor = '';
   selectedMenuItem = document.getElementById("icon-playlist");
   selectedMenuItem.style.backgroundColor = '#00a1eb';
@@ -7233,7 +7229,9 @@ jumpToDownloads = function() {
   pm.abortLast();
   main.innerHTML = "";
   return main.appendChild(morePage.getNode());
-};
+});
+
+jumpToDownloads = function() {};
 
 Touch.onTap("downloads-more-shortcut").onStart((function(_this) {
   return function(event) {
@@ -7761,42 +7759,8 @@ network.onConnectionStatus(function(status) {
   }
 });
 
-},{"./AlbumManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\AlbumManagement.js","./ArtistManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ArtistManagement.js","./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/Album":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Album.js","./Item/Artist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Artist.js","./Item/ArtistHeader":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\ArtistHeader.js","./Item/BianLian":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\BianLian.js","./Item/Other":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Other.js","./Item/Playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Playlist.js","./Item/Segmented":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Segmented.js","./Item/Settings":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Settings.js","./Item/Song":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Song.js","./Item/searchQuerySegmented":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\searchQuerySegmented.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./PageManager":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\PageManager.js","./SongManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\SongManagement.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./Tools/getFS":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\getFS.js","./ad":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ad.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./followArtist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\followArtist.js","./infoInMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\infoInMenu.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./logout":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\logout.js","./morePage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\morePage.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js","./playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\playlist.js","./removePlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removePlaylist.js","./removeSongFromDevice":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removeSongFromDevice.js","./searchEvent":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\searchEvent.js","./searchHistory":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\searchHistory.js","./share":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\share.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\menuSubpage.js":[function(require,module,exports){
-var menu, setTransform, showing;
-
-menu = document.querySelector('.menu');
-
-setTransform = require('./setTransform');
-
-showing = true;
-
-module.exports = {
-  show: function() {
-    menu.children[1].style.display = "none";
-    menu.children[2].style.display = "none";
-    menu.children[3].style.display = "none";
-    menu.children[4].style.display = "none";
-    menu.children[5].style.display = "block";
-    return showing = true;
-  },
-  hide: function() {
-    if (showing === false) {
-      return;
-    }
-    menu.children[1].style.display = "";
-    menu.children[2].style.display = "none";
-    menu.children[3].style.display = "none";
-    menu.children[4].style.display = "none";
-    menu.children[5].style.display = "";
-    return showing = false;
-  },
-  updateContent: function(div) {
-    return menu.children[5].innerHTML = div;
-  }
-};
-
-},{"./setTransform":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\setTransform.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\morePage.js":[function(require,module,exports){
-var Back, Downloads, History, Playlists, Settings, Touch, morePage;
+},{"./AlbumManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\AlbumManagement.js","./ArtistManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ArtistManagement.js","./BackButton":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\BackButton.js","./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/Album":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Album.js","./Item/Artist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Artist.js","./Item/ArtistHeader":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\ArtistHeader.js","./Item/BianLian":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\BianLian.js","./Item/Other":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Other.js","./Item/Playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Playlist.js","./Item/Segmented":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Segmented.js","./Item/Settings":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Settings.js","./Item/Song":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Song.js","./Item/searchQuerySegmented":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\searchQuerySegmented.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./PageManager":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\PageManager.js","./SongManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\SongManagement.js","./Tools/SettingStorage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\SettingStorage.js","./Tools/getFS":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\getFS.js","./ad":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\ad.js","./followArtist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\followArtist.js","./infoInMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\infoInMenu.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./logout":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\logout.js","./morePage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\morePage.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","./network":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\network.js","./playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\playlist.js","./removePlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removePlaylist.js","./removeSongFromDevice":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removeSongFromDevice.js","./searchEvent":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\searchEvent.js","./searchHistory":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\searchHistory.js","./share":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\share.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\morePage.js":[function(require,module,exports){
+var Back, Downloads, History, MenuManagement, Playlists, Settings, Touch, morePage;
 
 Touch = require('simple-touch');
 
@@ -7809,6 +7773,8 @@ Back = require('./more/back');
 Playlists = require('./more/playlists');
 
 Settings = require('./more/settings');
+
+MenuManagement = require('./MenuManagement');
 
 morePage = (function() {
   function morePage() {
@@ -7844,6 +7810,10 @@ morePage = (function() {
     this.setEventsOnce();
   }
 
+  morePage.prototype.onSelect = function(selectCb) {
+    this.selectCb = selectCb;
+  };
+
   morePage.prototype.setEventsOnce = function() {
     var item, _i, _len, _ref, _results;
     _ref = this.items;
@@ -7859,6 +7829,8 @@ morePage = (function() {
           }).onEnd(function(event) {
             return event.listener.style.backgroundColor = '';
           }).onTap(function(event) {
+            MenuManagement.closeMenu();
+            _this.selectCb();
             _this.node.innerHTML = "";
             _this.node.appendChild(item.page.getNode());
             return _this.back.activate();
@@ -7870,14 +7842,6 @@ morePage = (function() {
   };
 
   morePage.prototype.jumpToBasePage = function() {
-    var item, options, _i, _len, _ref;
-    options = "";
-    _ref = this.items;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      item = _ref[_i];
-      options += this.createOption(item.name, item.fa);
-    }
-    this.node.innerHTML = options;
     return this.back.deactivate();
   };
 
@@ -7901,7 +7865,7 @@ morePage = (function() {
 
 module.exports = new morePage;
 
-},{"./more/back":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\back.js","./more/downloads":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\downloads.js","./more/history":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\history.js","./more/playlists":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\playlists.js","./more/settings":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\settings.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\back.js":[function(require,module,exports){
+},{"./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./more/back":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\back.js","./more/downloads":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\downloads.js","./more/history":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\history.js","./more/playlists":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\playlists.js","./more/settings":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\settings.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\more\\back.js":[function(require,module,exports){
 var Back, Touch, backButton;
 
 backButton = require('../BackButton');
@@ -7909,39 +7873,11 @@ backButton = require('../BackButton');
 Touch = require('simple-touch');
 
 module.exports = Back = (function() {
-  function Back(presseCb) {
-    this.node = document.createElement("div");
-    this.node.id = "more-subpage-back";
-    this.node.classList.add("main-item-artist-header-back");
-    backButton.add('more-subpage', function() {
-      return presseCb();
-    });
-    Touch.onTap("more-subpage-back").onStart((function(_this) {
-      return function(event) {
-        return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
-      };
-    })(this)).onEnd((function(_this) {
-      return function(event) {
-        return event.listener.style.backgroundColor = '';
-      };
-    })(this)).onTap((function(_this) {
-      return function(event) {
-        return presseCb();
-      };
-    })(this));
-  }
+  function Back(presseCb) {}
 
-  Back.prototype.getNode = function() {
-    return this.node;
-  };
+  Back.prototype.activate = function() {};
 
-  Back.prototype.activate = function() {
-    return backButton.activate('more-subpage');
-  };
-
-  Back.prototype.deactivate = function() {
-    return backButton.deactive('more-subpage');
-  };
+  Back.prototype.deactivate = function() {};
 
   return Back;
 
@@ -7960,7 +7896,6 @@ album = require('../Item/Album');
 
 Downloads = (function() {
   function Downloads(back) {
-    this.backNode = back.getNode();
     this.init();
   }
 
@@ -8041,7 +7976,6 @@ Downloads = (function() {
     }
     this.input.value = "";
     this.placeAllItems();
-    this.node.appendChild(this.backNode);
     return this.node;
   };
 
@@ -8132,7 +8066,6 @@ Touch.onTap("item-song-play").onStart((function(_this) {
 
 History = (function() {
   function History(back) {
-    this.backNode = back.getNode();
     this.init();
   }
 
@@ -8212,7 +8145,6 @@ History = (function() {
     }
     this.input.value = "";
     this.placeAllItems();
-    this.node.appendChild(this.backNode);
     return this.node;
   };
 
@@ -8284,7 +8216,6 @@ playlistManager = require('../getPlaylists');
 Downloads = (function() {
   function Downloads(back) {
     this.loading = false;
-    this.backNode = back.getNode();
     this.init();
   }
 
@@ -8383,7 +8314,6 @@ Downloads = (function() {
     if (this.items == null) {
       this.getPlaylists();
     }
-    this.node.appendChild(this.backNode);
     return this.node;
   };
 
@@ -8403,16 +8333,12 @@ settingsText = require('../Item/Settings');
 Touch = require('simple-touch');
 
 module.exports = Settings = (function() {
-  function Settings(back) {
-    this.backNode = back.getNode();
-  }
+  function Settings(back) {}
 
   Settings.prototype.getNode = function() {
     var settingsDivs;
     settingsDivs = document.createElement("div");
-    settingsDivs.classList.add("move-down-for-backbutton");
     settingsDivs.innerHTML = settingsText();
-    settingsDivs.appendChild(this.backNode);
     return settingsDivs;
   };
 
@@ -8482,7 +8408,7 @@ network = new Network();
 module.exports = network;
 
 },{}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\playlist.js":[function(require,module,exports){
-var MenuManagement, MenuPlaylist, Playlist, Touch, cache, closeMenu, fav, flashMessage, login, menuRequest, menuSubpage, musicData, musicDataCache, playlists, request, serialize;
+var MenuManagement, MenuPlaylist, Playlist, Touch, cache, fav, flashMessage, login, menuRequest, musicData, musicDataCache, playlists, request, serialize;
 
 login = require('./login');
 
@@ -8500,11 +8426,7 @@ musicDataCache = require('./musicDataCache');
 
 menuRequest = require('./MenuRequest');
 
-menuSubpage = require('./menuSubpage');
-
 playlists = require('./getPlaylists');
-
-closeMenu = require('./closeMenu');
 
 serialize = require('./Tools/serialize');
 
@@ -8623,12 +8545,12 @@ Touch.onTap("menu-box-add-to-playlist").onStart((function(_this) {
   return function(event) {
     var msgTxt;
     musicData = musicDataCache.data[menuRequest.data.getAttribute('data-song-id')];
-    menuSubpage.show();
+    MenuManagement.openMenu();
     msgTxt = "<h3>Loading playlists</h3>";
     if (window.lang === "fa") {
       msgTxt = "<h3>در حال بارگذاری لیست ها</h3>";
     }
-    menuSubpage.updateContent(msgTxt);
+    MenuManagement.updateSubpageContent(msgTxt);
     return playlists.get(function(list) {
       var pl, x, _i, _len;
       x = "";
@@ -8636,13 +8558,13 @@ Touch.onTap("menu-box-add-to-playlist").onStart((function(_this) {
         pl = list[_i];
         x = x + MenuPlaylist(pl);
       }
-      return menuSubpage.updateContent(x);
+      return MenuManagement.updateSubpageContent(x);
     }, function() {
       msgTxt = "<h3>Loading playlists failed</h3><h4 id=\"menu-box-add-to-playlist\">Tap to retry</h4>";
       if (window.lang === "fa") {
         msgTxt = "<h3>بارگذاری لیست ها ناموفق</h3><h4 id=\"menu-box-add-to-playlist\">برای بارگذاری مجدد ضربه بزنید</h4>";
       }
-      return menuSubpage.updateContent(msgTxt);
+      return MenuManagement.updateSubpageContent(msgTxt);
     });
   };
 })(this));
@@ -8660,12 +8582,11 @@ Touch.onTap("player-add").onStart((function(_this) {
     var msgTxt;
     musicData = window.playingMusicData;
     MenuManagement.openMenu();
-    menuSubpage.show();
     msgTxt = "<h3>Loading playlists</h3>";
     if (window.lang === "fa") {
       msgTxt = "<h3>در حال بارگذاری لیست ها</h3>";
     }
-    menuSubpage.updateContent(msgTxt);
+    MenuManagement.updateSubpageContent(msgTxt);
     return playlists.get(function(list) {
       var pl, x, _i, _len;
       x = "";
@@ -8673,13 +8594,13 @@ Touch.onTap("player-add").onStart((function(_this) {
         pl = list[_i];
         x = x + MenuPlaylist(pl);
       }
-      return menuSubpage.updateContent(x);
+      return MenuManagement.updateSubpageContent(x);
     }, function() {
       msgTxt = "<h3>Loading playlists failed</h3><h4 id=\"menu-box-add-to-playlist\">Tap to retry</h4>";
       if (window.lang === "fa") {
         msgTxt = "<h3>بارگذاری لیست ها ناموفق</h3><h4 id=\"menu-box-add-to-playlist\">برای بارگذاری مجدد ضربه بزنید</h4>";
       }
-      return menuSubpage.updateContent(msgTxt);
+      return MenuManagement.updateSubpageContent(msgTxt);
     });
   };
 })(this));
@@ -8748,7 +8669,7 @@ Touch.onTap("menu-playlist-item").onStart((function(_this) {
       return;
     }
     plName = event.target.getAttribute("data-playlist-name");
-    closeMenu();
+    MenuManagement.closeMenu();
     query = {
       favoritegroup_name: plName,
       sid: login.sid,
@@ -8784,8 +8705,8 @@ Touch.onTap("menu-playlist-item").onStart((function(_this) {
   };
 })(this));
 
-},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/MenuPlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\MenuPlaylist.js","./Item/Playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Playlist.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./getPlaylists":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\getPlaylists.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./menuSubpage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\menuSubpage.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","js-cache":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\js-cache\\index.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js","superagent":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\superagent\\lib\\client.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removePlaylist.js":[function(require,module,exports){
-var Touch, closeMenu, flashMessage, login, menuRequest, musicDataCache, remove, serialize;
+},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./Item/MenuPlaylist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\MenuPlaylist.js","./Item/Playlist":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Item\\Playlist.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./getPlaylists":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\getPlaylists.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","js-cache":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\js-cache\\index.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js","superagent":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\superagent\\lib\\client.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removePlaylist.js":[function(require,module,exports){
+var MenuManagement, Touch, flashMessage, login, menuRequest, musicDataCache, remove, serialize;
 
 musicDataCache = require('./musicDataCache');
 
@@ -8793,7 +8714,7 @@ flashMessage = require('./FlashMessage');
 
 menuRequest = require('./MenuRequest');
 
-closeMenu = require('./closeMenu');
+MenuManagement = require('./MenuManagement');
 
 Touch = require('simple-touch');
 
@@ -8856,7 +8777,7 @@ Touch.onTap("menu-box-remove-playlist").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData, callBackConfirmFunction, div, msgTxt, res;
-    closeMenu();
+    MenuManagement.closeMenu();
     div = menuRequest.data;
     albumData = musicDataCache.data["playlist" + menuRequest.data.getAttribute('data-playlist-id')];
     callBackConfirmFunction = function(button) {
@@ -8884,7 +8805,7 @@ Touch.onTap("menu-box-remove-playlist").onStart((function(_this) {
   };
 })(this));
 
-},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removeSongFromDevice.js":[function(require,module,exports){
+},{"./FlashMessage":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\FlashMessage.js","./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./Tools/serialize":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\Tools\\serialize.js","./login":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\login.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\removeSongFromDevice.js":[function(require,module,exports){
 var Touch, flashMessage, musicDataCache, remove, settingStorage, timeout;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -9141,7 +9062,7 @@ module.exports = function(node, prop, duration) {
 };
 
 },{}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\share.js":[function(require,module,exports){
-var Touch, closeMenu, loadTrackDetail, menuRequest, musicDataCache;
+var MenuManagement, Touch, loadTrackDetail, menuRequest, musicDataCache;
 
 loadTrackDetail = require('./loadTrackDetail');
 
@@ -9149,7 +9070,7 @@ musicDataCache = require('./musicDataCache');
 
 menuRequest = require('./MenuRequest');
 
-closeMenu = require('./closeMenu');
+MenuManagement = require('./MenuManagement');
 
 Touch = require('simple-touch');
 
@@ -9164,7 +9085,7 @@ Touch.onTap("menu-box-music-share").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var musicData;
-    closeMenu();
+    MenuManagement.closeMenu();
     musicData = musicDataCache.data[menuRequest.data.getAttribute('data-song-id')];
     return window.plugins.socialsharing.share("Download ahange " + musicData.songname + " az " + musicData.artist + "            ", "Wikiseda", null, musicData.url || "http://www.wikiseda.com");
   };
@@ -9181,7 +9102,7 @@ Touch.onTap("menu-box-album-share").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var albumData;
-    closeMenu();
+    MenuManagement.closeMenu();
     albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
     return window.plugins.socialsharing.share("Download album " + albumData.album + " az " + albumData.artist + "            ", "Wikiseda", null, albumData.url || "http://www.wikiseda.com");
   };
@@ -9198,13 +9119,13 @@ Touch.onTap("menu-box-artist-share").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var artistData;
-    closeMenu();
+    MenuManagement.closeMenu();
     artistData = musicDataCache.data["artist" + menuRequest.data.getAttribute('data-artist-id')];
     return window.plugins.socialsharing.share("Download musicha va albumhaye " + artistData.artist + "            ", "Wikiseda", null, albumData.url || "http://www.wikiseda.com");
   };
 })(this));
 
-},{"./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./closeMenu":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\closeMenu.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\startPoint.js":[function(require,module,exports){
+},{"./MenuManagement":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuManagement.js","./MenuRequest":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\MenuRequest.js","./loadTrackDetail":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\loadTrackDetail.js","./musicDataCache":"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\musicDataCache.js","simple-touch":"C:\\xampp\\htdocs\\Wikiseda_Working\\node_modules\\simple-touch\\scripts\\js\\lib\\SimpleTouch.js"}],"C:\\xampp\\htdocs\\Wikiseda_Working\\scripts\\js\\startPoint.js":[function(require,module,exports){
 var flashMessage, login, network;
 
 network = require('./network');
