@@ -782,8 +782,9 @@ html, body {
   bottom: 5px;
   font-size: 14px;
   color: #bec2c4;
+  direction: rtl;
 }
-/* line 115, ../sass/parts/main/_item.sass */
+/* line 117, ../sass/parts/main/_item.sass */
 .app-page .main-item-titles-view-icon {
   display: inline-block;
   position: relative;
@@ -793,12 +794,12 @@ html, body {
   margin-left: 10px;
   background: transparent url("../../assets/icons/view.png") no-repeat center center/cover;
 }
-/* line 129, ../sass/parts/main/_item.sass */
+/* line 131, ../sass/parts/main/_item.sass */
 .app-page .main-item-titles-view-songs {
   height: 14px;
   background: transparent url("../../assets/icons/icon-songs.png") no-repeat center center/contain;
 }
-/* line 135, ../sass/parts/main/_item.sass */
+/* line 137, ../sass/parts/main/_item.sass */
 .app-page .main-item-humberger-icon {
   position: absolute;
   top: 0px;
@@ -812,7 +813,7 @@ html, body {
   -o-transition: background 0.15s;
   transition: background 0.15s;
 }
-/* line 152, ../sass/parts/main/_item.sass */
+/* line 154, ../sass/parts/main/_item.sass */
 .app-page .menu-item-pause-icon {
   position: absolute;
   top: 15px;
@@ -828,7 +829,7 @@ html, body {
   transition: opacity 0.3s;
   background: rgba(0, 0, 0, 0.5) url("../../assets/icons/play-white.png") no-repeat center center/cover;
 }
-/* line 168, ../sass/parts/main/_item.sass */
+/* line 170, ../sass/parts/main/_item.sass */
 .app-page .menu-item-cancel-icon {
   position: absolute;
   top: 0px;
@@ -842,7 +843,7 @@ html, body {
   transition: opacity 0.3s;
   background: transparent url("../../assets/icons/item-cancel.png") no-repeat center center/cover;
 }
-/* line 186, ../sass/parts/main/_item.sass */
+/* line 188, ../sass/parts/main/_item.sass */
 .app-page .main-item-show {
   position: absolute;
   bottom: 0px;
@@ -856,7 +857,7 @@ html, body {
   transition: opacity 0.3s;
   background: transparent url("../../assets/icons/item-show.png") no-repeat center 70%/cover;
 }
-/* line 203, ../sass/parts/main/_item.sass */
+/* line 205, ../sass/parts/main/_item.sass */
 .app-page .main-item-titles-count {
   position: absolute;
   top: 67px;
@@ -864,7 +865,7 @@ html, body {
   font-size: 14px;
   display: none;
 }
-/* line 212, ../sass/parts/main/_item.sass */
+/* line 214, ../sass/parts/main/_item.sass */
 .app-page .circleLoading {
   background: transparent url("../../assets/icons/icon-loading.png") no-repeat center center/contain;
   height: 40px;
@@ -882,7 +883,7 @@ html, body {
   animation: spin-loader 4s infinite;
   animation-timing-function: linear;
 }
-/* line 232, ../sass/parts/main/_item.sass */
+/* line 234, ../sass/parts/main/_item.sass */
 .app-page .circleLoading-text {
   color: #b7bdbe;
   font-family: RobotoCondensedRegular;
@@ -890,11 +891,11 @@ html, body {
   position: relative;
   top: 55px;
 }
-/* line 240, ../sass/parts/main/_item.sass */
+/* line 242, ../sass/parts/main/_item.sass */
 .app-page #load-more {
   text-align: center;
 }
-/* line 246, ../sass/parts/main/_item.sass */
+/* line 248, ../sass/parts/main/_item.sass */
 .app-page #failed-refresh .circleLoading, .app-page #sync-not-find .circleLoading, .app-page #load-more-items .circleLoading {
   -webkit-animation: none;
   -webkit-animation-timing-function: linear;
@@ -905,15 +906,15 @@ html, body {
   animation: none;
   animation-timing-function: linear;
 }
-/* line 260, ../sass/parts/main/_item.sass */
+/* line 262, ../sass/parts/main/_item.sass */
 .app-page #sync-not-find .circleLoading, .app-page #no-result .circleLoading {
   display: none;
 }
-/* line 264, ../sass/parts/main/_item.sass */
+/* line 266, ../sass/parts/main/_item.sass */
 .app-page #sync-not-find .circleLoading-text, .app-page #no-result .circleLoading-text {
   top: 35px;
 }
-/* line 268, ../sass/parts/main/_item.sass */
+/* line 270, ../sass/parts/main/_item.sass */
 .app-page #play-all-downloaded {
   height: 50px;
   width: 100%;
@@ -923,40 +924,40 @@ html, body {
   padding-top: 15px;
   text-align: center;
 }
-/* line 281, ../sass/parts/main/_item.sass */
+/* line 283, ../sass/parts/main/_item.sass */
 .app-page #refresh {
   height: 50px;
   text-align: center;
 }
-/* line 286, ../sass/parts/main/_item.sass */
+/* line 288, ../sass/parts/main/_item.sass */
 .app-page .main-item-ending {
   text-align: center;
 }
-/* line 290, ../sass/parts/main/_item.sass */
+/* line 292, ../sass/parts/main/_item.sass */
 .app-page .maxWidth {
   width: 100%;
 }
-/* line 294, ../sass/parts/main/_item.sass */
+/* line 296, ../sass/parts/main/_item.sass */
 .app-page .playing-icon {
   display: none;
 }
-/* line 308, ../sass/parts/main/_item.sass */
+/* line 310, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-poster {
   border-radius: 50%;
 }
-/* line 321, ../sass/parts/main/_item.sass */
+/* line 323, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-title {
   top: 20px;
   font-size: 22px;
   font-family: RobotoLight;
 }
-/* line 327, ../sass/parts/main/_item.sass */
+/* line 329, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist {
   top: 50px;
   font-size: 16px;
   font-family: Roboto;
 }
-/* line 333, ../sass/parts/main/_item.sass */
+/* line 335, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist:before {
   content: " ";
   background: transparent url("../../assets/icons/icon-fans.png") no-repeat 0 center/contain;
@@ -965,25 +966,25 @@ html, body {
   display: inline-block;
   float: left;
 }
-/* line 342, ../sass/parts/main/_item.sass */
+/* line 344, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-artist small {
   color: #b3b9bb;
   font-family: RobotoCondensedRegular;
 }
-/* line 347, ../sass/parts/main/_item.sass */
+/* line 349, ../sass/parts/main/_item.sass */
 .app-page #item-artist .main-item-titles-view {
   top: 65px;
   display: none;
 }
-/* line 352, ../sass/parts/main/_item.sass */
+/* line 354, ../sass/parts/main/_item.sass */
 .app-page #item-album {
   padding-top: 90px;
 }
-/* line 356, ../sass/parts/main/_item.sass */
+/* line 358, ../sass/parts/main/_item.sass */
 .app-page #item-album .main-item-poster {
   border-radius: 10%;
 }
-/* line 360, ../sass/parts/main/_item.sass */
+/* line 362, ../sass/parts/main/_item.sass */
 .app-page #item-album .menu-item-pause-icon {
   top: 17px;
   left: -5px;
@@ -992,7 +993,7 @@ html, body {
   width: 30px;
   background: transparent url("../../assets/icons/play-white.png") no-repeat center center/cover;
 }
-/* line 371, ../sass/parts/main/_item.sass */
+/* line 373, ../sass/parts/main/_item.sass */
 .app-page #item-album .main-item-album-song-humberger-icon {
   border-top: 15px solid transparent;
   border-left: 20px solid transparent;
@@ -1000,7 +1001,7 @@ html, body {
   height: 30px;
   width: 30px;
 }
-/* line 383, ../sass/parts/main/_item.sass */
+/* line 385, ../sass/parts/main/_item.sass */
 .app-page .main-item-album-song {
   height: 50px;
   width: 100%;
@@ -1011,14 +1012,14 @@ html, body {
   -o-transition: background 0.15s;
   transition: background 0.15s;
 }
-/* line 396, ../sass/parts/main/_item.sass */
+/* line 398, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-number {
   position: absolute;
   top: 20px;
   left: 40px;
   display: none;
 }
-/* line 405, ../sass/parts/main/_item.sass */
+/* line 407, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-title {
   overflow: hidden;
   font-family: RobotoCondensedRegular;
@@ -1033,7 +1034,7 @@ html, body {
   text-transform: capitalize;
   text-overflow: ellipsis;
 }
-/* line 426, ../sass/parts/main/_item.sass */
+/* line 428, ../sass/parts/main/_item.sass */
 .app-page .menu-item-album-song-view {
   font-family: RobotoCondensedLight;
   position: absolute;
@@ -1043,7 +1044,7 @@ html, body {
   padding: 10px;
   padding-top: 20px;
 }
-/* line 436, ../sass/parts/main/_item.sass */
+/* line 438, ../sass/parts/main/_item.sass */
 .app-page .main-item-album-songs {
   display: none;
   display: block;
@@ -1051,33 +1052,33 @@ html, body {
   background: #e5e9ea;
   border-radius: 5px;
 }
-/* line 444, ../sass/parts/main/_item.sass */
+/* line 446, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-follow {
   color: #3ab6e9;
   display: inline-block;
   padding-left: 10px;
 }
-/* line 450, ../sass/parts/main/_item.sass */
+/* line 452, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-header {
   background-color: #eee;
   border-left: 5px solid #fff;
   border-right: 5px solid #fff;
 }
-/* line 456, ../sass/parts/main/_item.sass */
+/* line 458, ../sass/parts/main/_item.sass */
 .app-page .main-item-artist-header img {
   width: 100%;
   max-width: 490px;
   border-radius: 20px;
 }
-/* line 463, ../sass/parts/main/_item.sass */
+/* line 465, ../sass/parts/main/_item.sass */
 .app-page .main-item-titles-fans {
   float: left;
 }
-/* line 467, ../sass/parts/main/_item.sass */
+/* line 469, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item {
   height: 230px;
 }
-/* line 471, ../sass/parts/main/_item.sass */
+/* line 473, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-back {
   background: transparent url("../../assets/icons/back_.png") no-repeat center center/cover;
   height: 60px;
@@ -1087,7 +1088,7 @@ html, body {
   left: 10px;
   z-index: 1;
 }
-/* line 483, ../sass/parts/main/_item.sass */
+/* line 485, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster {
   position: absolute;
   top: 20px;
@@ -1096,24 +1097,24 @@ html, body {
   overflow: initial;
   left: 0;
 }
-/* line 492, ../sass/parts/main/_item.sass */
+/* line 494, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster .main-item-poster-holder {
   height: 130px;
   width: 130px;
   margin: auto;
 }
-/* line 499, ../sass/parts/main/_item.sass */
+/* line 501, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-poster .main-item-poster-holder img {
   border-radius: 50%;
 }
-/* line 503, ../sass/parts/main/_item.sass */
+/* line 505, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles {
   height: 230px;
   text-align: center;
   left: 0;
   right: 0;
 }
-/* line 510, ../sass/parts/main/_item.sass */
+/* line 512, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-title {
   top: 20px;
   font-size: 22px;
@@ -1122,11 +1123,11 @@ html, body {
   position: relative;
   top: 160px;
 }
-/* line 520, ../sass/parts/main/_item.sass */
+/* line 522, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-artist {
   top: 50px;
 }
-/* line 524, ../sass/parts/main/_item.sass */
+/* line 526, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-become {
   position: absolute;
   top: 20px;
@@ -1135,11 +1136,11 @@ html, body {
   width: 30px;
   background: transparent url("../../assets/icons/icon-become.png") no-repeat 0 0/contain;
 }
-/* line 535, ../sass/parts/main/_item.sass */
+/* line 537, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-titles-isfan {
   background: transparent url("../../assets/icons/icon-isfan.png") no-repeat 0 0/contain !important;
 }
-/* line 539, ../sass/parts/main/_item.sass */
+/* line 541, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc {
   position: absolute;
   left: 0;
@@ -1148,7 +1149,7 @@ html, body {
   height: 30px;
   text-align: center;
 }
-/* line 550, ../sass/parts/main/_item.sass */
+/* line 552, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field {
   height: inherit;
   font-size: 18px;
@@ -1157,7 +1158,7 @@ html, body {
   padding-left: 10px;
   padding-right: 10px;
 }
-/* line 560, ../sass/parts/main/_item.sass */
+/* line 562, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field:before {
   content: " ";
   height: 15px;
@@ -1167,24 +1168,24 @@ html, body {
   position: relative;
   top: 3px;
 }
-/* line 571, ../sass/parts/main/_item.sass */
+/* line 573, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field small {
   color: #b3b9bb;
   font-family: RobotoCondensedRegular;
 }
-/* line 578, ../sass/parts/main/_item.sass */
+/* line 580, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-fans:before {
   background: transparent url("../../assets/icons/icon-fans.png") no-repeat 0 0/contain;
 }
-/* line 584, ../sass/parts/main/_item.sass */
+/* line 586, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-albums:before {
   background: transparent url("../../assets/icons/icon-albums.png") no-repeat 0 0/contain;
 }
-/* line 590, ../sass/parts/main/_item.sass */
+/* line 592, ../sass/parts/main/_item.sass */
 .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-songs:before {
   background: transparent url("../../assets/icons/icon-songs.png") no-repeat 0 0/contain;
 }
-/* line 595, ../sass/parts/main/_item.sass */
+/* line 597, ../sass/parts/main/_item.sass */
 .app-page .main-item-username {
   font-size: 18px;
   color: #576971;
@@ -1192,7 +1193,7 @@ html, body {
   line-height: 60px;
   margin-left: 10px;
 }
-/* line 605, ../sass/parts/main/_item.sass */
+/* line 607, ../sass/parts/main/_item.sass */
 .app-page .main-item-logout {
   position: absolute;
   top: 15px;
@@ -1291,13 +1292,14 @@ html, body {
 /* line 114, ../sass/parts/main/_search.sass */
 .app-page .main-item-search-history .history-item {
   font-size: 18px;
-  line-height: 40px;
-  height: 40px;
+  line-height: 50px;
+  height: 50px;
   margin-left: 20px;
   margin-right: 20px;
   position: relative;
+  border-bottom: 1px #eee solid;
 }
-/* line 123, ../sass/parts/main/_search.sass */
+/* line 125, ../sass/parts/main/_search.sass */
 .app-page .main-item-search-history .history-item-remove {
   float: right;
   padding-right: 20px;
@@ -1306,7 +1308,7 @@ html, body {
   font-size: 14px;
   background-color: #FFF;
   height: 34px;
-  margin-top: 2px;
+  margin-top: 10px;
   margin-left: 2px;
   margin-right: 2px;
   background: transparent url("../../assets/icons/item-cancel.png") no-repeat center center/50%;
@@ -1331,18 +1333,24 @@ html, body {
 }
 /* line 22, ../sass/parts/main/_settings.sass */
 .app-page .custom-about {
-  height: 160px;
+  height: 100px;
 }
 /* line 26, ../sass/parts/main/_settings.sass */
 .app-page .custom-about-text {
-  font-size: 18px;
-  color: #9ba0a1;
+  font-size: 22px;
+  color: #576971;
   font-family: RobotoCondensedRegular;
-  text-align: center;
   position: relative;
-  top: 30px;
+  top: 20px;
 }
-/* line 39, ../sass/parts/main/_settings.sass */
+/* line 37, ../sass/parts/main/_settings.sass */
+.app-page .custom-about-text .segmented-label {
+  height: 50px;
+  line-height: 50px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+/* line 46, ../sass/parts/main/_settings.sass */
 .app-page .custom-logo-image {
   height: 60px;
   width: 60px;
@@ -1350,12 +1358,12 @@ html, body {
   top: 20px;
   margin: auto;
 }
-/* line 49, ../sass/parts/main/_settings.sass */
+/* line 56, ../sass/parts/main/_settings.sass */
 .app-page .custom-logo-image img {
   height: 100%;
   width: 100%;
 }
-/* line 54, ../sass/parts/main/_settings.sass */
+/* line 61, ../sass/parts/main/_settings.sass */
 .app-page .custom-about-link {
   text-decoration: underline;
   font-family: Roboto;
@@ -1825,7 +1833,7 @@ html, body {
 /* line 476, ../sass/parts/_top.sass */
 .app-page .top-icons-pre {
   background: transparent url("../../assets/icons/prev_mini.png") no-repeat center center/cover;
-  margin-right: 40px;
+  margin-right: 20px;
   height: 40px;
   width: 40px;
 }
@@ -1842,7 +1850,7 @@ html, body {
 /* line 494, ../sass/parts/_top.sass */
 .app-page .top-icons-next {
   background: transparent url("../../assets/icons/next_mini.png") no-repeat center center/cover;
-  margin-left: 40px;
+  margin-left: 20px;
   height: 40px;
   width: 40px;
 }
@@ -1856,15 +1864,41 @@ html, body {
   margin-left: 40px;
 }
 /* line 512, ../sass/parts/_top.sass */
+.app-page .top-icons-repeat {
+  background: transparent url("../../assets/icons/repeat_off.png") no-repeat center center/cover;
+  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+}
+/* line 520, ../sass/parts/_top.sass */
+.app-page .repeat {
+  background: transparent url("../../assets/icons/repeat.png") no-repeat center center/cover;
+}
+/* line 524, ../sass/parts/_top.sass */
+.app-page .repeat-all {
+  background: transparent url("../../assets/icons/repeat_all.png") no-repeat center center/cover;
+}
+/* line 528, ../sass/parts/_top.sass */
+.app-page .top-icons-shuffle {
+  background: transparent url("../../assets/icons/shuffle_off.png") no-repeat center center/cover;
+  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+}
+/* line 536, ../sass/parts/_top.sass */
+.app-page .shuffle {
+  background: transparent url("../../assets/icons/shuffle.png") no-repeat center center/cover;
+}
+/* line 540, ../sass/parts/_top.sass */
 .app-page .top-icons-faved {
   background: transparent url("../../assets/icons/fav_red.png") no-repeat center center/cover;
 }
-/* line 516, ../sass/parts/_top.sass */
+/* line 544, ../sass/parts/_top.sass */
 .app-page .top-icons-add {
   background: transparent url("../../assets/icons/add_white.png") no-repeat center center/cover;
   margin-right: 40px;
 }
-/* line 522, ../sass/parts/_top.sass */
+/* line 550, ../sass/parts/_top.sass */
 .app-page .top-seekbar {
   position: absolute;
   bottom: 0;
@@ -1873,7 +1907,7 @@ html, body {
   height: 3px;
   background-color: #e7e7e7;
 }
-/* line 532, ../sass/parts/_top.sass */
+/* line 560, ../sass/parts/_top.sass */
 .app-page .top-seekbar-move {
   position: absolute;
   top: 0;
@@ -1892,7 +1926,7 @@ html, body {
   -o-transform-origin: 0;
   transform-origin: 0;
 }
-/* line 555, ../sass/parts/_top.sass */
+/* line 583, ../sass/parts/_top.sass */
 .app-page .top-bufferbar-move {
   position: absolute;
   top: 0;
@@ -2321,19 +2355,55 @@ html, body {
 .app-page #failedDiv, .app-page #failed-load-playlist {
   color: #b7bdbe;
 }
-/* line 99, ../sass/_more.sass */
+/* line 97, ../sass/_more.sass */
+.app-page .about {
+  text-align: center;
+  font-size: 18px;
+}
+/* line 103, ../sass/_more.sass */
+.app-page .about div {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+/* line 108, ../sass/_more.sass */
+.app-page .about a {
+  text-decoration: none;
+  color: #3ab6e9;
+}
+/* line 113, ../sass/_more.sass */
+.app-page .about-logo {
+  margin-top: 50px;
+}
+/* line 117, ../sass/_more.sass */
+.app-page .about-link {
+  font-size: 32px;
+}
+/* line 121, ../sass/_more.sass */
+.app-page .about-desc {
+  color: #7a8082;
+  padding-top: 0 !important;
+}
+/* line 126, ../sass/_more.sass */
+.app-page .about-dmca {
+  direction: rtl;
+}
+/* line 132, ../sass/_more.sass */
 .app-page #more-option-Downloaded_Media .more-select-icon {
   background: transparent url("../../assets/icons/item-sync.png") no-repeat 0 0/contain;
 }
-/* line 105, ../sass/_more.sass */
+/* line 138, ../sass/_more.sass */
 .app-page #more-option-Recent_Media .more-select-icon {
   background: transparent url("../../assets/icons/item-add-to-queue.png") no-repeat 0 0/contain;
 }
-/* line 111, ../sass/_more.sass */
+/* line 144, ../sass/_more.sass */
 .app-page #more-option-Playlists .more-select-icon {
   background: transparent url("../../assets/icons/playlist.png") no-repeat 0 0/contain;
 }
-/* line 117, ../sass/_more.sass */
+/* line 150, ../sass/_more.sass */
 .app-page #more-option-Settings .more-select-icon {
   background: transparent url("../../assets/icons/settings.png") no-repeat 0 0/contain;
+}
+/* line 156, ../sass/_more.sass */
+.app-page #more-option-About_us .more-select-icon {
+  background: transparent url("../../assets/icons/about.png") no-repeat 0 0/contain;
 }

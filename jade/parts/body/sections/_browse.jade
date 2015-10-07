@@ -1,0 +1,54 @@
+section.browse
+
+	.browse-bc
+
+	.browse-filters
+
+		.filter-title.floatLabel
+
+			input(type="text", placeholder="Title")
+
+			label Title
+
+		.filter-publisher.floatLabel.dropDown
+
+			input(type="text", placeholder="Publisher")
+
+			label Publisher
+
+		.filter-coll.floatLabel.dropDown
+
+			input(type="text", placeholder="Collection")
+
+			label Collection
+
+		.filter-options
+
+			.option.checkbox
+				input#journal(type="checkbox", data-id="1")
+				label(for="journal") eJournal
+
+			.option.checkbox
+				input#ebook(type="checkbox", data-id="2")
+				label(for="ebook") eBook
+
+			.option.checkbox
+				input#database(type="checkbox", data-id="3")
+				label(for="database") Database
+
+		.filter-go.submit
+
+			button Filter Results
+
+	.browse-subjects
+
+		.scroll
+
+		.browse-grid(data-stopPropagation)
+
+			//- .browse-loadmore
+
+		.details-container
+
+			.details-cell
+
