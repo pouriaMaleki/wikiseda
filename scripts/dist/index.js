@@ -5948,7 +5948,6 @@ playlistSync.onSync((function(_this) {
         continue;
       }
       beingSync[song.id] = true;
-      console.log(song.id, song);
       _results.push(syncSong(song, playlist));
     }
     return _results;
@@ -6946,7 +6945,7 @@ enTexts = {};
 
 (changeStatics = function() {
   if (window.lang === "fa") {
-    document.getElementById("label-wikiseda").innerHTML = "ویکیصدا";
+    document.getElementById("label-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-wikiseda-desc").innerHTML = "مرجع موسیقی ایرانی";
     document.getElementById("login-link").innerHTML = "وارد شوید";
     document.getElementById("forgetLink").innerHTML = "رمز را فراموش کرده اید؟";
@@ -6964,9 +6963,9 @@ enTexts = {};
     document.getElementById("label-bottom-more").innerHTML = "بیشتر";
     document.getElementById("now-playing").innerHTML = "در حال پخش";
     document.getElementById("play-queue").innerHTML = "لیست پخش";
-    document.getElementById("label-player-wikiseda").innerHTML = "ویکیصدا";
+    document.getElementById("label-player-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-player-wikiseda-sesc").innerHTML = "مرجع موسیقی ایرانی";
-    document.getElementById("label-miniplayer-wikiseda").innerHTML = "ویکیصدا";
+    document.getElementById("label-miniplayer-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-miniplayer-wikiseda-desc").innerHTML = "مرجع موسیقی ایرانی";
     document.getElementById("label-menu-box-add-to-queue").innerHTML = "اضافه به لیست پخش";
     document.getElementById("label-menu-box-play-next").innerHTML = "پخش بعد از این موسیقی";
@@ -8210,7 +8209,7 @@ module.exports = About = (function() {
         }), function() {});
       }
     }
-    div.innerHTML = "<div class=\"about-logo\">\n	<a onclick=\"window.open('http://wikiseda.org', '_system')\"><img src=\"./assets/images/logo.png\" height=\"120px\" width=\"120px\" alt=\"Instagram\" /></a>\n</div>\n<div class=\"about-link\"><a onclick=\"window.open('http://wikiseda.org', '_system')\">ویکیصدا</a></div>\n<div class=\"about-desc\">تمام ترانه ها در جیب شما</div>\n<div><a onclick=\"window.open('http://wikiseda.org/about.html', '_system')\">درباره ما</a></div>\n<div class=\"about-dmca\"><a onclick=\"window.open('http://wikiseda.org/DMCA.html', '_system')\">ادعای حذف آثار کپی رایت شده (DMCA)</a></div>\n<div>\n	<span>\n		<a onclick=\"window.open('" + insta + "', '_system')\"><img src=\"./assets/images/insta.png\" height=\"60px\" width=\"60px\" alt=\"Instagram\" /></a>\n	</span>\n	<span>\n		<a onclick=\"window.open('" + fbLink + "', '_system')\"><img src=\"./assets/images/face.png\" height=\"60px\" width=\"60px\" alt=\"Facebook\" /></a>\n	</span>\n</div>\n";
+    div.innerHTML = "<div class=\"about-logo\">\n	<a onclick=\"window.open('http://wikiseda.org', '_system')\"><img src=\"./assets/images/logo.png\" height=\"120px\" width=\"120px\" alt=\"Instagram\" /></a>\n</div>\n<div class=\"about-link\"><a onclick=\"window.open('http://wikiseda.org', '_system')\">ویکی صدا</a></div>\n<div class=\"about-desc\">تمام ترانه ها در جیب شما</div>\n<div><a onclick=\"window.open('http://wikiseda.org/about.html', '_system')\">درباره ما</a></div>\n<div class=\"about-dmca\"><a onclick=\"window.open('http://wikiseda.org/DMCA.html', '_system')\">ادعای حذف آثار کپی رایت شده (DMCA)</a></div>\n<div>\n	<span>\n		<a onclick=\"window.open('" + insta + "', '_system')\"><img src=\"./assets/images/insta.png\" height=\"60px\" width=\"60px\" alt=\"Instagram\" /></a>\n	</span>\n	<span>\n		<a onclick=\"window.open('" + fbLink + "', '_system')\"><img src=\"./assets/images/face.png\" height=\"60px\" width=\"60px\" alt=\"Facebook\" /></a>\n	</span>\n</div>\n";
     return div;
   };
 
@@ -8621,7 +8620,6 @@ Playlists = (function() {
     this.failedDiv.style.display = "none";
     playlistManager.get((function(_this) {
       return function(list) {
-        console.log(list);
         _this.items = list;
         _this.hideLoading();
         return _this.placeAllItems();
@@ -9327,9 +9325,9 @@ module.exports = ActiveSongSync = (function() {
 
   ActiveSongSync.prototype.error = function() {
     var msgTxt;
-    msgTxt = "Downloading " + musicData.songname + " failed";
+    msgTxt = "Downloading " + this.musicData.songname + " failed";
     if (window.lang === "fa") {
-      msgTxt = "بارگذاری " + musicData.songname + " موفق تمام نشد";
+      msgTxt = "بارگذاری " + this.musicData.songname + " موفق تمام نشد";
     }
     flashMessage.show(msgTxt);
     this.findDiv(this.parent);
@@ -9882,7 +9880,6 @@ module.exports = new (SearchHistory = (function() {
   };
 
   SearchHistory.prototype.getFilteredList = function(filter) {
-    console.log(filter);
     return this.getList();
   };
 
