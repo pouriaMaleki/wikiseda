@@ -1,0 +1,1969 @@
+input[type="search"]::-webkit-search-decoration {
+  display: none; }
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0; }
+
+button,
+a.button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"],
+input[type="image"] {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  overflow: visible;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: top;
+  text-align: center;
+  text-decoration: none;
+  -webkit-appearance: none;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: Arial, "Liberation Sans", FreeSans, sans-serif; }
+
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"] {
+  line-height: normal !important; }
+
+textarea,
+select,
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
+  background: none;
+  border: none;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  vertical-align: top;
+  font-size: 15px;
+  font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+  -webkit-appearance: none;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  textarea::-webkit-outer-spin-button,
+  textarea::-webkit-inner-spin-button,
+  select::-webkit-outer-spin-button,
+  select::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-outer-spin-button,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="datetime"]::-webkit-outer-spin-button,
+  input[type="datetime"]::-webkit-inner-spin-button,
+  input[type="datetime-local"]::-webkit-outer-spin-button,
+  input[type="datetime-local"]::-webkit-inner-spin-button,
+  input[type="email"]::-webkit-outer-spin-button,
+  input[type="email"]::-webkit-inner-spin-button,
+  input[type="month"]::-webkit-outer-spin-button,
+  input[type="month"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="password"]::-webkit-outer-spin-button,
+  input[type="password"]::-webkit-inner-spin-button,
+  input[type="search"]::-webkit-outer-spin-button,
+  input[type="search"]::-webkit-inner-spin-button,
+  input[type="tel"]::-webkit-outer-spin-button,
+  input[type="tel"]::-webkit-inner-spin-button,
+  input[type="text"]::-webkit-outer-spin-button,
+  input[type="text"]::-webkit-inner-spin-button,
+  input[type="time"]::-webkit-outer-spin-button,
+  input[type="time"]::-webkit-inner-spin-button,
+  input[type="url"]::-webkit-outer-spin-button,
+  input[type="url"]::-webkit-inner-spin-button,
+  input[type="week"]::-webkit-outer-spin-button,
+  input[type="week"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; }
+
+button[disabled],
+input[disabled],
+select[disabled],
+select[disabled] option,
+select[disabled] optgroup,
+textarea[disabled] {
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  cursor: default;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+  opacity: 0.25; }
+
+textarea {
+  min-height: 50px;
+  overflow: auto;
+  resize: vertical;
+  width: 100%; }
+
+optgroup {
+  font-style: normal;
+  font-weight: normal;
+  font-family: Arial, "Liberation Sans", FreeSans, sans-serif; }
+
+select::-ms-expand {
+  display: none; }
+
+@-moz-document url-prefix() {
+  input:invalid,
+  button:invalid,
+  select:invalid,
+  textarea:invalid {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  input::-moz-focus-inner,
+  button::-moz-focus-inner,
+  select::-moz-focus-inner,
+  textarea::-moz-focus-inner {
+    border: 0;
+    padding: 0; }
+  select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: ""; } }
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0; }
+  input[type="checkbox"].ios-switch + div {
+    vertical-align: middle;
+    width: 40px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: .4s;
+    -webkit-transition-property: background-color, box-shadow;
+    -moz-transition-duration: .4s;
+    -moz-transition-property: background-color, box-shadow;
+    -ms-transition-duration: .4s;
+    -ms-transition-property: background-color, box-shadow;
+    transition-duration: .4s;
+    transition-property: background-color, box-shadow;
+    box-shadow: inset 0 0 0 0px rgba(0, 0, 0, 0.4);
+    margin: 20px 1.2em 20px 2.5em; }
+  input[type="checkbox"].ios-switch:checked + div {
+    width: 40px;
+    background-position: 0 0;
+    background-color: #3b89ec;
+    border: 1px solid #0e62cd;
+    box-shadow: inset 0 0 0 10px #3b89ff; }
+  input[type="checkbox"].ios-switch:checked + div > div {
+    -webkit-transform: translate3d(20px, 0, 0);
+    -moz-transform: translate3d(20px, 0, 0);
+    -ms-transform: translate3d(20px, 0, 0);
+    transform: translate3d(20px, 0, 0);
+    background-color: #ffffff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px #0850ac; }
+  input[type="checkbox"].ios-switch + div > div {
+    float: left;
+    width: 18px;
+    height: 18px;
+    border-radius: inherit;
+    background: #ffffff;
+    -webkit-transition-timing-function: cubic-bezier(0.54, 1.85, 0.5, 1);
+    -webkit-transition-duration: 0.4s;
+    -webkit-transition-property: transform, background-color, box-shadow;
+    -moz-transition-timing-function: cubic-bezier(0.54, 1.85, 0.5, 1);
+    -moz-transition-duration: 0.4s;
+    -moz-transition-property: transform, background-color;
+    -ms-transition-timing-function: cubic-bezier(0.54, 1.85, 0.5, 1);
+    -ms-transition-duration: 0.4s;
+    -ms-transition-property: transform, background-color;
+    transition-timing-function: cubic-bezier(0.54, 1.85, 0.5, 1);
+    transition-duration: 0.4s;
+    transition-property: transform, background-color;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    margin-top: 1px;
+    margin-left: 1px; }
+  input[type="checkbox"].tinyswitch.ios-switch + div > div {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px; }
+  input[type="checkbox"].tinyswitch.ios-switch:checked + div > div {
+    -webkit-transform: translate3d(16px, 0, 0);
+    -moz-transform: translate3d(16px, 0, 0);
+    -ms-transform: translate3d(16px, 0, 0);
+    transform: translate3d(16px, 0, 0);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px #0850ac; }
+
+/* Normal Track */
+/* Checked Track (Blue) */
+/* Normal Knob */
+/* Checked Knob (Blue Style) */
+/* Tiny Knob */
+/* Checked Tiny Knob (Blue Style) */
+@font-face {
+  font-family: Roboto;
+  src: url("./assets/fonts/Roboto/Roboto-Regular.eot");
+  src: url("./assets/fonts/Roboto/Roboto-Regular.woff") format("woff"), url("./assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype"), url("./assets/fonts/Roboto/Roboto-Regular.svg") format("svg"); }
+
+@font-face {
+  font-family: RobotoCondensedRegular;
+  src: url("./assets/fonts/Roboto/RobotoCondensed-Regular.ttf"); }
+
+@font-face {
+  font-family: RobotoCondensedLight;
+  src: url("./assets/fonts/Roboto/RobotoCondensed-Light.ttf"); }
+
+@font-face {
+  font-family: RobotoThin;
+  src: url("./assets/fonts/Roboto/Roboto-Thin.ttf"); }
+
+@font-face {
+  font-family: RobotoLight;
+  src: url("./assets/fonts/Roboto/Roboto-Light.eot");
+  src: url("./assets/fonts/Roboto/Roboto-Light.woff") format("woff"), url("./assets/fonts/Roboto/Roboto-Light.ttf") format("truetype"), url("./assets/fonts/Roboto/Roboto-Light.svg") format("svg"); }
+
+@font-face {
+  font-family: RobotoCondensed;
+  src: url("./assets/fonts/Roboto/Roboto-Condensed.ttf"); }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: RobotoLight;
+  overflow-x: hidden;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-scroll-chaining: none;
+  -ms-overflow-style: none;
+  -ms-content-zooming: none;
+  -ms-scroll-rails: none;
+  -ms-content-zoom-limit-min: 100%;
+  -ms-content-zoom-limit-max: 100%; }
+
+.flash-message {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  background-color: #222;
+  color: #eee;
+  z-index: 10;
+  display: none;
+  transform: translateY(-100px);
+  -o-transform: translateY(-100px);
+  -ms-transform: translateY(-100px);
+  -moz-transform: translateY(-100px);
+  -webkit-transform: translateY(-100px);
+  transition: -webkit-transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  -moz-transition: transform 0.3s;
+  -ms-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  -ms-transition: -ms-transform 0.3s;
+  -o-transition: -o-transform 0.3s; }
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  text-align: center;
+  z-index: 10; }
+
+.loading-items {
+  display: inline-block;
+  background: #000;
+  width: 4px;
+  height: 4px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  margin: 6px 2px;
+  position: relative;
+  -webkit-animation: loader 4s infinite;
+  -webkit-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
+  -webkit-animation-fill-mode: both;
+  -moz-animation: loader 4s infinite;
+  -moz-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
+  -moz-animation-fill-mode: both;
+  -ms-animation: loader 4s infinite;
+  -ms-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
+  -ms-animation-fill-mode: both;
+  animation: loader 4s infinite;
+  animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
+  animation-fill-mode: both; }
+
+.loading-1 {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  animation-delay: 1s; }
+
+.loading-2 {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  -ms-animation-delay: 0.8s;
+  animation-delay: 0.8s; }
+
+.loading-3 {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  -ms-animation-delay: 0.6s;
+  animation-delay: 0.6s; }
+
+.loading-4 {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  -ms-animation-delay: 0.4s;
+  animation-delay: 0.4s; }
+
+.loading-5 {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -ms-animation-delay: 0.2s;
+  animation-delay: 0.2s; }
+
+.loading-6 {
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  animation-delay: 0s; }
+
+@-webkit-keyframes loader {
+  0% {
+    -webkit-transform: translateX(-60px);
+    opacity: 0; }
+  25% {
+    opacity: 1; }
+  50% {
+    -webkit-transform: translateX(60px);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes loader {
+  0% {
+    -moz-transform: translateX(-60px);
+    opacity: 0; }
+  25% {
+    opacity: 1; }
+  50% {
+    -moz-transform: translateX(60px);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@-ms-keyframes loader {
+  0% {
+    -ms-transform: translateX(-60px);
+    opacity: 0; }
+  25% {
+    opacity: 1; }
+  50% {
+    -ms-transform: translateX(60px);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@keyframes loader {
+  0% {
+    transform: translateX(-60px);
+    opacity: 0; }
+  25% {
+    opacity: 1; }
+  50% {
+    transform: translateX(60px);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@-webkit-keyframes spin-loader {
+  0% {
+    -webkit-transform: rotateZ(0deg); }
+  25% {
+    -webkit-transform: rotateZ(90deg); }
+  50% {
+    -webkit-transform: rotateZ(180deg); }
+  75% {
+    -webkit-transform: rotateZ(270deg); }
+  100% {
+    -webkit-transform: rotateZ(360deg); } }
+
+@-moz-keyframes spin-loader {
+  0% {
+    -moz-transform: rotateZ(0deg); }
+  25% {
+    -moz-transform: rotateZ(90deg); }
+  50% {
+    -moz-transform: rotateZ(180deg); }
+  75% {
+    -moz-transform: rotateZ(270deg); }
+  100% {
+    -moz-transform: rotateZ(360deg); } }
+
+@-ms-keyframes spin-loader {
+  0% {
+    -ms-transform: rotateZ(0deg); }
+  25% {
+    -ms-transform: rotateZ(90deg); }
+  50% {
+    -ms-transform: rotateZ(180deg); }
+  75% {
+    -ms-transform: rotateZ(270deg); }
+  100% {
+    -ms-transform: rotateZ(360deg); } }
+
+@keyframes spin-loader {
+  0% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg); }
+  25% {
+    transform: rotateZ(90deg);
+    -webkit-transform: rotateZ(90deg); }
+  50% {
+    transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg); }
+  75% {
+    transform: rotateZ(270deg);
+    -webkit-transform: rotateZ(270deg); }
+  100% {
+    transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg); } }
+
+.login-register {
+  background-color: #e5e9ea;
+  height: 100%;
+  width: 100%; }
+  .login-register #change-lang {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 40%;
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    z-index: 1000000; }
+  .login-register .back {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: none;
+    z-index: 2; }
+    .login-register .back img {
+      height: 50px;
+      width: 50px; }
+  .login-register .layer {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%; }
+  .login-register .caption {
+    height: 100%;
+    width: 100%;
+    text-align: center; }
+    .login-register .caption img {
+      height: 100px;
+      width: 100px; }
+    .login-register .caption h1, .login-register .caption h2 {
+      font-weight: normal;
+      margin-bottom: 0px; }
+    .login-register .caption h1 {
+      font-size: 26px;
+      color: #576971; }
+    .login-register .caption h2 {
+      color: #7a8082;
+      font-size: 18px;
+      margin-top: 0px;
+      font-family: RobotoCondensedRegular; }
+  .login-register .form-holder {
+    position: absolute;
+    top: 240px;
+    left: 0;
+    right: 0;
+    max-width: 250px;
+    margin: auto;
+    text-align: center; }
+    .login-register .form-holder input {
+      display: block;
+      background-color: #FFF;
+      border: 1px solid #d6cece;
+      height: 50px;
+      margin: auto;
+      margin-bottom: 7px;
+      border-radius: 25px;
+      width: 100%;
+      font-family: RobotoLight;
+      font-size: 16px; }
+    .login-register .form-holder input[type="text"],
+    .login-register .form-holder input[type="password"],
+    .login-register .form-holder input[type="email"] {
+      padding-left: 30px; }
+    .login-register .form-holder input[type="submit"] {
+      background-color: #00a1eb;
+      color: #fff;
+      font-size: 18px; }
+  .login-register .login-link {
+    font-family: RobotoLight;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    text-decoration: underline;
+    color: #3d4243;
+    text-align: center; }
+  .login-register #forgetLink {
+    position: relative;
+    top: 30px; }
+  .login-register .register {
+    text-align: center; }
+  .login-register .login {
+    text-align: center;
+    display: none; }
+
+.app-page {
+  display: none; }
+  .app-page #new-playlist .circleLoading {
+    display: none; }
+  .app-page #new-playlist .circleLoading-text {
+    top: 0;
+    color: #7a8082; }
+  .app-page .main-item-playlist {
+    height: 100px;
+    padding-top: 80px !important; }
+    .app-page .main-item-playlist .main-item-poster {
+      height: 70px;
+      width: 70px; }
+    .app-page .main-item-playlist .menu-item-pause-icon {
+      position: absolute !important;
+      top: 10px !important;
+      left: 15px !important;
+      z-index: 1 !important;
+      height: 50px !important;
+      width: 50px !important;
+      -webkit-transition: opacity 0.3s !important;
+      -moz-transition: opacity 0.3s !important;
+      -ms-transition: opacity 0.3s !important;
+      -o-transition: opacity 0.3s !important;
+      transition: opacity 0.3s !important;
+      background: rgba(0, 0, 0, 0.5) url("./assets/icons/play-white.png") no-repeat center center/cover !important; }
+    .app-page .main-item-playlist .main-item-album-songs {
+      margin-top: 20px; }
+      .app-page .main-item-playlist .main-item-album-songs .main-item-poster {
+        top: 10px !important;
+        border-radius: 0 !important;
+        height: 50px !important;
+        width: 50px !important; }
+      .app-page .main-item-playlist .main-item-album-songs .main-item-album-song {
+        position: relative;
+        height: 70px;
+        display: inline-block;
+        border-bottom: 1px solid #D9DBDB;
+        box-sizing: border-box;
+        margin: 0;
+        overflow: hidden;
+        -webkit-transition: background 0.15s;
+        -moz-transition: background 0.15s;
+        -ms-transition: background 0.15s;
+        -o-transition: background 0.15s;
+        transition: background 0.15s; }
+      .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-title {
+        position: absolute;
+        left: 75px;
+        right: 65px;
+        top: 36px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-transform: capitalize;
+        color: #454648;
+        height: 90px; }
+      .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-artist {
+        font-family: RobotoLight;
+        position: absolute;
+        top: 8px;
+        right: 65px;
+        left: 75px;
+        overflow: hidden;
+        font-size: 22px;
+        color: #576971;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-transform: capitalize; }
+      .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-view {
+        font-family: RobotoCondensedLight;
+        position: absolute;
+        right: 0;
+        bottom: 0px;
+        font-size: 14px;
+        color: #bec2c4;
+        padding-bottom: 3px !important; }
+  .app-page .main-item-playlist-image {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    height: 60px;
+    width: 60px; }
+  .app-page .main-item-playlist-sync {
+    height: 30px;
+    width: 50px;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    background: transparent url("./assets/icons/item-syncicon.png") no-repeat 0 0/contain;
+    display: none; }
+  .app-page [data-synced] .main-item-playlist-sync {
+    display: block; }
+  @media screen and (max-width: 700px) {
+    .app-page .main-item {
+      width: 100%; } }
+  @media screen and (min-width: 700px) {
+    .app-page .main-item {
+      width: 50%; } }
+  @media screen and (min-width: 1200px) {
+    .app-page .main-item {
+      width: 33.3%; } }
+  .app-page .main-item {
+    position: relative;
+    height: 90px;
+    display: inline-block;
+    background-color: #fff;
+    border-bottom: 1px solid #eaecec;
+    box-sizing: border-box;
+    margin: 0;
+    overflow: hidden;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .main-item-poster {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+    -webkit-transition: opacity 0.7s;
+    -moz-transition: opacity 0.7s;
+    -ms-transition: opacity 0.7s;
+    -o-transition: opacity 0.7s;
+    transition: opacity 0.7s; }
+    .app-page .main-item-poster img {
+      height: inherit;
+      width: inherit; }
+  .app-page .main-item-titles {
+    position: absolute;
+    left: 95px;
+    right: 25px;
+    top: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-transform: capitalize;
+    color: #454648;
+    height: 90px; }
+  .app-page .main-item-titles-title {
+    font-family: RobotoCondensedRegular;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    left: 0;
+    overflow: hidden;
+    font-size: 18px;
+    color: #7a8082;
+    text-overflow: ellipsis; }
+  .app-page .main-item-titles-artist {
+    font-family: RobotoLight;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 0;
+    overflow: hidden;
+    font-size: 22px;
+    color: #576971;
+    text-overflow: ellipsis; }
+  .app-page .main-item-titles-view {
+    font-family: RobotoCondensedLight;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    font-size: 14px;
+    color: #bec2c4;
+    direction: rtl; }
+  .app-page .main-item-titles-view-icon {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    height: 16px;
+    width: 22px;
+    margin-left: 10px;
+    background: transparent url("./assets/icons/view.png") no-repeat center center/cover; }
+  .app-page .main-item-titles-view-songs {
+    height: 14px;
+    background: transparent url("./assets/icons/icon-songs.png") no-repeat center center/contain; }
+  .app-page .main-item-humberger-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    background: transparent url("./assets/icons/humberger_center.png") no-repeat center center/cover;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .menu-item-pause-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1;
+    height: 60px;
+    width: 60px;
+    visibility: hidden;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    background: rgba(0, 0, 0, 0.5) url("./assets/icons/play-white.png") no-repeat center center/cover; }
+  .app-page .menu-item-cancel-icon {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    height: 50px;
+    width: 50px;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/cover; }
+  .app-page .main-item-show {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    background: transparent url("./assets/icons/item-show.png") no-repeat center 70%/cover; }
+  .app-page .main-item-titles-count {
+    position: absolute;
+    top: 67px;
+    right: 10px;
+    font-size: 14px;
+    display: none; }
+  .app-page .circleLoading {
+    background: transparent url("./assets/icons/icon-loading.png") no-repeat center center/contain;
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    -webkit-animation: spin-loader 4s infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation: spin-loader 4s infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation: spin-loader 4s infinite;
+    -ms-animation-timing-function: linear;
+    animation: spin-loader 4s infinite;
+    animation-timing-function: linear; }
+  .app-page .circleLoading-text {
+    color: #b7bdbe;
+    font-family: RobotoCondensedRegular;
+    font-size: 18px;
+    position: relative;
+    top: 55px; }
+  .app-page #load-more {
+    text-align: center; }
+  .app-page #failed-refresh .circleLoading, .app-page #sync-not-find .circleLoading, .app-page #load-more-items .circleLoading {
+    -webkit-animation: none;
+    -webkit-animation-timing-function: linear;
+    -moz-animation: none;
+    -moz-animation-timing-function: linear;
+    -ms-animation: none;
+    -ms-animation-timing-function: linear;
+    animation: none;
+    animation-timing-function: linear; }
+  .app-page #sync-not-find .circleLoading, .app-page #no-result .circleLoading {
+    display: none; }
+  .app-page #sync-not-find .circleLoading-text, .app-page #no-result .circleLoading-text {
+    top: 35px; }
+  .app-page #play-all-downloaded {
+    height: 50px;
+    width: 100%;
+    color: #b7bdbe;
+    font-family: RobotoCondensedRegular;
+    font-size: 18px;
+    padding-top: 15px;
+    text-align: center; }
+  .app-page #refresh {
+    height: 50px;
+    text-align: center; }
+  .app-page .main-item-ending {
+    text-align: center; }
+  .app-page .maxWidth {
+    width: 100%; }
+  .app-page .playing-icon {
+    display: none; }
+  .app-page #item-artist .main-item-poster {
+    border-radius: 50%; }
+  .app-page #item-artist .main-item-titles-title {
+    top: 20px;
+    font-size: 22px;
+    font-family: RobotoLight; }
+  .app-page #item-artist .main-item-titles-artist {
+    top: 50px;
+    font-size: 16px;
+    font-family: Roboto; }
+    .app-page #item-artist .main-item-titles-artist:before {
+      content: " ";
+      background: transparent url("./assets/icons/icon-fans.png") no-repeat 0 center/contain;
+      height: 15px;
+      width: 20px;
+      display: inline-block;
+      float: left; }
+    .app-page #item-artist .main-item-titles-artist small {
+      color: #b3b9bb;
+      font-family: RobotoCondensedRegular; }
+  .app-page #item-artist .main-item-titles-view {
+    top: 65px;
+    display: none; }
+  .app-page #item-album {
+    padding-top: 90px; }
+    .app-page #item-album .main-item-poster {
+      border-radius: 10%; }
+    .app-page #item-album .menu-item-pause-icon {
+      top: 17px;
+      left: -5px;
+      right: auto;
+      height: 30px;
+      width: 30px;
+      background: transparent url("./assets/icons/play-white.png") no-repeat center center/cover; }
+    .app-page #item-album .main-item-album-song-humberger-icon {
+      border-top: 15px solid transparent;
+      border-left: 20px solid transparent;
+      border-bottom: 5px solid transparent;
+      height: 30px;
+      width: 30px; }
+  .app-page .main-item-album-song {
+    height: 50px;
+    width: 100%;
+    position: relative;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .menu-item-album-song-number {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    display: none; }
+  .app-page .menu-item-album-song-title {
+    overflow: hidden;
+    font-family: RobotoCondensedRegular;
+    font-size: 18px;
+    color: #5f7077;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-transform: capitalize;
+    text-overflow: ellipsis; }
+  .app-page .menu-item-album-song-view {
+    font-family: RobotoCondensedLight;
+    position: absolute;
+    right: 30px;
+    font-size: 14px;
+    color: #bec2c4;
+    padding: 10px;
+    padding-top: 20px; }
+  .app-page .main-item-album-songs {
+    display: none;
+    display: block;
+    margin: 10px;
+    background: #e5e9ea;
+    border-radius: 5px; }
+  .app-page .main-item-artist-follow {
+    color: #3ab6e9;
+    display: inline-block;
+    padding-left: 10px; }
+  .app-page .main-item-artist-header {
+    background-color: #eee;
+    border-left: 5px solid #fff;
+    border-right: 5px solid #fff; }
+    .app-page .main-item-artist-header img {
+      width: 100%;
+      max-width: 490px;
+      border-radius: 20px; }
+  .app-page .main-item-titles-fans {
+    float: left; }
+  .app-page .artist-page-item {
+    height: 230px; }
+    .app-page .artist-page-item .main-item-artist-header-back {
+      background: transparent url("./assets/icons/back_.png") no-repeat center center/cover;
+      height: 60px;
+      width: 60px;
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      z-index: 1; }
+    .app-page .artist-page-item .main-item-poster {
+      position: absolute;
+      top: 20px;
+      height: auto;
+      width: 100%;
+      overflow: initial;
+      left: 0; }
+      .app-page .artist-page-item .main-item-poster .main-item-poster-holder {
+        height: 130px;
+        width: 130px;
+        margin: auto; }
+        .app-page .artist-page-item .main-item-poster .main-item-poster-holder img {
+          border-radius: 50%; }
+    .app-page .artist-page-item .main-item-titles {
+      height: 230px;
+      text-align: center;
+      left: 0;
+      right: 0; }
+    .app-page .artist-page-item .main-item-titles-title {
+      top: 20px;
+      font-size: 22px;
+      color: #576971;
+      font-family: RobotoLight;
+      position: relative;
+      top: 160px; }
+    .app-page .artist-page-item .main-item-titles-artist {
+      top: 50px; }
+    .app-page .artist-page-item .main-item-titles-become {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      height: 30px;
+      width: 30px;
+      background: transparent url("./assets/icons/icon-become.png") no-repeat 0 0/contain; }
+    .app-page .artist-page-item .main-item-titles-isfan {
+      background: transparent url("./assets/icons/icon-isfan.png") no-repeat 0 0/contain !important; }
+    .app-page .artist-page-item .main-item-artist-header-desc {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 30px;
+      text-align: center; }
+      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field {
+        height: inherit;
+        font-size: 18px;
+        display: inline-block;
+        font-family: Roboto;
+        padding-left: 10px;
+        padding-right: 10px; }
+        .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field:before {
+          content: " ";
+          height: 15px;
+          width: 15px;
+          display: inline-block;
+          float: left;
+          position: relative;
+          top: 3px; }
+        .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field small {
+          color: #b3b9bb;
+          font-family: RobotoCondensedRegular; }
+      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-fans:before {
+        background: transparent url("./assets/icons/icon-fans.png") no-repeat 0 0/contain; }
+      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-albums:before {
+        background: transparent url("./assets/icons/icon-albums.png") no-repeat 0 0/contain; }
+      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-songs:before {
+        background: transparent url("./assets/icons/icon-songs.png") no-repeat 0 0/contain; }
+  .app-page .main-item-username {
+    font-size: 18px;
+    color: #576971;
+    font-family: RobotoCondensedRegular;
+    line-height: 60px;
+    margin-left: 10px; }
+  .app-page .main-item-logout {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    height: 30px;
+    width: 80px;
+    line-height: 30px;
+    text-align: center;
+    color: #FFF;
+    background-color: #b8bdbe;
+    border-radius: 3px; }
+  .app-page #item-genre .main-item-poster {
+    font-family: RobotoCondensedRegular;
+    font-size: 20px;
+    color: #7a8082;
+    margin-top: 10px;
+    text-align: center; }
+  .app-page #item-genre .main-item-poster-count {
+    font-size: 16px;
+    color: #7a8082;
+    text-align: center; }
+  .app-page #item-genre .main-item-titles-title {
+    top: 30px;
+    font-size: 24px; }
+  .app-page #genre-header {
+    height: 50px; }
+    .app-page #genre-header .main-item-titles-title {
+      position: initial;
+      text-align: center;
+      font-size: 24px;
+      line-height: 50px; }
+  .app-page .fa .main-item-titles-artist {
+    direction: rtl !important;
+    text-align: left !important; }
+  .app-page .main-item-search {
+    height: 40px;
+    width: 100%;
+    background-color: #ccd2d3;
+    color: #82888a;
+    font-family: RobotoCondensedLight; }
+  .app-page .main-item-search-btn {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 40px;
+    width: 50px;
+    background: transparent url("./assets/icons/search-icon.png") no-repeat center center/cover; }
+  .app-page .main-item-search-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 60px;
+    bottom: 0; }
+    .app-page .main-item-search-input input {
+      height: 100%;
+      width: 100%;
+      padding-left: 15px;
+      font-family: RobotoCondensedLight;
+      font-size: 18px;
+      color: #7a8082; }
+    .app-page .main-item-search-input ::-webkit-input-placeholder {
+      color: #7a8082; }
+    .app-page .main-item-search-input :-moz-placeholder {
+      color: #7a8082; }
+    .app-page .main-item-search-input ::-moz-placeholder {
+      color: #7a8082; }
+    .app-page .main-item-search-input :-ms-input-placeholder {
+      color: #7a8082; }
+  .app-page .main-item-search {
+    text-align: center; }
+  .app-page .main-item-search-query {
+    position: relative;
+    top: 25px;
+    font-size: 18px;
+    color: #3ab6e9; }
+  .app-page .main-item-search-guide {
+    position: relative;
+    top: 30px;
+    white-space: nowrap;
+    color: #555; }
+  .app-page .main-item-search-icon {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    height: 30px;
+    width: 30px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/30px; }
+  .app-page .main-item-search-history {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+    display: none; }
+    .app-page .main-item-search-history .history-item {
+      font-size: 18px;
+      line-height: 50px;
+      height: 50px;
+      margin-left: 20px;
+      margin-right: 20px;
+      position: relative;
+      border-bottom: 1px #eee solid; }
+    .app-page .main-item-search-history .history-item-remove {
+      float: right;
+      padding-right: 20px;
+      padding-left: 20px;
+      color: #CCD2D3;
+      font-size: 14px;
+      background-color: #FFF;
+      height: 34px;
+      margin-top: 10px;
+      margin-left: 2px;
+      margin-right: 2px;
+      background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/50%; }
+  .app-page .setting-defaults {
+    height: 62px;
+    font-size: 18px;
+    color: #919798;
+    font-family: RobotoCondensedRegular; }
+  .app-page .main-item-default {
+    position: absolute;
+    top: 20px;
+    left: 10px; }
+  .app-page label.checkbox-setting {
+    position: absolute;
+    right: 0px; }
+  .app-page .custom-about {
+    height: 100px; }
+  .app-page .custom-about-text {
+    font-size: 22px;
+    color: #576971;
+    font-family: RobotoCondensedRegular;
+    position: relative;
+    top: 20px; }
+    .app-page .custom-about-text .segmented-label {
+      height: 50px;
+      line-height: 50px;
+      padding-right: 30px;
+      padding-left: 30px; }
+  .app-page .custom-logo-image {
+    height: 60px;
+    width: 60px;
+    position: relative;
+    top: 20px;
+    margin: auto; }
+    .app-page .custom-logo-image img {
+      height: 100%;
+      width: 100%; }
+  .app-page .custom-about-link {
+    text-decoration: underline;
+    font-family: Roboto;
+    color: #3ab6e9;
+    font-size: 14px; }
+  .app-page .main {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    width: 100%;
+    bottom: 67px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0; }
+  .app-page .top-tab-queue {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    width: 100%;
+    display: none;
+    overflow-y: scroll;
+    overflow-x: hidden; }
+  .app-page .queue-item {
+    position: relative;
+    height: 70px;
+    color: #222;
+    white-space: nowrap;
+    text-transform: capitalize;
+    border-bottom: 1px solid #eaecec; }
+  .app-page .queue-item-number {
+    display: none; }
+  .app-page .queue-item-name {
+    position: absolute;
+    left: 80px;
+    top: 35px;
+    font-size: 18px;
+    color: #7a8082;
+    font-family: RobotoCondensedRegular; }
+  .app-page .queue-item-artist {
+    position: absolute;
+    left: 80px;
+    top: 10px;
+    font-family: RobotoLight;
+    font-size: 22px;
+    color: #576971; }
+  .app-page .queue-item-playing-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    background: rgba(0, 0, 0, 0.5) url("./assets/icons/play-white.png") no-repeat center center/40px;
+    z-index: 10; }
+  .app-page .queue-item-poster {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    overflow: hidden; }
+    .app-page .queue-item-poster img {
+      height: inherit;
+      width: inherit; }
+  .app-page .queue-item-playing {
+    background-color: #00a1eb; }
+    .app-page .queue-item-playing .queue-item-artist {
+      color: #fff; }
+    .app-page .queue-item-playing .queue-item-name {
+      color: #16729d; }
+  .app-page #item-queue-clear {
+    line-height: 75px;
+    text-align: center; }
+  .app-page .top-tab-slide-segment-info-text {
+    padding-top: 20px;
+    text-align: center; }
+  .app-page .top {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #f5f7f7;
+    -webkit-transition: transform 0.4s;
+    -moz-transition: transform 0.4s;
+    -ms-transition: transform 0.4s;
+    -o-transition: transform 0.4s;
+    transition: transform 0.4s;
+    -webkit-transition: -webkit-transform 0.4s;
+    z-index: 3; }
+  .app-page .top-tab {
+    position: absolute;
+    top: 0;
+    bottom: 100px;
+    width: 100%; }
+  .app-page .top-tab-selector-holder {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    right: 0; }
+  .app-page .top-tab-selector {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #45494b;
+    line-height: 40px; }
+  .app-page .top-tab-selector-select {
+    line-height: 60px;
+    display: inline-block;
+    width: 50%;
+    color: #f9f9f9;
+    font-family: RobotoCondensedRegular;
+    height: 100%;
+    text-align: center; }
+  .app-page .top-tab-selector-selected {
+    height: 100%;
+    background-color: #00a1eb; }
+  .app-page .top-tab-close {
+    display: inline-block;
+    float: left;
+    width: 60px;
+    height: 60px;
+    background: transparent url("./assets/icons/back_white.png") no-repeat center center/cover; }
+  .app-page .top-tab-slide {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    width: 100%; }
+  .app-page .top-tab-slide-segment {
+    position: absolute;
+    top: 80px;
+    bottom: 50px;
+    width: 100%;
+    overflow: hidden; }
+  .app-page .top-tab-slide-segment-cover {
+    position: absolute;
+    height: 100%;
+    width: inherit;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -ms-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
+  .app-page .top-tab-slide-segment-cover-image {
+    margin: auto;
+    position: relative;
+    top: 10px;
+    width: 80%;
+    height: 80%;
+    text-align: center; }
+    .app-page .top-tab-slide-segment-cover-image img {
+      border: 1px solid #b7bfc1;
+      max-width: 100%;
+      max-height: 100%;
+      height: 100%; }
+  .app-page .top-tab-slide-segment-covercover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 30px;
+    width: inherit;
+    background: #f5f7f7;
+    opacity: 0;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -ms-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
+  .app-page .top-tab-slide-segment-lyric {
+    position: absolute;
+    top: 0;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: center;
+    direction: rtl;
+    z-index: 102; }
+    .app-page .top-tab-slide-segment-lyric::-webkit-scrollbar {
+      display: none; }
+  .app-page .top-tab-slide-segment-info {
+    position: absolute;
+    top: 0;
+    bottom: 30px;
+    width: inherit;
+    z-index: 102; }
+  .app-page .top-tab-slide-segment-subtitle {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -ms-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
+  .app-page .top-tab-slide-segment-subtitle-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #7E7E7E;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -ms-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
+  .app-page .top-tab-slide-selects {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+    height: 10px;
+    line-height: 10px;
+    text-align: center;
+    z-index: 105; }
+  .app-page .top-tab-slide-selects-select {
+    position: relative;
+    top: -20px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #e2e5e5;
+    display: inline-block;
+    margin-right: 7px;
+    -webkit-transition: opacity 0.4s, background-color 0.4s;
+    -moz-transition: opacity 0.4s, background-color 0.4s;
+    -ms-transition: opacity 0.4s, background-color 0.4s;
+    -o-transition: opacity 0.4s, background-color 0.4s;
+    transition: opacity 0.4s, background-color 0.4s; }
+  .app-page .top-tab-slide-select {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background-color: blue; }
+  .app-page .player {
+    background-color: #e5e9ea;
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: none; }
+  .app-page .mini-player {
+    background-color: #fff;
+    border-top: 20px white solid;
+    height: 76px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: inline-block; }
+  .app-page .mini-player-image {
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    height: 60px;
+    width: 60px; }
+    .app-page .mini-player-image img {
+      height: 100%;
+      width: 100%; }
+  .app-page .mini-player-titles {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    text-align: center; }
+  .app-page .mini-player-titles-song-name {
+    position: absolute;
+    top: 5px;
+    overflow: hidden;
+    font-size: 22px;
+    font-family: RobotoLight;
+    white-space: nowrap;
+    text-transform: capitalize;
+    overflow: hidden;
+    left: 85px;
+    right: 65px;
+    color: #576971;
+    height: 45px;
+    line-height: 45px;
+    text-overflow: ellipsis; }
+  .app-page .mini-player-titles-artist {
+    position: absolute;
+    top: 35px;
+    left: 60px;
+    right: 55px;
+    overflow: hidden;
+    height: 45px;
+    line-height: 35px;
+    white-space: nowrap;
+    text-transform: capitalize;
+    overflow: hidden;
+    left: 75px;
+    right: 55px;
+    font-size: 18px;
+    font-family: RobotoCondensedRegular;
+    color: #7a8082;
+    text-overflow: ellipsis; }
+    .app-page .mini-player-titles-artist span {
+      padding: 10px; }
+  .app-page .mini-player-icons-play {
+    position: absolute;
+    top: 11px;
+    right: 15px;
+    height: 50px;
+    width: 50px;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s;
+    background: transparent url("./assets/icons/play_mini.png") no-repeat center center/cover; }
+  .app-page .top-icons-pause-mini {
+    background: transparent url("./assets/icons/pause_mini.png") no-repeat center center/cover; }
+  .app-page .top-titles {
+    position: absolute;
+    top: 10px;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: capitalize;
+    text-overflow: ellipsis; }
+  .app-page .top-titles-song-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #576971;
+    font-family: RobotoLight;
+    width: 100%;
+    height: 25px;
+    line-height: 45px;
+    font-size: 22px;
+    color: #333;
+    white-space: nowrap;
+    text-transform: capitalize;
+    text-overflow: ellipsis; }
+  .app-page .top-titles-artist {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    color: #00a1eb;
+    font-family: Roboto;
+    width: 100%;
+    height: 25px;
+    line-height: 35px;
+    font-size: 18px;
+    text-overflow: ellipsis; }
+  .app-page .top-icons {
+    position: relative;
+    top: 20px;
+    height: 50px;
+    width: 100%;
+    text-align: center; }
+  .app-page .top-icon {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .top-icons-player {
+    background: transparent url("./assets/icons/player.png") no-repeat center center/cover; }
+  .app-page .top-icons-pre {
+    background: transparent url("./assets/icons/prev_mini.png") no-repeat center center/cover;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px; }
+  .app-page .top-icons-play {
+    background: transparent url("./assets/icons/play_mini.png") no-repeat center center/cover;
+    position: relative;
+    top: 5px; }
+  .app-page .top-icons-pause {
+    background: transparent url("./assets/icons/pause_mini.png") no-repeat center center/cover; }
+  .app-page .top-icons-next {
+    background: transparent url("./assets/icons/next_mini.png") no-repeat center center/cover;
+    margin-left: 20px;
+    height: 40px;
+    width: 40px; }
+  .app-page .top-icons-sync {
+    background: transparent url("./assets/icons/sync.png") no-repeat center center/cover; }
+  .app-page .top-icons-fav {
+    background: transparent url("./assets/icons/fav_white.png") no-repeat center center/cover;
+    margin-left: 40px; }
+  .app-page .top-icons-repeat {
+    background: transparent url("./assets/icons/repeat_off.png") no-repeat center center/cover;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px; }
+  .app-page .repeat {
+    background: transparent url("./assets/icons/repeat.png") no-repeat center center/cover; }
+  .app-page .repeat-all {
+    background: transparent url("./assets/icons/repeat_all.png") no-repeat center center/cover; }
+  .app-page .top-icons-shuffle {
+    background: transparent url("./assets/icons/shuffle_off.png") no-repeat center center/cover;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px; }
+  .app-page .shuffle {
+    background: transparent url("./assets/icons/shuffle.png") no-repeat center center/cover; }
+  .app-page .top-icons-faved {
+    background: transparent url("./assets/icons/fav_red.png") no-repeat center center/cover; }
+  .app-page .top-icons-add {
+    background: transparent url("./assets/icons/add_white.png") no-repeat center center/cover;
+    margin-right: 40px; }
+  .app-page .top-seekbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #e7e7e7; }
+  .app-page .top-seekbar-move {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #3ab6e9;
+    -webkit-transition: -webkit-transform 0.15s;
+    -moz-transition: -moz-transform 0.15s;
+    -ms-transition: -ms-transform 0.15s;
+    -o-transition: -o-transform 0.15s;
+    transition: transform 0.15s;
+    -webkit-transform-origin: 0;
+    -moz-transform-origin: 0;
+    -ms-transform-origin: 0;
+    -o-transform-origin: 0;
+    transform-origin: 0; }
+  .app-page .top-bufferbar-move {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #9B9B9B;
+    -webkit-transition: -webkit-transform 0.15s;
+    -moz-transition: -moz-transform 0.15s;
+    -ms-transition: -ms-transform 0.15s;
+    -o-transition: -o-transform 0.15s;
+    transition: transform 0.15s;
+    -webkit-transform-origin: 0;
+    -moz-transform-origin: 0;
+    -ms-transform-origin: 0;
+    -o-transform-origin: 0;
+    transform-origin: 0; }
+  .app-page .top-seekbar-handle {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    height: 40px;
+    width: 40px; }
+  .app-page .top-seekbar-handle-visual {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    height: 20px;
+    width: 20px;
+    background-color: #3ab6e9;
+    border-radius: 50%; }
+  .app-page .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 67px;
+    width: 100%;
+    background: #45494b;
+    color: #fff;
+    text-align: center;
+    font-size: 0; }
+    .app-page .bottom:before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: rgba(0, 0, 0, 0.1); }
+  .app-page .bottom-complex-icon {
+    display: inline-block;
+    height: 100%;
+    -webkit-transition: background-color 0.7s;
+    -moz-transition: background-color 0.7s;
+    -ms-transition: background-color 0.7s;
+    -o-transition: background-color 0.7s;
+    transition: background-color 0.7s; }
+  @media screen and (max-width: 700px) {
+    .app-page .bottom-complex-icon {
+      width: 20%; } }
+  @media screen and (min-width: 700px) {
+    .app-page .bottom-complex-icon {
+      width: 70px; } }
+  @media screen and (min-width: 1200px) {
+    .app-page .bottom-complex-icon {
+      width: 70px; } }
+  .app-page .bottom-icon-text {
+    display: inline-block;
+    margin-left: 0px;
+    width: 55px;
+    position: relative;
+    top: 5px;
+    text-align: center;
+    font-family: RobotoCondensedRegular;
+    font-size: 12px; }
+  .app-page .bottom-icon {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: 8px;
+    margin: auto; }
+  .app-page .bottom-icon-home {
+    background: transparent url("./assets/icons/home.png") no-repeat center center/cover; }
+  .app-page .bottom-icon-artist {
+    background: transparent url("./assets/icons/artist.png") no-repeat center center/cover; }
+  .app-page .bottom-icon-song {
+    background: transparent url("./assets/icons/song.png") no-repeat center center/cover; }
+  .app-page .bottom-icon-album {
+    background: transparent url("./assets/icons/album.png") no-repeat center center/cover; }
+  .app-page .bottom-icon-playlist {
+    background: transparent url("./assets/icons/more.png") no-repeat center center/cover; }
+  .app-page .menu-box-add-to-queue {
+    background: transparent url("./assets/icons/item-add-to-queue-2.png") no-repeat center center/cover; }
+  .app-page .menu-box-play-next {
+    background: transparent url("./assets/icons/item-play-next.png") no-repeat center center/cover; }
+  .app-page .menu-box-add-to-playlist {
+    background: transparent url("./assets/icons/item-add-to-playlist.png") no-repeat center center/cover; }
+  .app-page .menu-box-sync {
+    background: transparent url("./assets/icons/item-sync.png") no-repeat center center/cover; }
+  .app-page .menu-box-syncicon {
+    background: transparent url("./assets/icons/item-syncicon.png") no-repeat center center/cover; }
+  .app-page .menu-box-info {
+    background: transparent url("./assets/icons/item-detail.png") no-repeat center center/cover; }
+  .app-page .menu-box-play {
+    background: transparent url("./assets/icons/item-play.png") no-repeat center center/cover; }
+  .app-page .menu-box-follow {
+    background: transparent url("./assets/icons/item-follow.png") no-repeat center center/cover; }
+  .app-page .menu-playlist-item {
+    height: 80px;
+    position: relative;
+    border-bottom: 1px solid #eaecec; }
+  .app-page .menu-playlist-item-title {
+    font-family: RobotoLight;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    overflow: hidden;
+    font-size: 22px;
+    color: #576971; }
+  .app-page .menu-playlist-item-count {
+    font-family: RobotoCondensedRegular;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    overflow: hidden;
+    font-size: 18px;
+    color: #7a8082; }
+  .app-page .menu-box-subpage {
+    min-height: 200px; }
+    .app-page .menu-box-subpage h3 {
+      text-align: center; }
+    .app-page .menu-box-subpage h4 {
+      text-align: center;
+      color: #3ab6e9;
+      text-decoration: underline; }
+  .app-page .menu-subpage-info-divs {
+    overflow-x: hidden; }
+  .app-page .menu-subpage-info-text {
+    position: relative;
+    left: 10px;
+    right: 10px;
+    height: 40px;
+    line-height: 40px; }
+  .app-page .menu-subpage-info-text-lyric {
+    position: relative;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
+    border-bottom: 1px #666 solid; }
+  .app-page .menu-subpage-info-text-lyric-content {
+    text-align: center; }
+  .app-page .menu-subpage-info-text-artist {
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #00a1eb;
+    font-family: Roboto;
+    font-size: 18px; }
+  .app-page .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    z-index: 1000; }
+  .app-page .menu-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    opacity: 0;
+    -webkit-transition: opacity 0.7s;
+    -moz-transition: opacity 0.7s;
+    -ms-transition: opacity 0.7s;
+    -o-transition: opacity 0.7s;
+    transition: opacity 0.7s; }
+  .app-page .menu-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    max-height: 80%;
+    background-color: #FFF;
+    transform: translateY(300px);
+    -webkit-transform: translateY(300px);
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    transition: transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    -webkit-transition: -webkit-transform 0.3s;
+    -moz-transition: -moz-transform 0.3s;
+    -ms-transition: -ms-transform 0.3s;
+    -o-transition: -o-transform 0.3s;
+    overflow-y: scroll; }
+  .app-page .menu-box-item {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    color: #555;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .menu-box-item-icon {
+    float: left;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-right: 30px;
+    height: 40px;
+    width: 40px; }
+  .app-page .menu-box-share {
+    background: transparent url("./assets/icons/item-share.png") no-repeat center center/cover; }
+  .app-page .menu-box-cancel {
+    background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/cover; }
+  .app-page .menu-box-remove {
+    background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/cover; }
+  .app-page .menu-box::-webkit-scrollbar {
+    display: none; }
+  .app-page .main-item-segmented {
+    height: 40px;
+    width: 100%;
+    background-color: #e5e9ea; }
+  .app-page .segmented {
+    display: inline-block; }
+  .app-page .segmented-label {
+    display: inline-block;
+    height: 30px;
+    font-size: 18px;
+    font-family: RobotoCondensedRegular;
+    color: #919798;
+    line-height: 30px;
+    position: relative;
+    top: 4px;
+    left: 10px;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    -webkit-transition: color 0.4s, background-color 0.4s;
+    -moz-transition: color 0.4s, background-color 0.4s;
+    -ms-transition: color 0.4s, background-color 0.4s;
+    -o-transition: color 0.4s, background-color 0.4s;
+    transition: color 0.4s, background-color 0.4s; }
+  .app-page .segmented-label-selected {
+    background-color: #3ab6e9;
+    color: #fff; }
+  .app-page .main-item-segmented-left {
+    font-size: 18px;
+    font-family: RobotoCondensedRegular;
+    color: #919798;
+    float: left; }
+  .app-page .main-item-segmented-left-icon {
+    background: transparent url("./assets/icons/back_.png") no-repeat center center/cover;
+    height: 60px;
+    width: 60px; }
+  .app-page .main-item-segmented-left-text {
+    display: none;
+    padding-left: 30px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+    position: relative;
+    top: 11px; }
+  .app-page .more-select {
+    width: 100%;
+    height: 90px;
+    line-height: 90px;
+    border-bottom: 1px solid #eaecec;
+    font-size: 20px;
+    transition: background-color 0.4s;
+    font-family: RobotoLight;
+    overflow: hidden;
+    font-size: 22px;
+    color: #576971;
+    text-overflow: ellipsis; }
+  .app-page .more-select-icon {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    position: relative;
+    top: 20px; }
+  .app-page .more-select-text {
+    padding-left: 50px;
+    padding-right: 50px; }
+  .app-page .main-item-artist-header-back {
+    background: transparent url("./assets/icons/back_.png") no-repeat center center/cover;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1; }
+  .app-page #nothing-downloaded {
+    height: 50px;
+    width: 100%;
+    color: #b7bdbe;
+    font-family: RobotoCondensedRegular;
+    font-size: 18px;
+    padding-top: 15px;
+    text-align: center;
+    border: none; }
+  .app-page .move-down-for-backbutton .main-item {
+    top: 50px; }
+  .app-page .search-bar {
+    height: 50px; }
+    .app-page .search-bar input {
+      height: 100%;
+      width: 100%;
+      padding-left: 15px;
+      font-family: RobotoCondensedLight;
+      font-size: 18px;
+      color: #7a8082; }
+  .app-page #new-playlist, .app-page #failedDiv, .app-page #failed-load-playlist {
+    height: 50px;
+    font-family: RobotoCondensedLight;
+    font-size: 18px;
+    color: #7a8082;
+    line-height: 50px;
+    color: #3ab6e9;
+    text-align: center; }
+  .app-page #failedDiv, .app-page #failed-load-playlist {
+    color: #b7bdbe; }
+  .app-page .about {
+    text-align: center;
+    font-size: 18px; }
+    .app-page .about div {
+      padding-top: 15px;
+      padding-bottom: 15px; }
+    .app-page .about a {
+      text-decoration: none;
+      color: #3ab6e9; }
+  .app-page .about-logo {
+    margin-top: 50px; }
+  .app-page .about-link {
+    font-size: 32px; }
+  .app-page .about-desc {
+    color: #7a8082;
+    padding-top: 0 !important; }
+  .app-page .about-dmca {
+    direction: rtl; }
+  .app-page #more-option-Downloaded_Media .more-select-icon {
+    background: transparent url("./assets/icons/item-sync.png") no-repeat 0 0/contain; }
+  .app-page #more-option-Recent_Media .more-select-icon {
+    background: transparent url("./assets/icons/item-add-to-queue.png") no-repeat 0 0/contain; }
+  .app-page #more-option-Playlists .more-select-icon {
+    background: transparent url("./assets/icons/playlist.png") no-repeat 0 0/contain; }
+  .app-page #more-option-Settings .more-select-icon {
+    background: transparent url("./assets/icons/settings.png") no-repeat 0 0/contain; }
+  .app-page #more-option-About_us .more-select-icon {
+    background: transparent url("./assets/icons/about.png") no-repeat 0 0/contain; }
