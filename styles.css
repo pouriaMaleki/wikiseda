@@ -1949,9 +1949,13 @@ html, body {
       text-decoration: none;
       color: #3ab6e9; }
   .app-page .about-logo {
-    margin-top: 50px; }
+    margin-top: 10px;
+    padding-top: 15px !important;
+    padding-bottom: 5px !important; }
   .app-page .about-link {
-    font-size: 32px; }
+    font-size: 32px;
+    padding-top: 5px !important;
+    padding-bottom: 15px !important; }
   .app-page .about-desc {
     color: #7a8082;
     padding-top: 0 !important; }

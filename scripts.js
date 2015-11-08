@@ -798,7 +798,7 @@ module.exports = function(data, downloaded, history) {
     }
     song.poster_big = data.poster_big;
     musicDataCache.data[song.id] = song;
-    viewString = "<div class=\"main-item-titles-view-icon\"></div>" + data.view;
+    viewString = "<div class=\"main-item-titles-view-icon\"></div>" + song.view;
     downloadedText = "";
     if (downloaded === true) {
       downloadedText = "downloaded=\"true\"";
@@ -855,7 +855,7 @@ var url;
 url = require('../Tools/url');
 
 module.exports = function(data) {
-  var albumsText, fansText, following, tracksText;
+  var albumsText, fansText, following, shouldUpdate, tracksText;
   if (data.fans == null) {
     data.fans = "??";
   }
@@ -886,7 +886,11 @@ module.exports = function(data) {
   if (parseInt(data.following) === 1) {
     following = "main-item-titles-isfan";
   }
-  return "<div class=\"main-item maxWidth artist-page-item\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-become " + following + "\"></div>\n	</div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums\">" + albumsText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs\">" + tracksText + "</div>\n	</div>\n</div>";
+  shouldUpdate = "";
+  if (data.shouldUpdate != null) {
+    shouldUpdate = "shouldUpdate";
+  }
+  return "<div class=\"main-item maxWidth artist-page-item " + shouldUpdate + "\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-become " + following + "\"></div>\n	</div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums\">" + albumsText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs\">" + tracksText + "</div>\n	</div>\n</div>";
 };
 
 
@@ -1512,6 +1516,7 @@ module.exports = SongDownloading = (function() {
   };
 
   SongDownloading.prototype.skip = function() {
+    this._downloading = "";
     try {
       this.el.parentNode.removeChild(this.el);
     } catch (undefined) {}
@@ -3501,25 +3506,10 @@ module.exports = serialize = function(obj) {
 
 },{}],30:[function(require,module,exports){
 module.exports = function(address) {
-  var addressPathArray, host, i, protocol, serverPathArray, url, y;
   if (address === null || address === void 0) {
     return void 0;
   }
-  addressPathArray = address.split("/");
-  serverPathArray = SERVER_ADDRESS.split("/");
-  if (addressPathArray[0] === serverPathArray[0] && addressPathArray[1] === serverPathArray[1]) {
-    return address;
-  }
-  y = "";
-  i = 3;
-  while (i < addressPathArray.length) {
-    y = y + "/" + addressPathArray[i];
-    i++;
-  }
-  protocol = serverPathArray[0];
-  host = serverPathArray[2];
-  url = protocol + "//" + host;
-  return encodeURI(url + y);
+  return encodeURI(address);
 };
 
 
@@ -4614,8 +4604,12 @@ module.exports = new (HistoryManage = (function() {
   }
 
   HistoryManage.prototype.add = function(data) {
-    var list;
+    var keys, list;
     list = this.getList();
+    keys = Object.keys(list);
+    if (keys.length >= 50) {
+      delete list[keys[keys.length - 1]];
+    }
     list[data.id] = data;
     return settingStorage.set("play-history", list);
   };
@@ -5684,12 +5678,13 @@ Touch.onTap("segmented-back").onStart((function(_this) {
   };
 })(this));
 
+selectedArtist = null;
+
 artists = [];
 
 pm = new PageManager((function(_this) {
   return function(items) {
-    var data, div, elText, i, isPlaying, j, k, len, len1, len2, playlist, ref, selectedArtist, track;
-    console.log(items);
+    var data, div, elText, i, isPlaying, j, k, len, len1, len2, playlist, ref, shouldUpdateHeader, track;
     if ((_type === "artistExpanded" || _type === "genreExpanded") && items.items.length === 0) {
       return;
     }
@@ -5706,10 +5701,9 @@ pm = new PageManager((function(_this) {
     if (_type === "artist" || (_type === "home" && _query !== "")) {
       artists = items;
     } else if (_type === "artistExpanded") {
-      if (items.artist[0] != null) {
+      if (selectedArtist.shouldUpdate) {
         selectedArtist = items.artist[0];
       }
-      main.innerHTML = segmentedTypes[_type]() + types.artistExpanded(selectedArtist);
       items = items.items;
       artists = [];
     } else if (_type === "genreExpanded") {
@@ -5766,6 +5760,12 @@ pm = new PageManager((function(_this) {
       }
       if (selectedSegmented != null) {
         selectedSegmented.classList.add('segmented-label-selected');
+      }
+      if (_type === "artistExpanded") {
+        shouldUpdateHeader = main.querySelector(".shouldUpdate");
+        if (shouldUpdateHeader != null) {
+          shouldUpdateHeader.outerHTML = types.artistExpanded(selectedArtist);
+        }
       }
     }
     return searchEvent();
@@ -5933,7 +5933,7 @@ loadSongs = (function(_this) {
 
 main.addEventListener('scroll', (function(_this) {
   return function(event) {
-    if (main.scrollTop + main.getBoundingClientRect().height === main.scrollHeight && _type !== "playlist") {
+    if (Math.ceil(main.scrollTop + main.getBoundingClientRect().height) >= main.scrollHeight && _type !== "playlist") {
       return loadSongs();
     }
   };
@@ -6029,8 +6029,6 @@ openGenre = function(div) {
   return initPage();
 };
 
-selectedArtist = null;
-
 Touch.onTap("item-artist").onStart((function(_this) {
   return function(event) {
     return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
@@ -6064,7 +6062,6 @@ openArtist = function(div) {
     return;
   }
   if (selectedArtist != null) {
-    console.log(id, selectedArtist.id);
     if (id === selectedArtist.id) {
       return;
     }
@@ -6094,7 +6091,8 @@ openArtist = function(div) {
     }
     selectedArtist = {
       id: id,
-      artist: div.innerHTML
+      artist: div.innerHTML,
+      shouldUpdate: true
     };
     return initPage();
   }
@@ -6122,7 +6120,6 @@ searchEverything = function(text, hasInput) {
     _segment = "new";
     _query = searchInputText;
     searchHistory.add(searchInputText);
-    window.x = searchHistory;
     setTimeout(initPage, 200);
     selectedMenuItem.style.backgroundColor = '';
     selectedMenuItem = document.getElementById('icon-home');
@@ -6341,7 +6338,7 @@ module.exports = new morePage;
 
 
 },{"./MenuManagement":22,"./more/about":45,"./more/downloads":46,"./more/history":47,"./more/playlists":48,"./more/settings":49,"simple-touch":74}],45:[function(require,module,exports){
-var About, Touch, historyManage;
+var About, Touch, fbLink, fbLinks, historyManage, insta, instaLinks, schemeFb, schemeInsta;
 
 historyManage = require('../historyManage');
 
@@ -6351,50 +6348,83 @@ module.exports = About = (function() {
   function About() {}
 
   About.prototype.getNode = function() {
-    var div, fbLink, fbLinks, insta, instaLinks, schemeFb, schemeInsta;
+    var div;
     div = document.createElement("div");
     div.classList.add("about");
-    insta = "http://instagram.com/_u/wikiseda";
-    fbLink = "http://facebook.com/wikiseda";
-    if (typeof device !== "undefined" && device !== null) {
-      if (typeof appAvailability !== "undefined" && appAvailability !== null) {
-        instaLinks = {
-          android: "http://instagram.com/_u/wikiseda",
-          ios: "instagram://user?username=wikiseda"
-        };
-        fbLinks = "fb://page/wikiseda";
-        schemeInsta = void 0;
-        schemeFb = void 0;
-        if (device.platform === 'iOS') {
-          schemeInsta = 'instagram://';
-          schemeFb = 'fb://';
-        } else if (device.platform === 'Android') {
-          schemeInsta = 'com.instagram.android';
-          schemeFb = 'com.facebook.katana';
-        }
-        appAvailability.check(schemeInsta, (function() {
-          if (device.platform === 'iOS') {
-            insta = instaLinks.ios;
-          } else if (device.platform === 'Android') {
-            insta = instaLinks.android;
-          }
-        }), function() {});
-        appAvailability.check(schemeFb, (function() {
-          if (device.platform === 'iOS') {
-            fbLink = fbLinks;
-          } else if (device.platform === 'Android') {
-            fbLink = fbLinks;
-          }
-        }), function() {});
-      }
-    }
-    div.innerHTML = "<div class=\"about-logo\">\n	<a onclick=\"window.open('http://wikiseda.org', '_system')\"><img src=\"./assets/images/logo.png\" height=\"120px\" width=\"120px\" alt=\"Instagram\" /></a>\n</div>\n<div class=\"about-link\"><a onclick=\"window.open('http://wikiseda.org', '_system')\">ویکی صدا</a></div>\n<div class=\"about-desc\">تمام ترانه ها در جیب شما</div>\n<div><a onclick=\"window.open('http://wikiseda.org/about.html', '_system')\">درباره ما</a></div>\n<div class=\"about-dmca\"><a onclick=\"window.open('http://wikiseda.org/DMCA.html', '_system')\">ادعای حذف آثار کپی رایت شده (DMCA)</a></div>\n<div>\n	<span>\n		<a onclick=\"window.open('" + insta + "', '_system')\"><img src=\"./assets/images/insta.png\" height=\"60px\" width=\"60px\" alt=\"Instagram\" /></a>\n	</span>\n	<span>\n		<a onclick=\"window.open('" + fbLink + "', '_system')\"><img src=\"./assets/images/face.png\" height=\"60px\" width=\"60px\" alt=\"Facebook\" /></a>\n	</span>\n</div>\n";
+    div.innerHTML = "<div class=\"about-logo\">\n	<a onclick=\"window.open('http://wikiseda.org', '_system')\"><img src=\"./assets/images/logo.png\" height=\"120px\" width=\"120px\" alt=\"Instagram\" /></a>\n</div>\n<div class=\"about-link\"><a onclick=\"window.open('http://wikiseda.org', '_system')\">ویکی صدا</a></div>\n<div class=\"about-desc\">تمام ترانه ها در جیب شما</div>\n<div class=\"about-dmca\"><a onclick=\"window.open('http://wikiseda.org/DMCA.html', '_system')\">ادعای حذف آثار کپی رایت شده (DMCA)</a></div>\n<div>\n	<span>\n		<a id=\"about-link-insta\"><img src=\"./assets/images/insta.png\" height=\"60px\" width=\"60px\" alt=\"Instagram\" /></a>\n	</span>\n	<span>\n		<a id=\"about-link-face\"><img src=\"./assets/images/face.png\" height=\"60px\" width=\"60px\" alt=\"Facebook\" /></a>\n	</span>\n</div>\n";
     return div;
   };
 
   return About;
 
 })();
+
+insta = "http://instagram.com/_u/wikiseda";
+
+fbLink = "http://facebook.com/wikiseda";
+
+if (typeof device !== "undefined" && device !== null) {
+  if (typeof appAvailability !== "undefined" && appAvailability !== null) {
+    instaLinks = {
+      android: "http://instagram.com/_u/wikiseda",
+      ios: "instagram://user?username=wikiseda"
+    };
+    fbLinks = "fb://page/wikiseda";
+    schemeInsta = void 0;
+    schemeFb = void 0;
+    if (device.platform === 'iOS') {
+      schemeInsta = 'instagram://';
+      schemeFb = 'fb://';
+    } else if (device.platform === 'Android') {
+      schemeInsta = 'com.instagram.android';
+      schemeFb = 'com.facebook.katana';
+    }
+    appAvailability.check(schemeInsta, (function() {
+      if (device.platform === 'iOS') {
+        insta = instaLinks.ios;
+      } else if (device.platform === 'Android') {
+        insta = instaLinks.android;
+      }
+    }), function() {});
+    appAvailability.check(schemeFb, (function() {
+      if (device.platform === 'iOS') {
+        fbLink = fbLinks;
+      } else if (device.platform === 'Android') {
+        fbLink = fbLinks;
+      }
+    }), function() {});
+  }
+}
+
+Touch.onTap("about-link-face").onStart((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+  };
+})(this)).onEnd((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onTap((function(_this) {
+  return function(event) {
+    event.preventDefault();
+    return window.open(fbLink, '_system');
+  };
+})(this));
+
+Touch.onTap("about-link-insta").onStart((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+  };
+})(this)).onEnd((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onTap((function(_this) {
+  return function(event) {
+    event.preventDefault();
+    return window.open(insta, '_system');
+  };
+})(this));
 
 
 
@@ -6503,9 +6533,8 @@ Downloads = (function() {
       downloaded = JSON.parse(settingStorage.get("downloaded"));
       options = {
         caseSensitive: false,
-        includeScore: false,
         shouldSort: true,
-        threshold: 0.6,
+        threshold: 0.1,
         location: 0,
         distance: 100,
         maxPatternLength: 32,
@@ -6722,9 +6751,8 @@ History = (function() {
       });
       options = {
         caseSensitive: false,
-        includeScore: false,
         shouldSort: true,
-        threshold: 0.6,
+        threshold: 0.1,
         location: 0,
         distance: 100,
         maxPatternLength: 32,
@@ -7963,18 +7991,18 @@ searchHistory = require('./searchHistory');
 cancelBlur = false;
 
 updateList = function(element, val) {
-  var count, i, id, item, itemsDivText, len, list;
+  var count, i, id, item, itemsDivText, list, ref;
   list = searchHistory.getFilteredList(val);
   itemsDivText = "";
   count = 0;
-  for (id = i = 0, len = list.length; i < len; id = ++i) {
+  for (id = i = ref = list.length; ref <= 0 ? i <= 0 : i >= 0; id = ref <= 0 ? ++i : --i) {
     item = list[id];
-    if (item === null) {
+    if (item === null || item === void 0) {
       continue;
     }
     count++;
-    itemsDivText = ("<div class=\"history-item\" id=\"history-item\" data-history-id=\"" + id + "\"><span class=\"history-item-text\">" + item + "</span><span class=\"history-item-remove\" id=\"history-item-remove\"></span></div>") + itemsDivText;
-    if (count > 9) {
+    itemsDivText = itemsDivText + ("<div class=\"history-item\" id=\"history-item\" data-history-id=\"" + id + "\"><span class=\"history-item-text\">" + item + "</span><span class=\"history-item-remove\" id=\"history-item-remove\"></span></div>");
+    if (count > 4) {
       break;
     }
   }
@@ -8031,12 +8059,14 @@ Touch.onTap("history-item-remove").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    var id, text;
+    var element, id, text;
     id = event.listener.parentNode.getAttribute("data-history-id");
     text = event.listener.parentNode.querySelector(".history-item-text").innerText;
     searchHistory.remove(id);
     cancelBlur = true;
-    return event.listener.parentNode.parentNode.removeChild(event.listener.parentNode);
+    element = event.listener.parentNode.parentNode;
+    element.removeChild(event.listener.parentNode);
+    return updateList(element, "");
   };
 })(this));
 
