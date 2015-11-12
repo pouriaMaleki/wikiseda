@@ -985,7 +985,7 @@ settingStorage = require('../Tools/SettingStorage');
 playlistSong = require('./playlistSong');
 
 module.exports = function(data) {
-  var elText, i, j, len, playlistPoster, ref, song, songText, songs, syncPlaylist;
+  var count, elText, i, j, len, playlistPoster, ref, song, songText, songs, syncPlaylist;
   data.albumtracks = data.albumtracks || data.tracks;
   playlistPoster = "./assets/images/logo.png";
   if (data.albumtracks.length > 3) {
@@ -996,10 +996,15 @@ module.exports = function(data) {
     elText = "موسیقی";
   }
   songs = "";
+  count = 0;
   ref = data.albumtracks;
   for (i = j = 0, len = ref.length; j < len; i = ++j) {
     song = ref[i];
+    count++;
     songText = playlistSong(song, i);
+    if (songText === "" || songText === false) {
+      count--;
+    }
     if (songText !== false) {
       songs = songs + songText;
     }
@@ -1008,7 +1013,7 @@ module.exports = function(data) {
   if (settingStorage.get("playlist-" + data.id)) {
     syncPlaylist = " data-synced=\"true\" ";
   }
-  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" " + syncPlaylist + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + data.albumtracks.length + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
+  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" " + syncPlaylist + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + count + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
 };
 
 
@@ -1540,6 +1545,9 @@ settingStorage = require('../Tools/SettingStorage');
 
 module.exports = function(song) {
   var mp3;
+  if (song == null) {
+    return "";
+  }
   mp3 = song.mp3;
   if (settingStorage.get("play-default-quality") === "high") {
     mp3 = song.mp3 || song.mp3_low;
@@ -4288,8 +4296,18 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
     if (parseInt(artistHeader.getAttribute("data-following")) === 0) {
       become.classList.add("main-item-titles-isfan");
       return artist.follow(id, function(following) {
-        var elText;
+        var elText, errorText, exactArtistElement, fansOfExactArstistElement;
         if (following != null) {
+          exactArtistElement = document.querySelector("#item-artist.main-item[data-artist-id='" + id + "']");
+          if (exactArtistElement != null) {
+            fansOfExactArstistElement = exactArtistElement.querySelector(".main-item-titles-artist");
+            fansOfExactArstistElement.setAttribute("data-following", 1);
+            elText = " <small>Fans + You</small>";
+            if (window.lang === "fa") {
+              elText = " <small>طرفدار و شما</small>";
+            }
+            fansOfExactArstistElement.innerHTML = fansOfExactArstistElement.getAttribute("data-fans") + elText;
+          }
           elText = " <small>Fans</small>";
           if (window.lang === "fa") {
             elText = " <small>طرفدار</small>";
@@ -4298,14 +4316,29 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
           artistHeader.setAttribute("data-following", 1);
           return;
         }
+        errorText = "Follow request failed";
+        if (window.lang === "fa") {
+          errorText = "درخواست دنبال کردن دچار مشکل شد";
+        }
+        flashMessage.show(errorText);
         become.classList.remove("main-item-titles-isfan");
         return artistHeader.setAttribute("data-following", 0);
       });
     } else {
       become.classList.remove("main-item-titles-isfan");
       return artist.unfollow(id, function(following) {
-        var elText;
+        var elText, errorText, exactArtistElement, fansOfExactArstistElement;
         if (following != null) {
+          exactArtistElement = document.querySelector("#item-artist.main-item[data-artist-id='" + id + "']");
+          if (exactArtistElement != null) {
+            fansOfExactArstistElement = exactArtistElement.querySelector(".main-item-titles-artist");
+            fansOfExactArstistElement.setAttribute("data-following", 0);
+            elText = " <small>Fans</small>";
+            if (window.lang === "fa") {
+              elText = " <small>طرفدار</small>";
+            }
+            fansOfExactArstistElement.innerHTML = fansOfExactArstistElement.getAttribute("data-fans") + elText;
+          }
           elText = " <small>Fans</small>";
           if (window.lang === "fa") {
             elText = " <small>طرفدار</small>";
@@ -4314,6 +4347,11 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
           artistHeader.setAttribute("data-following", 0);
           return;
         }
+        errorText = "Unfollow request failed";
+        if (window.lang === "fa") {
+          errorText = "درخواست لغو دنبال کردن دچار مشکل شد";
+        }
+        flashMessage.show(errorText);
         become.classList.add("main-item-titles-isfan");
         return artistHeader.setAttribute("data-following", 1);
       });
@@ -4992,7 +5030,7 @@ enTexts = {};
     document.querySelector(".main").classList.add("fa");
     document.getElementById("label-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-wikiseda-desc").innerHTML = "مرجع موسیقی ایرانی";
-    document.getElementById("login-link").innerHTML = "وارد شوید";
+    document.getElementById("login-link").innerHTML = "اکانت دارید؟‌ وارد شوید";
     document.getElementById("forgetLink").innerHTML = "رمز را فراموش کرده اید؟";
     document.getElementById("label-register-username").placeholder = "نام کاربری";
     document.getElementById("label-register-email").placeholder = "ایمیل";
@@ -5408,7 +5446,7 @@ Touch.onTap("setting-logout").onStart((function(_this) {
 
 
 },{"./login":41,"simple-touch":74}],43:[function(require,module,exports){
-var BianLian, MenuManagement, PageManager, SongManagement, Touch, _lastType, _query, _segment, _type, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, closeGenre, flashMessage, followArtist, getFS, i, id, initPage, len, loadSongs, login, main, morePage, musicDataCache, network, openArtist, openGenre, pm, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedGenre, selectedMenuItem, selectedSegmented, settingStorage, types;
+var BianLian, MenuManagement, PageManager, SongManagement, Touch, _lastType, _lastTypeBeforeLoadSongs, _query, _segment, _type, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, closeGenre, flashMessage, followArtist, getFS, handleScrollCallback, i, id, initPage, len, loadSongs, login, main, morePage, musicDataCache, network, openArtist, openGenre, pm, reachedEnd, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedGenre, selectedMenuItem, selectedSegmented, settingStorage, types;
 
 window.TIMEOUT = 6000;
 
@@ -5493,6 +5531,8 @@ _lastType = "";
 _segment = "featured";
 
 _query = "";
+
+reachedEnd = false;
 
 segmentedTypes = {
   home: function() {
@@ -5753,6 +5793,8 @@ pm = new PageManager((function(_this) {
           elText = 'بارگذاری موارد بیشتر';
         }
         div = div + BianLian.node(elText, 'load-more-items');
+      } else {
+        reachedEnd = true;
       }
       main.innerHTML = main.innerHTML + div;
       if (isPlaying !== false) {
@@ -5913,6 +5955,8 @@ for (i = 0, len = bottomIconIds.length; i < len; i++) {
   Touch.onTap(id).onStart(bottomIconStartTouchHandler).onEnd(bottomIconEndTouchHandler).onDone(bottomIconDoneTouchHandler);
 }
 
+_lastTypeBeforeLoadSongs = "";
+
 loadSongs = (function(_this) {
   return function() {
     var elText;
@@ -5921,6 +5965,10 @@ loadSongs = (function(_this) {
       elText = 'درحال بارگذاری موارد';
     }
     BianLian.update(main, elText);
+    if (!(reachedEnd && _type === _lastTypeBeforeLoadSongs)) {
+      reachedEnd = false;
+    }
+    _lastTypeBeforeLoadSongs = _type;
     if (_type === "artistExpanded") {
       return pm[_type](_segment, selectedArtist.id, _query);
     } else if (_type === "genreExpanded") {
@@ -5931,13 +5979,18 @@ loadSongs = (function(_this) {
   };
 })(this);
 
-main.addEventListener('scroll', (function(_this) {
+handleScrollCallback = (function(_this) {
   return function(event) {
+    if (reachedEnd) {
+      return;
+    }
     if (Math.ceil(main.scrollTop + main.getBoundingClientRect().height) >= main.scrollHeight && _type !== "playlist") {
       return loadSongs();
     }
   };
-})(this));
+})(this);
+
+main.addEventListener('scroll', handleScrollCallback);
 
 Touch.onTap("load-more-items").onStart((function(_this) {
   return function(event) {
@@ -6062,7 +6115,7 @@ openArtist = function(div) {
     return;
   }
   if (selectedArtist != null) {
-    if (id === selectedArtist.id) {
+    if (id === selectedArtist.id && _type === "artistExpanded") {
       return;
     }
   }
@@ -6458,7 +6511,7 @@ Downloads = (function() {
   };
 
   Downloads.prototype.createDownloadedItems = function(items) {
-    var albumData, albumDivs, albumId, albums, data, div, downloadedDivs, i, len;
+    var albumData, albumDiv, albumId, albumPlace, albums, data, div, downloadedDivs, i, len;
     div = document.createElement("div");
     div.id = "downloaded";
     downloadedDivs = "";
@@ -6480,19 +6533,22 @@ Downloads = (function() {
               artist: data.artist
             };
             albums[data.album_id]["albumtracks"] = [data];
+            downloadedDivs = ("<div data-place-album='" + data.album_id + "'></div>") + downloadedDivs;
           }
         } else {
           downloadedDivs = song(data, true) + downloadedDivs;
         }
       }
-      albumDivs = "";
+      div.innerHTML = downloadedDivs;
       for (albumId in albums) {
         albumData = albums[albumId];
-        albumDivs = album(albumData, true) + albumDivs;
+        albumDiv = album(albumData, true);
+        albumPlace = div.querySelector("[data-place-album='" + albumId + "']");
+        if (albumPlace != null) {
+          albumPlace.outerHTML = albumDiv;
+        }
       }
-      downloadedDivs = downloadedDivs + albumDivs;
     }
-    div.innerHTML = downloadedDivs;
     return div;
   };
 
@@ -6672,12 +6728,13 @@ History = (function() {
   };
 
   History.prototype.createHistoryItems = function(items) {
-    var albumData, albumDivs, albumId, albums, data, div, downloadedDivs, key;
+    var albumData, albumDiv, albumId, albumPlace, albums, data, div, downloadedDivs, key;
     div = document.createElement("div");
     div.id = "downloaded";
     downloadedDivs = "";
     if (items != null) {
       albums = {};
+      console.log(items);
       for (key in items) {
         data = items[key];
         if (data != null) {
@@ -6695,20 +6752,23 @@ History = (function() {
                 artist: data.artist
               };
               albums[data.album_id]["albumtracks"] = [data];
+              downloadedDivs = ("<div data-place-album='" + data.album_id + "'></div>") + downloadedDivs;
             }
           } else {
             downloadedDivs = song(data, false, true) + downloadedDivs;
           }
         }
       }
-      albumDivs = "";
+      div.innerHTML = downloadedDivs;
       for (albumId in albums) {
         albumData = albums[albumId];
-        albumDivs = album(albumData, false, true) + albumDivs;
+        albumDiv = album(albumData, false, true);
+        albumPlace = div.querySelector("[data-place-album='" + albumId + "']");
+        if (albumPlace != null) {
+          albumPlace.outerHTML = albumDiv;
+        }
       }
-      downloadedDivs = downloadedDivs + albumDivs;
     }
-    div.innerHTML = downloadedDivs;
     return div;
   };
 
@@ -6852,15 +6912,20 @@ Playlists = (function() {
   };
 
   Playlists.prototype.addNewSongToPlaylist = function(pl, item) {
-    var countEl, playlistDiv, songs;
-    playlistDiv = this.placeForItems.querySelector("[data-playlist-id=\"" + pl.id + "\"]");
+    playlistDiv;
+    var countEl, newPlaylistDiv, playlistDiv, songs;
+    if (pl.id != null) {
+      playlistDiv = this.placeForItems.querySelector("[data-playlist-id=\"" + pl.id + "\"]");
+    }
     if (playlistDiv != null) {
       songs = playlistDiv.querySelector(".main-item-album-songs");
       countEl = playlistDiv.querySelector(".main-item-titles-title-count");
       countEl.innerHTML = parseInt(countEl.innerHTML) + 1;
       return songs.innerHTML = songs.innerHTML + playlistSong(item);
     } else {
-      return this.placeForItems.innerHTML = this.placeForItems.innerHTML + playlist(pl);
+      newPlaylistDiv = document.createElement("div");
+      this.placeForItems.childNodes[0].insertBefore(newPlaylistDiv, this.placeForItems.childNodes[0].childNodes[0]);
+      return newPlaylistDiv.outerHTML = playlist(pl);
     }
   };
 
@@ -7131,15 +7196,7 @@ Touch.onTap("new-playlist").onStart((function(_this) {
             cache.clear();
             playlists.add(plName);
             backup = event.listener.parentNode;
-            backupParent = backup.parentNode;
-            return backupParent.innerHTML = backupParent.innerHTML + Playlist({
-              time: "",
-              count: "0",
-              groupname: plName,
-              id: "",
-              username: "",
-              tracks: []
-            });
+            return backupParent = backup.parentNode.querySelector("#downloaded");
           };
         })(this);
         transferFailed = (function(_this) {
@@ -7148,7 +7205,7 @@ Touch.onTap("new-playlist").onStart((function(_this) {
             msgTxt = "Create new playlist failed";
             msgTxt2 = "Create new playlist";
             if (window.lang === "fa") {
-              msgTxt = "لیست " + plName + " ساخته شد";
+              msgTxt = "ساخت " + plName + " موفق نبود!";
               msgTxt2 = "ساخت لیست جدید";
             }
             flashMessage.show(msgTxt);
@@ -7161,7 +7218,7 @@ Touch.onTap("new-playlist").onStart((function(_this) {
         oReq.addEventListener("abort", transferFailed, false);
         oReq.addEventListener("timeout", transferFailed, false);
         oReq.open("get", SERVER_ADDRESS + "addplaylistjson?" + serialize(query), true);
-        oReq.timeout = window.TIMEOUT;
+        oReq.timeout = window.TIMEOUT * 3;
         return oReq.send();
       }
     };
@@ -7308,7 +7365,7 @@ Touch.onTap("player-fav").onStart((function(_this) {
     oReq.addEventListener("abort", transferFailed, false);
     oReq.addEventListener("timeout", transferFailed, false);
     oReq.open("get", SERVER_ADDRESS + "addplaylistjson?" + serialize(query), true);
-    oReq.timeout = window.TIMEOUT;
+    oReq.timeout = window.TIMEOUT * 3;
     return oReq.send();
   };
 })(this));
@@ -7359,7 +7416,7 @@ Touch.onTap("menu-playlist-item").onStart((function(_this) {
     oReq.addEventListener("abort", transferFailed, false);
     oReq.addEventListener("timeout", transferFailed, false);
     oReq.open("get", SERVER_ADDRESS + "addplaylistjson?" + serialize(query), true);
-    oReq.timeout = window.TIMEOUT;
+    oReq.timeout = window.TIMEOUT * 3;
     return oReq.send();
   };
 })(this));
