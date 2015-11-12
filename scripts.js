@@ -658,11 +658,7 @@ BackButton = (function() {
       this.activeIds.pop();
       return this.activeCbs.pop()();
     } else {
-      return navigator.Backbutton.goBack(function() {
-        return console.log("ok");
-      }, function() {
-        return console.log("cancel");
-      });
+      return navigator.Backbutton.goBack(function() {}, function() {});
     }
   };
 
@@ -1013,7 +1009,7 @@ module.exports = function(data) {
   if (settingStorage.get("playlist-" + data.id)) {
     syncPlaylist = " data-synced=\"true\" ";
   }
-  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" " + syncPlaylist + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + count + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
+  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" data-playlist-name=\"" + data.groupname + "\" " + syncPlaylist + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + count + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
 };
 
 
@@ -2079,12 +2075,10 @@ module.exports = Queue = (function() {
 
   Queue.prototype.checkExisting = function(id) {
     var div, index, j, len, ref;
-    console.log(id);
     ref = this.divQueue;
     for (index = j = 0, len = ref.length; j < len; index = ++j) {
       div = ref[index];
       if (div.getAttribute("data-song-id") === id) {
-        console.log("exist");
         return true;
       }
     }
@@ -3685,7 +3679,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
         start: true
       });
       if (window.dirEntry == null) {
-        msgTxt = "Your phone doesnt respond for download";
+        msgTxt = "Your phone doesn't respond for download";
         if (window.lang === "fa") {
           msgTxt = "دستگاه شما برای دانلود پاسخگو نبود";
         }
@@ -3703,6 +3697,9 @@ if (typeof cordova !== "undefined" && cordova !== null) {
         return;
       }
       this.store = window.dirEntry.toURL() + artist + " - " + name + ".mp3";
+      if (this.downloadingName === (artist + " - " + name)) {
+        musicUrl = musicUrl + "?date=" + Date.now();
+      }
       this.downloadingName = artist + " - " + name;
       this.fileTransfer.download(encodeURI(musicUrl), encodeURI(this.store), (function(_this) {
         return function(entry) {
@@ -3746,6 +3743,7 @@ if (typeof cordova !== "undefined" && cordova !== null) {
 
     Downloader.prototype.abort = function() {
       if (this.fileTransfer != null) {
+        this.downloading = false;
         this.fileTransfer.abort();
         return this.fileTransfer = null;
       }
@@ -6123,7 +6121,6 @@ openArtist = function(div) {
   for (j = 0, len1 = artists.length; j < len1; j++) {
     artist = artists[j];
     if (artist.id === id) {
-      console.log(artist);
       found = true;
       if (_type !== "artistExpanded") {
         _lastType = _type;
@@ -6734,7 +6731,6 @@ History = (function() {
     downloadedDivs = "";
     if (items != null) {
       albums = {};
-      console.log(items);
       for (key in items) {
         data = items[key];
         if (data != null) {
@@ -6912,10 +6908,12 @@ Playlists = (function() {
   };
 
   Playlists.prototype.addNewSongToPlaylist = function(pl, item) {
-    playlistDiv;
     var countEl, newPlaylistDiv, playlistDiv, songs;
-    if (pl.id != null) {
-      playlistDiv = this.placeForItems.querySelector("[data-playlist-id=\"" + pl.id + "\"]");
+    playlistDiv = this.placeForItems.querySelector("[data-playlist-name=\"" + pl.groupname + "\"]");
+    if (playlistDiv == null) {
+      if (pl.id != null) {
+        playlistDiv = this.placeForItems.querySelector("[data-playlist-id=\"" + pl.id + "\"]");
+      }
     }
     if (playlistDiv != null) {
       songs = playlistDiv.querySelector(".main-item-album-songs");
@@ -7184,7 +7182,7 @@ Touch.onTap("new-playlist").onStart((function(_this) {
         };
         transferComplete = (function(_this) {
           return function(evt) {
-            var backup, backupParent, msgTxt2;
+            var msgTxt2;
             msgTxt = "Playlist " + plName + " created";
             msgTxt2 = "Create new playlist";
             if (window.lang === "fa") {
@@ -7194,9 +7192,7 @@ Touch.onTap("new-playlist").onStart((function(_this) {
             flashMessage.show(msgTxt);
             event.listener.innerHTML = msgTxt2;
             cache.clear();
-            playlists.add(plName);
-            backup = event.listener.parentNode;
-            return backupParent = backup.parentNode.querySelector("#downloaded");
+            return playlists.add(plName);
           };
         })(this);
         transferFailed = (function(_this) {
@@ -8235,13 +8231,17 @@ Touch.onTap("menu-box-music-share").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    var musicData;
+    var musicData, shareTxt;
     MenuManagement.closeMenu();
     musicData = musicDataCache.data[menuRequest.data.getAttribute('data-song-id')];
     if (musicData == null) {
       musicData = musicDataCache.more[menuRequest.data.getAttribute('data-song-id')];
     }
-    return window.plugins.socialsharing.share("Download ahange " + musicData.songname + " az " + musicData.artist + "            ", "Wikiseda", null, musicData.url || "http://www.wikiseda.com");
+    shareTxt = "Download ahange " + musicData.songname + " az " + musicData.artist + "            ";
+    if (window.lang === "fa") {
+      shareTxt = "دانلود آهنگ " + musicData.songname + " از " + musicData.artist + "            ";
+    }
+    return window.plugins.socialsharing.share(shareTxt, "Wikiseda", null, musicData.url || "http://www.wikiseda.com");
   };
 })(this));
 
@@ -8255,13 +8255,17 @@ Touch.onTap("menu-box-album-share").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    var albumData;
+    var albumData, shareTxt;
     MenuManagement.closeMenu();
     albumData = musicDataCache.data["album" + menuRequest.data.getAttribute('data-album-id')];
     if (albumData == null) {
       albumData = musicDataCache.more["album" + menuRequest.data.getAttribute('data-album-id')];
     }
-    return window.plugins.socialsharing.share("Download album " + albumData.album + " az " + albumData.artist + "            ", "Wikiseda", null, albumData.url || "http://www.wikiseda.com");
+    shareTxt = "Download album " + albumData.album + " az " + albumData.artist + "            ";
+    if (window.lang === "fa") {
+      shareTxt = "دانلود آلبوم " + albumData.album + " از " + albumData.artist + "            ";
+    }
+    return window.plugins.socialsharing.share(shareTxt, "Wikiseda", null, albumData.url || "http://www.wikiseda.com");
   };
 })(this));
 
@@ -8275,10 +8279,14 @@ Touch.onTap("menu-box-artist-share").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    var artistData;
+    var artistData, shareTxt;
     MenuManagement.closeMenu();
     artistData = musicDataCache.data["artist" + menuRequest.data.getAttribute('data-artist-id')];
-    return window.plugins.socialsharing.share("Download musicha va albumhaye " + artistData.artist + "            ", "Wikiseda", null, albumData.url || "http://www.wikiseda.com");
+    shareTxt = "Download musicha va albumhaye " + artistData.artist + "            ";
+    if (window.lang === "fa") {
+      shareTxt = "دانلود آهنگ ها و آلبوم های " + artistData.artist + "            ";
+    }
+    return window.plugins.socialsharing.share(shareTxt, "Wikiseda", null, artistData.url || "http://www.wikiseda.com");
   };
 })(this));
 
