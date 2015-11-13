@@ -564,6 +564,16 @@ html, body {
   .fa #menu-box-subpage .menu-subpage-info-divs div {
     padding-right: 20px; }
 
+.fa .main-item-titles-title, .fa .queue-item-name, .fa .menu-item-album-song-artist, .fa .queue-item-artist, .fa .main-item-titles-artist {
+  text-align: left;
+  direction: rtl; }
+
+.fa .mini-player-titles-song-name, .fa .top-titles-song-name, .fa .top-titles-artist, .fa .mini-player-titles-artist, .fa .top-tab-slide-segment-info-text {
+  direction: rtl; }
+
+.fa .artist-page-item .main-item-titles-title {
+  text-align: center; }
+
 .app-page {
   display: none; }
   .app-page #new-playlist .circleLoading {

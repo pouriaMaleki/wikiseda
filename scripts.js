@@ -1910,7 +1910,8 @@ module.exports = PageManager = (function() {
       lang: window.lang,
       v: APP_VERSION_CODE,
       order: order,
-      page: this.page
+      page: this.page,
+      sid: login.sid
     };
     return this.get();
   };
@@ -2993,14 +2994,29 @@ updateSegments = function(data) {
     infoDownloads.style.display = "none";
     if (data.info.view != null) {
       infoViews.innerHTML = data.info.view + " Views";
+      if (window.lang === "fa") {
+        infoViews.innerHTML = data.info.view + " بار پخش شده";
+      }
       infoViews.style.display = "block";
     } else {
       infoViews.style.display = "none";
     }
     infoSize.innerHTML = "File size: " + data.summary.size;
+    if (window.lang === "fa") {
+      infoSize.innerHTML = "حجم فایل: " + data.summary.size;
+    }
     infoLength.innerHTML = "Music length: " + data.song[0].time;
+    if (window.lang === "fa") {
+      infoLength.innerHTML = "زمان ترانه: " + data.song[0].time;
+    }
     infoDate.innerHTML = "Added at: " + data.song[0].date;
+    if (window.lang === "fa") {
+      infoDate.innerHTML = "درج در تاریخ: " + data.song[0].date;
+    }
     infoRate.innerHTML = data.song[0].ratecount !== 0 ? "Rating: " + (data.song[0].popularity / data.song[0].ratecount) + " from " + data.song[0].ratecount + " votes" : "No vote for rate yet";
+    if (window.lang === "fa") {
+      infoRate.innerHTML = data.song[0].ratecount !== 0 ? "امتیاز " + (data.song[0].popularity / data.song[0].ratecount) + " از " + data.song[0].ratecount + " رای" : "هنوز امتیازی داده نشده";
+    }
     if (data.info.descrip != null) {
       infoDesc.innerHTML = data.info.descrip;
       return infoDesc.style.display = "block";
@@ -3009,7 +3025,13 @@ updateSegments = function(data) {
     }
   } else {
     lyric.innerHTML = "<h3>Loading Lyric</h3>";
+    if (window.lang === "fa") {
+      lyric.innerHTML = "<h3>در حال دریافت متن ترانه</h3>";
+    }
     infoLoading.innerHTML = "<h3>Loading Info</h3>";
+    if (window.lang === "fa") {
+      infoLoading.innerHTML = "<h3>در حال دریافت جزییات</h3>";
+    }
     infoLoading.style.display = "block";
     return infoDivs.style.display = "none";
   }
@@ -3018,6 +3040,10 @@ updateSegments = function(data) {
 failedUpdateSegments = function(data) {
   lyric.innerHTML = "<h3>Loading Failed</h3>";
   infoLoading.innerHTML = "<h3>Loading Failed</h3>";
+  if (window.lang === "fa") {
+    lyric.innerHTML = "<h3>دریافت نشد!</h3>";
+    infoLoading.innerHTML = "<h3>دریافت نشد!</h3>";
+  }
   infoLoading.style.display = "block";
   return infoDivs.style.display = "none";
 };
@@ -4862,7 +4888,7 @@ updateSegments = function(data) {
     }
     infoRate = data.song[0].ratecount !== 0 ? "Rating: " + (data.song[0].popularity / data.song[0].ratecount) + " from " + data.song[0].ratecount + " votes" : "No vote for rate yet";
     if (window.lang === "fa") {
-      infoRate = data.song[0].ratecount !== 0 ? "امتیاز: " + (data.song[0].popularity / data.song[0].ratecount) + " از " + data.song[0].ratecount + " رای" : "هنوز رتبه ای درج نشده";
+      infoRate = data.song[0].ratecount !== 0 ? "امتیاز: " + (data.song[0].popularity / data.song[0].ratecount) + " از " + data.song[0].ratecount + " رای" : "هنوز امتیازی داده نشده";
     }
     x = "<div class=\"menu-subpage-info-divs\" style=\"display: block;\">\n	<div class=\"menu-subpage-info-text-lyric\">Info</div>\n	<div class=\"menu-subpage-info-text-artist\" id=\"item-artist\" data-artist-id=\"" + data.song[0]['artist_id'] + "\">" + data.song[0]['artist'] + "</div>\n	<div class=\"menu-subpage-info-text\" style=\"display: block;\">" + (data.info.view || "0") + " Views</div>\n	<div class=\"menu-subpage-info-text\">File size: " + data.summary.size + "</div>\n	<div class=\"menu-subpage-info-text\">Music length: " + data.song[0].time + "</div>\n	<div class=\"menu-subpage-info-text\">Added at: " + data.song[0].date + "</div>\n	<div class=\"menu-subpage-info-text\">" + infoRate + "</div>\n	<div class=\"menu-subpage-info-text\">" + (data.info.descrip || "") + "</div>";
     if (window.lang === "fa") {
