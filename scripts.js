@@ -933,14 +933,14 @@ module.exports = function(data) {
   if (window.lang === "fa") {
     viewString = "لیست پخش";
   }
-  return "<div class=\"main-item\" id=\"item-genre\" data-genre-id=\"" + data.id + "\">\n	<div class=\"main-item-poster\">" + data.song_count + "<div class=\"main-item-poster-count\">Songs</div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">#" + data.name + "</div>\n		<div></div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div></div>\n</div>";
+  return "<div class=\"main-item\" id=\"item-genre\" data-genre-id=\"" + data.id + "\">\n	<div class=\"main-item-poster\">" + data.song_count + "<div class=\"main-item-poster-count\">Songs</div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.name + "</div>\n		<div></div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div></div>\n</div>";
 };
 
 
 
 },{"../Tools/url":30,"../musicDataCache":50}],10:[function(require,module,exports){
 module.exports = function(data) {
-  return "<div class=\"main-item maxWidth\" id=\"genre-header\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-titles-title\">#" + data.name + "</div>\n</div>";
+  return "<div class=\"main-item maxWidth\" id=\"genre-header\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-titles-title\">" + data.name + "</div>\n</div>";
 };
 
 
