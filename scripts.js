@@ -840,6 +840,9 @@ module.exports = function(data) {
       following = " و شما";
     }
   }
+  if (data.fans == null) {
+    data.fans = 0;
+  }
   return "<div class=\"main-item\" id=\"item-artist\" data-artist-id=\"" + data.id + "\">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + data.thumb + "\" onLoad=\"this.parentNode.style.opacity = '';\"  onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-artist\" data-following=\"" + data.following + "\" data-fans=\"" + data.fans + "\">" + data.fans + "<small> " + elText + " " + following + "</small></div>\n		<div class=\"main-item-titles-view\">" + data.albums + " Album " + data.tracks + " Song</div>\n	</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-artist-humberger\"></div>\n</div>";
 };
 
@@ -3166,7 +3169,7 @@ updateQueue = function(data, id) {
   var d, div, i, j, len, msgTxt;
   msgTxt = "Hold To Clear Queue";
   if (window.lang === "fa") {
-    msgTxt = "برای پاک کردن لیست نگه دارید";
+    msgTxt = "برای پاک کردن صف نگه دارید";
   }
   div = "<div class=\"queue-item\" id=\"item-queue-clear\">" + msgTxt + "</div>";
   for (i = j = 0, len = data.length; j < len; i = ++j) {
@@ -4852,19 +4855,32 @@ Touch.onTap("menu-box-info").onStart((function(_this) {
 })(this));
 
 updateSegments = function(data) {
-  var infoRate, x;
+  var infoRate, lyricX, x;
   if (data != null) {
     if (musicData.id !== data.song[0].id) {
       return;
     }
     infoRate = data.song[0].ratecount !== 0 ? "Rating: " + (data.song[0].popularity / data.song[0].ratecount) + " from " + data.song[0].ratecount + " votes" : "No vote for rate yet";
+    if (window.lang === "fa") {
+      infoRate = data.song[0].ratecount !== 0 ? "امتیاز: " + (data.song[0].popularity / data.song[0].ratecount) + " از " + data.song[0].ratecount + " رای" : "هنوز رتبه ای درج نشده";
+    }
     x = "<div class=\"menu-subpage-info-divs\" style=\"display: block;\">\n	<div class=\"menu-subpage-info-text-lyric\">Info</div>\n	<div class=\"menu-subpage-info-text-artist\" id=\"item-artist\" data-artist-id=\"" + data.song[0]['artist_id'] + "\">" + data.song[0]['artist'] + "</div>\n	<div class=\"menu-subpage-info-text\" style=\"display: block;\">" + (data.info.view || "0") + " Views</div>\n	<div class=\"menu-subpage-info-text\">File size: " + data.summary.size + "</div>\n	<div class=\"menu-subpage-info-text\">Music length: " + data.song[0].time + "</div>\n	<div class=\"menu-subpage-info-text\">Added at: " + data.song[0].date + "</div>\n	<div class=\"menu-subpage-info-text\">" + infoRate + "</div>\n	<div class=\"menu-subpage-info-text\">" + (data.info.descrip || "") + "</div>";
+    if (window.lang === "fa") {
+      x = "<div class=\"menu-subpage-info-divs\" style=\"display: block;\">\n	<div class=\"menu-subpage-info-text-lyric\">جزییات</div>\n	<div class=\"menu-subpage-info-text-artist\" id=\"item-artist\" data-artist-id=\"" + data.song[0]['artist_id'] + "\">" + data.song[0]['artist'] + "</div>\n	<div class=\"menu-subpage-info-text\" style=\"display: block;\">" + (data.info.view || "0") + " بار پخش شده</div>\n	<div class=\"menu-subpage-info-text\">حجم فایل: " + data.summary.size + "</div>\n	<div class=\"menu-subpage-info-text\">زمان ترانه: " + data.song[0].time + "</div>\n	<div class=\"menu-subpage-info-text\">درج در تاریخ: " + data.song[0].date + "</div>\n	<div class=\"menu-subpage-info-text\">" + infoRate + "</div>\n	<div class=\"menu-subpage-info-text\">" + (data.info.descrip || "") + "</div>";
+    }
     if (data.lyric.length > 10) {
-      x = x + ("<div class=\"menu-subpage-info-text-lyric\">Lyric</div>\n<div class=\"menu-subpage-info-text-lyric-content\">" + data.lyric + "</div>");
+      lyricX = "<div class=\"menu-subpage-info-text-lyric\">Lyric</div>\n<div class=\"menu-subpage-info-text-lyric-content\">" + data.lyric + "</div>";
+      if (window.lang === "fa") {
+        lyricX = "<div class=\"menu-subpage-info-text-lyric\">متن ترانه</div>\n<div class=\"menu-subpage-info-text-lyric-content\">" + data.lyric + "</div>";
+      }
+      x = x + lyricX;
     }
     x = x + "</div>";
   } else {
     x = "<h5>Loading info</h5>";
+    if (window.lang === "fa") {
+      x = "<h5>درحال بارگذاری جزییات</h5>";
+    }
   }
   return MenuManagement.updateSubpageContent(x);
 };
@@ -4872,6 +4888,9 @@ updateSegments = function(data) {
 failedUpdateSegments = function(data) {
   var x;
   x = "<h5>Loading failed</h5>";
+  if (window.lang === "fa") {
+    x = "<h5>بارگذاری انجام نشد</h5>";
+  }
   return MenuManagement.updateSubpageContent(x);
 };
 
@@ -5025,7 +5044,7 @@ enTexts = {};
 
 (changeStatics = function() {
   if (window.lang === "fa") {
-    document.querySelector(".main").classList.add("fa");
+    document.body.classList.add("fa");
     document.getElementById("label-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-wikiseda-desc").innerHTML = "مرجع موسیقی ایرانی";
     document.getElementById("login-link").innerHTML = "اکانت دارید؟‌ وارد شوید";
@@ -5048,9 +5067,9 @@ enTexts = {};
     document.getElementById("label-player-wikiseda-sesc").innerHTML = "مرجع موسیقی ایرانی";
     document.getElementById("label-miniplayer-wikiseda").innerHTML = "ویکی صدا";
     document.getElementById("label-miniplayer-wikiseda-desc").innerHTML = "مرجع موسیقی ایرانی";
-    document.getElementById("label-menu-box-add-to-queue").innerHTML = "اضافه به لیست پخش";
+    document.getElementById("label-menu-box-add-to-queue").innerHTML = "اضافه به صف";
     document.getElementById("label-menu-box-play-next").innerHTML = "پخش بعد از این موسیقی";
-    document.getElementById("label-menu-box-add-to-playlist").innerHTML = "اضافه به لیست";
+    document.getElementById("label-menu-box-add-to-playlist").innerHTML = "اضافه به لیست پخش";
     document.getElementById("label-menu-box-sync").innerHTML = "دانلود";
     document.getElementById("label-menu-box-music-share").innerHTML = "اشتراک گذاری";
     document.getElementById("label-menu-box-info").innerHTML = "جزییات";
@@ -5078,7 +5097,7 @@ enTexts = {};
     document.querySelector("#more-option-Settings").children[1].innerHTML = "تنظیمات";
     return document.querySelector(".flash-message").style.direction = "rtl";
   } else {
-    document.querySelector(".main").classList.remove("fa");
+    document.body.classList.remove("fa");
     document.getElementById("label-wikiseda").innerHTML = enTexts["label-wikiseda"];
     document.getElementById("label-wikiseda-desc").innerHTML = enTexts["label-wikiseda-desc"];
     document.getElementById("login-link").innerHTML = enTexts["login-link"];
