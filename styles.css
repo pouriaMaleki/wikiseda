@@ -574,6 +574,21 @@ html, body {
 .fa .artist-page-item .main-item-titles-title {
   text-align: center; }
 
+.ios .main {
+  top: 96px !important; }
+
+.ios .top-tab-close {
+  margin-top: 20px !important; }
+
+.ios .loading {
+  top: 20px !important; }
+
+.ios .top-tab-queue-icon {
+  top: 20px !important; }
+
+.ios .top-tab-slide, .ios .top-tab-queue {
+  top: 80px !important; }
+
 .app-page {
   display: none; }
   .app-page #new-playlist .circleLoading {
@@ -986,6 +1001,8 @@ html, body {
       text-align: center;
       left: 0;
       right: 0; }
+    .app-page .artist-page-item .main-item-titles-artist {
+      top: 50px; }
     .app-page .artist-page-item .main-item-titles-title {
       top: 20px;
       font-size: 22px;
@@ -993,14 +1010,16 @@ html, body {
       font-family: RobotoLight;
       position: relative;
       top: 160px; }
-    .app-page .artist-page-item .main-item-titles-artist {
-      top: 50px; }
-    .app-page .artist-page-item .main-item-titles-become {
+    .app-page .artist-page-item .main-item-titles-fan-holder {
       position: absolute;
       top: 20px;
       right: 20px;
+      height: 60px;
+      width: 60px; }
+    .app-page .artist-page-item .main-item-titles-become {
       height: 30px;
       width: 30px;
+      margin: auto;
       background: transparent url("./assets/icons/icon-become.png") no-repeat 0 0/contain; }
     .app-page .artist-page-item .main-item-titles-isfan {
       background: transparent url("./assets/icons/icon-isfan.png") no-repeat 0 0/contain !important; }
@@ -1009,32 +1028,59 @@ html, body {
       left: 0;
       right: 0;
       bottom: 0;
-      height: 30px;
+      height: 35px;
       text-align: center; }
-      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field {
-        height: inherit;
-        font-size: 18px;
+    .app-page .artist-page-item .main-item-artist-header-desc-field {
+      height: inherit;
+      font-size: 18px;
+      display: inline-block;
+      position: relative;
+      font-family: Roboto;
+      margin-right: 10px;
+      margin-left: 10px;
+      box-sizing: border-box; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field:before {
+        content: " ";
+        height: 15px;
+        width: 15px;
         display: inline-block;
-        font-family: Roboto;
-        padding-left: 10px;
-        padding-right: 10px; }
-        .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field:before {
-          content: " ";
-          height: 15px;
-          width: 15px;
-          display: inline-block;
-          float: left;
-          position: relative;
-          top: 3px; }
-        .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field small {
-          color: #b3b9bb;
-          font-family: RobotoCondensedRegular; }
-      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-fans:before {
-        background: transparent url("./assets/icons/icon-fans.png") no-repeat 0 0/contain; }
-      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-albums:before {
-        background: transparent url("./assets/icons/icon-albums.png") no-repeat 0 0/contain; }
-      .app-page .artist-page-item .main-item-artist-header-desc .main-item-artist-header-desc-field-songs:before {
-        background: transparent url("./assets/icons/icon-songs.png") no-repeat 0 0/contain; }
+        float: left;
+        position: relative;
+        top: 3px; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field small {
+        color: #b3b9bb;
+        font-family: RobotoCondensedRegular; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field label input {
+        visibility: hidden;
+        display: block;
+        height: 0;
+        width: 0;
+        position: absolute;
+        overflow: hidden; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field label span {
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-sizing: border-box; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field [type=checkbox]:checked + span {
+        border-bottom: 5px solid #00A1EB; }
+    .app-page .artist-page-item .main-item-artist-header-desc-field-fans {
+      height: inherit;
+      font-size: 18px;
+      display: inline-block;
+      font-family: Roboto; }
+      .app-page .artist-page-item .main-item-artist-header-desc-field-fans small {
+        color: #b3b9bb;
+        font-family: RobotoCondensedRegular; }
+    .app-page .artist-page-item .main-item-artist-header-desc-field-albums:before {
+      background: transparent url("./assets/icons/icon-albums.png") no-repeat 0 0/contain; }
+    .app-page .artist-page-item .main-item-artist-header-desc-field-songs:before {
+      background: transparent url("./assets/icons/icon-songs.png") no-repeat 0 0/contain; }
   .app-page .main-item-username {
     font-size: 18px;
     color: #576971;
@@ -1075,6 +1121,13 @@ html, body {
   .app-page .fa .main-item-titles-artist {
     direction: rtl !important;
     text-align: left !important; }
+  .app-page .main-item-artist-header-share {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: transparent url("./assets/icons/item-share.png") no-repeat center center/50px; }
   .app-page .main-item-search {
     height: 40px;
     width: 100%;
@@ -1208,7 +1261,7 @@ html, body {
     font-size: 0; }
   .app-page .top-tab-queue {
     position: absolute;
-    top: 80px;
+    top: 60px;
     bottom: 0;
     width: 100%;
     display: none;
@@ -1262,8 +1315,27 @@ html, body {
     .app-page .queue-item-playing .queue-item-name {
       color: #16729d; }
   .app-page #item-queue-clear {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 60px;
+    width: 60px;
+    line-height: 75px;
+    text-align: center;
+    background: transparent url("./assets/icons/clear-list.png") no-repeat center center/40px; }
+  .app-page .top-tab-queue-icon {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 60px;
     line-height: 75px;
     text-align: center; }
+  .app-page #item-queue-clear {
+    right: 0;
+    background: transparent url("./assets/icons/clear-list.png") no-repeat center center/40px; }
+  .app-page #now-playing {
+    left: 60px;
+    background: transparent url("./assets/icons/now-playing.png") no-repeat center center/50px; }
   .app-page .top-tab-slide-segment-info-text {
     padding-top: 20px;
     text-align: center; }
@@ -1287,6 +1359,7 @@ html, body {
     bottom: 100px;
     width: 100%; }
   .app-page .top-tab-selector-holder {
+    display: none;
     position: absolute;
     top: 0;
     left: 60px;
@@ -1294,9 +1367,8 @@ html, body {
   .app-page .top-tab-selector {
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 60px;
     height: 60px;
-    background-color: #45494b;
     line-height: 40px; }
   .app-page .top-tab-selector-select {
     line-height: 60px;
@@ -1314,16 +1386,16 @@ html, body {
     float: left;
     width: 60px;
     height: 60px;
-    background: transparent url("./assets/icons/back_white.png") no-repeat center center/cover; }
+    background: transparent url("./assets/icons/back_.png") no-repeat center center/cover; }
   .app-page .top-tab-slide {
     position: absolute;
-    top: 80px;
+    top: 60px;
     bottom: 0;
     width: 100%; }
   .app-page .top-tab-slide-segment {
     position: absolute;
-    top: 80px;
-    bottom: 50px;
+    top: 0px;
+    bottom: 180px;
     width: 100%;
     overflow: hidden; }
   .app-page .top-tab-slide-segment-cover {
@@ -1339,8 +1411,8 @@ html, body {
     margin: auto;
     position: relative;
     top: 10px;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     text-align: center; }
     .app-page .top-tab-slide-segment-cover-image img {
       border: 1px solid #b7bfc1;
@@ -1351,7 +1423,7 @@ html, body {
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 30px;
+    height: 100%;
     width: inherit;
     background: #f5f7f7;
     opacity: 0;
@@ -1381,7 +1453,7 @@ html, body {
     z-index: 102; }
   .app-page .top-tab-slide-segment-subtitle {
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     left: 0;
     right: 0;
     height: 40px;
@@ -1402,8 +1474,8 @@ html, body {
     -o-transition: opacity 0.4s;
     transition: opacity 0.4s; }
   .app-page .top-tab-slide-selects {
-    position: absolute;
-    bottom: 70px;
+    position: relative;
+    top: -10px;
     width: 100%;
     height: 10px;
     line-height: 10px;
@@ -1411,7 +1483,7 @@ html, body {
     z-index: 105; }
   .app-page .top-tab-slide-selects-select {
     position: relative;
-    top: -20px;
+    top: 0px;
     height: 10px;
     width: 10px;
     border-radius: 50%;
@@ -1508,7 +1580,7 @@ html, body {
     background: transparent url("./assets/icons/pause_mini.png") no-repeat center center/cover; }
   .app-page .top-titles {
     position: absolute;
-    top: 10px;
+    bottom: 120px;
     height: 50px;
     width: 100%;
     text-align: center;
@@ -1529,23 +1601,45 @@ html, body {
     white-space: nowrap;
     text-transform: capitalize;
     text-overflow: ellipsis; }
+    .app-page .top-titles-song-name span {
+      width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-transform: capitalize;
+      text-overflow: ellipsis;
+      display: inline-block; }
   .app-page .top-titles-artist {
     position: absolute;
     top: 30px;
     left: 0;
-    color: #00a1eb;
+    color: #7a8082;
     font-family: Roboto;
     width: 100%;
     height: 25px;
     line-height: 35px;
-    font-size: 18px;
+    font-size: 16px;
     text-overflow: ellipsis; }
+    .app-page .top-titles-artist span {
+      width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-transform: capitalize;
+      text-overflow: ellipsis;
+      display: inline-block; }
   .app-page .top-icons {
     position: relative;
     top: 20px;
     height: 50px;
     width: 100%;
     text-align: center; }
+  .app-page .top-icons-holder {
+    position: absolute;
+    bottom: 85px;
+    width: 100%;
+    height: 10px;
+    line-height: 10px;
+    text-align: center;
+    z-index: 105; }
   .app-page .top-icon {
     display: inline-block;
     height: 50px;
@@ -1577,28 +1671,61 @@ html, body {
     background: transparent url("./assets/icons/sync.png") no-repeat center center/cover; }
   .app-page .top-icons-fav {
     background: transparent url("./assets/icons/fav_white.png") no-repeat center center/cover;
-    margin-left: 40px; }
+    margin-left: 10px; }
   .app-page .top-icons-repeat {
     background: transparent url("./assets/icons/repeat_off.png") no-repeat center center/cover;
-    margin-left: 10px;
-    height: 40px;
-    width: 40px; }
+    height: 34px;
+    width: 34px;
+    position: relative;
+    top: -3px;
+    left: -20px; }
   .app-page .repeat {
     background: transparent url("./assets/icons/repeat.png") no-repeat center center/cover; }
   .app-page .repeat-all {
     background: transparent url("./assets/icons/repeat_all.png") no-repeat center center/cover; }
   .app-page .top-icons-shuffle {
     background: transparent url("./assets/icons/shuffle_off.png") no-repeat center center/cover;
-    margin-left: 10px;
-    height: 40px;
-    width: 40px; }
+    height: 34px;
+    width: 34px;
+    position: relative;
+    top: -3px;
+    right: -20px; }
   .app-page .shuffle {
     background: transparent url("./assets/icons/shuffle.png") no-repeat center center/cover; }
   .app-page .top-icons-faved {
     background: transparent url("./assets/icons/fav_red.png") no-repeat center center/cover; }
   .app-page .top-icons-add {
+    position: relative;
     background: transparent url("./assets/icons/add_white.png") no-repeat center center/cover;
-    margin-right: 40px; }
+    margin-right: 10px;
+    box-sizing: border-box; }
+  .app-page .top-icons-add:after {
+    position: absolute;
+    content: " ";
+    top: 10px;
+    right: -12px;
+    background-color: #B7BFC1;
+    height: 30px;
+    width: 3px; }
+  .app-page .top-icon-nearTitle {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    -webkit-transition: background 0.15s;
+    -moz-transition: background 0.15s;
+    -ms-transition: background 0.15s;
+    -o-transition: background 0.15s;
+    transition: background 0.15s; }
+  .app-page .top-icon-now-playing {
+    position: relative;
+    top: 10px;
+    right: 100px;
+    background: transparent url("./assets/icons/queue.png") no-repeat center center/30px; }
+  .app-page .top-icon-more {
+    position: relative;
+    top: 10px;
+    left: 100px;
+    background: transparent url("./assets/icons/humberger_center.png") no-repeat center center/cover; }
   .app-page .top-seekbar {
     position: absolute;
     bottom: 0;

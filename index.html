@@ -64,12 +64,15 @@
         <div class="top-tab">
           <div class="top-tab-selector">
             <div id="player-close" class="top-tab-close"></div>
-            <div class="top-tab-selector-holder"><span id="now-playing" class="top-tab-selector-select top-tab-selector-selected">Now Playing</span><span id="play-queue" class="top-tab-selector-select">Play Queue</span></div>
           </div>
+          <div class="top-tab-selector-holder"><span id="now-playing" class="top-tab-selector-select top-tab-selector-selected">Now Playing</span><span id="play-queue" class="top-tab-selector-select">Play Queue</span></div>
           <div id="top-tab-slide" class="top-tab-slide">
+            <div id="selects" class="top-tab-slide-selects"><span style="background-color: #5e6465" class="top-tab-slide-selects-select"></span><span class="top-tab-slide-selects-select"></span><span class="top-tab-slide-selects-select"></span></div>
             <div id="player-titles" class="top-titles">
               <div id="label-player-wikiseda" class="top-titles-song-name">Wikiseda</div>
               <div id="label-player-wikiseda-sesc" class="top-titles-artist">Source of Iranian Music</div>
+              <div id="play-queue" class="top-icon-nearTitle top-icon-now-playing"></div>
+              <div id="item-nowplaying-humberger" class="top-icon-nearTitle top-icon-more"></div>
             </div>
             <div class="top-tab-slide-segment">
               <div id="cover" class="top-tab-slide-segment-cover">
@@ -92,15 +95,19 @@
                 </div>
               </div>
             </div>
-            <div id="selects" class="top-tab-slide-selects">
-              <div id="player-add" class="top-icon top-icons-add"></div><span style="background-color: #5e6465" class="top-tab-slide-selects-select"></span><span class="top-tab-slide-selects-select"></span><span class="top-tab-slide-selects-select"></span>
+            <div class="top-icons-holder">
+              <div id="player-add" class="top-icon top-icons-add"></div>
               <div id="player-fav" class="top-icon top-icons-fav"></div>
             </div>
             <div id="subtitle-holder" class="top-tab-slide-segment-subtitle">
               <div id="subtitle" class="top-tab-slide-segment-subtitle-text"></div>
             </div>
           </div>
-          <div id="top-tab-queue" class="top-tab-queue"></div>
+          <div id="top-tab-queue" class="top-tab-queue">
+            <div id="item-queue-clear" class="top-tab-queue-icon"></div>
+            <div id="now-playing" class="top-tab-queue-icon"></div>
+            <div class="top-tab-queue-holder"></div>
+          </div>
         </div>
         <div class="player">
           <div class="top-icons">
@@ -158,6 +165,24 @@
           <div id="menu-box-cancel" class="menu-box-item">
             <div class="menu-box-item-icon menu-box-cancel"></div>
             <div id="label-menu-box-cancel" class="menu-box-item-text label-multi-music">Cancel</div>
+          </div>
+        </div>
+        <div class="menu-box">
+          <div id="item-artist" class="menu-box-item">
+            <div class="menu-box-item-icon menu-box-follow"></div>
+            <div id="label-menu-box-artist-page" class="menu-box-item-text">Open artist page</div>
+          </div>
+          <div id="menu-box-add-to-playlist" class="menu-box-item">
+            <div class="menu-box-item-icon menu-box-add-to-playlist"></div>
+            <div id="label-menu-box-now-add-to-playlist" class="menu-box-item-text">Add to playlist</div>
+          </div>
+          <div id="menu-box-music-share" class="menu-box-item">
+            <div class="menu-box-item-icon menu-box-share"></div>
+            <div id="label-menu-box-now-music-share" class="menu-box-item-text">Share music</div>
+          </div>
+          <div id="menu-box-cancel" class="menu-box-item">
+            <div class="menu-box-item-icon menu-box-cancel"></div>
+            <div id="label-now-menu-box-cancel" class="menu-box-item-text label-multi-music">Cancel</div>
           </div>
         </div>
         <div class="menu-box">

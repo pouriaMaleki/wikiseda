@@ -66,7 +66,7 @@ backButton.add('album', function() {
 
 
 
-},{"./BackButton":3,"simple-touch":74}],2:[function(require,module,exports){
+},{"./BackButton":3,"simple-touch":76}],2:[function(require,module,exports){
 var AudioManager, flashMessage, loadingAnimation, settingsStorage;
 
 settingsStorage = require('./Tools/SettingStorage');
@@ -169,15 +169,17 @@ if (typeof cordova !== "undefined" && cordova !== null) {
           }
           return flashMessage.show(elText);
         };
-        window.plugins.OnDestroyPlugin.setEventListener((function(_this) {
-          return function() {
-            window.audioplayer.stop();
-            _this.playing = false;
-            if (_this.playStatusCallback != null) {
-              return _this.playStatusCallback(false);
-            }
-          };
-        })(this));
+        if (window.plugins.OnDestroyPlugin != null) {
+          window.plugins.OnDestroyPlugin.setEventListener((function(_this) {
+            return function() {
+              window.audioplayer.stop();
+              _this.playing = false;
+              if (_this.playStatusCallback != null) {
+                return _this.playStatusCallback(false);
+              }
+            };
+          })(this));
+        }
         if (typeof cordova !== "undefined" && cordova !== null) {
           window.audioplayer.configure(successCallback, failureCallback);
         }
@@ -817,7 +819,7 @@ module.exports = function(data, downloaded, history) {
 
 
 
-},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":50}],6:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":52}],6:[function(require,module,exports){
 var musicDataCache, url;
 
 url = require('../Tools/url');
@@ -848,30 +850,33 @@ module.exports = function(data) {
 
 
 
-},{"../Tools/url":30,"../musicDataCache":50}],7:[function(require,module,exports){
-var url;
+},{"../Tools/url":30,"../musicDataCache":52}],7:[function(require,module,exports){
+var musicDataCache, url;
 
 url = require('../Tools/url');
 
+musicDataCache = require('../musicDataCache');
+
 module.exports = function(data) {
   var albumsText, fansText, following, shouldUpdate, tracksText;
+  musicDataCache.data["artist" + data.id] = data;
   if (data.fans == null) {
-    data.fans = "??";
+    data.fans = "--";
   }
   if (data.albums == null) {
-    data.albums = "??";
+    data.albums = "--";
   }
   if (data.tracks == null) {
-    data.tracks = "??";
+    data.tracks = "--";
   }
   if (data.thumb != null) {
     data.thumb = url(data.thumb);
   } else {
     data.thumb = "./assets/images/logo.png";
   }
-  fansText = data.fans + " <small>Fans</small>";
-  if (window.lang === "fa") {
-    fansText = data.fans + " <small>طرفدار</small>";
+  fansText = "" + data.fans;
+  if (data.fans > 1000) {
+    fansText = (Math.floor(data.fans / 1000)) + "K";
   }
   albumsText = data.albums + " <small>Albums</small>";
   if (window.lang === "fa") {
@@ -889,12 +894,12 @@ module.exports = function(data) {
   if (data.shouldUpdate != null) {
     shouldUpdate = "shouldUpdate";
   }
-  return "<div class=\"main-item maxWidth artist-page-item " + shouldUpdate + "\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-become " + following + "\"></div>\n	</div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums\">" + albumsText + "</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs\">" + tracksText + "</div>\n	</div>\n</div>";
+  return "<div class=\"main-item maxWidth artist-page-item " + shouldUpdate + "\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-fan-holder\" id=\"artist-page-follow\">\n			<div class=\"main-item-titles-become " + following + "\"></div>\n			<div class=\"main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		</div>\n	</div>\n	<div class=\"main-item-artist-header-share\" id=\"artist-share\"></div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums main-item-artist-header-desc-field-selected\" id=\"artist-album-filter\">\n			<label>\n				<input type='checkbox' checked>\n				<span></span>\n				<holder id=\"artist-album-filter-text\">" + albumsText + "</holder>\n			</label>\n		</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs main-item-artist-header-desc-field-selected\" id=\"artist-song-filter\">\n			<label>\n				<input type='checkbox' checked>\n				<span></span>\n				<holder id=\"artist-song-filter-text\">" + tracksText + "</holder>\n			</label>\n		</div>\n	</div>\n</div>";
 };
 
 
 
-},{"../Tools/url":30}],8:[function(require,module,exports){
+},{"../Tools/url":30,"../musicDataCache":52}],8:[function(require,module,exports){
 module.exports = {
   node: (function(_this) {
     return function(message, id) {
@@ -938,7 +943,7 @@ module.exports = function(data) {
 
 
 
-},{"../Tools/url":30,"../musicDataCache":50}],10:[function(require,module,exports){
+},{"../Tools/url":30,"../musicDataCache":52}],10:[function(require,module,exports){
 module.exports = function(data) {
   return "<div class=\"main-item maxWidth\" id=\"genre-header\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-titles-title\">" + data.name + "</div>\n</div>";
 };
@@ -1017,7 +1022,7 @@ module.exports = function(data) {
 
 
 
-},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":50,"./playlistSong":19}],14:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":52,"./playlistSong":19}],14:[function(require,module,exports){
 var settingStorage, url;
 
 settingStorage = require('../Tools/SettingStorage');
@@ -1329,7 +1334,7 @@ Touch.onTap("setting-clear-search-history").onStart((function(_this) {
 
 
 
-},{"../Tools/SettingStorage":27,"../historyManage":36,"../login":41,"../searchHistory":60,"simple-touch":74}],17:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../historyManage":38,"../login":43,"../searchHistory":62,"simple-touch":76}],17:[function(require,module,exports){
 var musicDataCache, settingStorage, url;
 
 musicDataCache = require('../musicDataCache');
@@ -1378,7 +1383,7 @@ module.exports = function(data, downloaded, history) {
 
 
 
-},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":50}],18:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":52}],18:[function(require,module,exports){
 var SongDownloading, musicDataCache, settingStorage, url;
 
 musicDataCache = require('../musicDataCache');
@@ -1533,7 +1538,7 @@ module.exports = SongDownloading = (function() {
 
 
 
-},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":50}],19:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":52}],19:[function(require,module,exports){
 var musicDataCache, settingStorage, url;
 
 url = require('../Tools/url');
@@ -1563,7 +1568,7 @@ module.exports = function(song) {
 
 
 
-},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":50}],20:[function(require,module,exports){
+},{"../Tools/SettingStorage":27,"../Tools/url":30,"../musicDataCache":52}],20:[function(require,module,exports){
 module.exports = function(query, placeholder) {
   var elText;
   if (placeholder == null) {
@@ -1606,7 +1611,7 @@ module.exports = new Loading;
 
 
 },{}],22:[function(require,module,exports){
-var Touch, backButton, hideMenu, menu, menuRequest, showMenu, showingMore;
+var Touch, backButton, hideMenu, menu, menuArtistTitle, menuRequest, showMenu, showingMore;
 
 Touch = require('simple-touch');
 
@@ -1615,6 +1620,8 @@ menuRequest = require('./MenuRequest');
 backButton = require('./BackButton');
 
 menu = document.querySelector('.menu');
+
+menuArtistTitle = menu.children[2].querySelector(".menu-box-item#item-artist");
 
 showingMore = false;
 
@@ -1641,7 +1648,7 @@ showMenu = function(number) {
       return menu.children[number].style.webkitTransform = "translateY(0px)";
     };
   })(this), 10);
-  if (number === 5) {
+  if (number === 6) {
     menu.style.bottom = "67px";
   } else {
     menu.style.bottom = "";
@@ -1685,6 +1692,24 @@ Touch.onTap("item-song-humberger").onStart((function(_this) {
   };
 })(this));
 
+Touch.onTap("item-nowplaying-humberger").onStart((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+  };
+})(this)).onEnd((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onDone((function(_this) {
+  return function(event) {
+    event.listener.setAttribute("data-song-id", window.playingMusicData.id);
+    menuArtistTitle.setAttribute("data-artist-id", window.playingMusicData.artist_id);
+    menuArtistTitle.setAttribute("data-artist-name", window.playingMusicData.artist);
+    menuRequest.data = event.listener;
+    return showMenu(2);
+  };
+})(this));
+
 Touch.onTap("item-album-humberger").onStart((function(_this) {
   return function(event) {
     return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
@@ -1696,7 +1721,7 @@ Touch.onTap("item-album-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    return showMenu(3);
+    return showMenu(4);
   };
 })(this));
 
@@ -1711,7 +1736,7 @@ Touch.onTap("item-artist-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    return showMenu(2);
+    return showMenu(3);
   };
 })(this));
 
@@ -1726,7 +1751,7 @@ Touch.onTap("item-playlist-humberger").onStart((function(_this) {
 })(this)).onDone((function(_this) {
   return function(event) {
     menuRequest.data = event.listener.parentNode;
-    return showMenu(4);
+    return showMenu(5);
   };
 })(this));
 
@@ -1746,7 +1771,7 @@ Touch.onTap("icon-playlist").onStart((function(_this) {
       return hideMenu();
     } else {
       showingMore = true;
-      return showMenu(5);
+      return showMenu(6);
     }
   };
 })(this));
@@ -1778,7 +1803,7 @@ backButton.add('menu', function() {
 module.exports = {
   openMenu: (function(_this) {
     return function() {
-      return showMenu(6);
+      return showMenu(7);
     };
   })(this),
   closeMenu: (function(_this) {
@@ -1787,13 +1812,13 @@ module.exports = {
     };
   })(this),
   updateSubpageContent: function(div) {
-    return menu.children[6].innerHTML = div;
+    return menu.children[7].innerHTML = div;
   }
 };
 
 
 
-},{"./BackButton":3,"./MenuRequest":23,"simple-touch":74}],23:[function(require,module,exports){
+},{"./BackButton":3,"./MenuRequest":23,"simple-touch":76}],23:[function(require,module,exports){
 module.exports = {
   data: null
 };
@@ -1900,7 +1925,7 @@ module.exports = PageManager = (function() {
     return this.get();
   };
 
-  PageManager.prototype.artistExpanded = function(order, id, query) {
+  PageManager.prototype.artistExpanded = function(order, id, songFilter, albumFilter, query) {
     if (query == null) {
       query = "";
     }
@@ -1913,6 +1938,14 @@ module.exports = PageManager = (function() {
       page: this.page,
       sid: login.sid
     };
+    if (!(songFilter && albumFilter)) {
+      if (songFilter) {
+        this.query.just_song = 1;
+      }
+      if (albumFilter) {
+        this.query.just_album = 1;
+      }
+    }
     return this.get();
   };
 
@@ -2009,7 +2042,7 @@ module.exports = PageManager = (function() {
 
 
 
-},{"./Tools/serialize":29,"./login":41,"js-cache":68,"superagent":75}],25:[function(require,module,exports){
+},{"./Tools/serialize":29,"./login":43,"js-cache":70,"superagent":77}],25:[function(require,module,exports){
 var Queue, settingsStorage;
 
 settingsStorage = require('./Tools/SettingStorage');
@@ -2194,7 +2227,7 @@ module.exports = Queue = (function() {
 
 
 },{"./Tools/SettingStorage":27}],26:[function(require,module,exports){
-var MenuManagement, Queue, QueueItem, Touch, _setCoverPosition, ad, audio, backButton, closePlayer, countForAd, cover, covercover, currentTime, disableOpenTop, disableSlideshowMove, errorTimes, failedUpdateSegments, fav, findMusicInPlaylist, flashMessage, hideNowPlayingAndQueue, historyManage, info, infoDate, infoDesc, infoDivs, infoDownloads, infoLength, infoLoading, infoRate, infoSize, infoViews, jumpToNowPlaying, lastMp3Div, loadTrackDetail, lyric, main, menuRequest, miniImageNode, miniPlayNode, miniPlayerHeight, miniPlayerNode, miniTitlesNode, move, musicDataCache, newX, nowPlaying, nowPlayingSelector, open, openPlayer, openedOn, playDiv, playMusic, playNode, playQueue, playQueueSelector, playerNode, playlistManager, queue, repeatShuffle, repositionCover, repositionCoverOndemend, seekBarHandle, seekBarHolder, seekBarMove, selects, setSlideShowPosition, setTransform, setTransition, settingsStorage, showLastOpened, showNowPlaying, showPlayQueue, slideshowPos, subtitle, timeout, timeoutToRemoveAll, titlesNode, top, updatePlayer, updateQueue, updateQueueOnDemend, updateSegments, x;
+var MenuManagement, Queue, QueueItem, Touch, _setCoverPosition, ad, audio, backButton, closePlayer, countForAd, cover, covercover, currentTime, disableOpenTop, disableSlideshowMove, errorTimes, failedUpdateSegments, fav, findMusicInPlaylist, flashMessage, hideNowPlayingAndQueue, historyManage, info, infoDate, infoDesc, infoDivs, infoDownloads, infoLength, infoLoading, infoRate, infoSize, infoViews, jumpToNowPlaying, lastMp3Div, loadTrackDetail, lyric, main, menuRequest, miniImageNode, miniPlayNode, miniPlayerHeight, miniPlayerNode, miniTitlesNode, move, musicDataCache, newX, nowPlaying, nowPlayingSelector, open, openPlayer, openedOn, playDiv, playMusic, playNode, playQueue, playQueueHolder, playQueueSelector, playerNode, playlistManager, queue, repeatShuffle, repositionCover, repositionCoverOndemend, seekBarHandle, seekBarHolder, seekBarMove, selects, setSlideShowPosition, setTransform, setTransition, settingsStorage, showLastOpened, showNowPlaying, showPlayQueue, slideshowPos, subtitle, timeout, titlesNode, top, updatePlayer, updateQueue, updateQueueOnDemend, updateSegments, x;
 
 settingsStorage = require('./Tools/SettingStorage');
 
@@ -2450,8 +2483,10 @@ Touch.onPan("seekbar-handle").onStart(function(event) {
     setTransform(event.listener, "translateX(" + newX + "px)");
   }
   disableOpenTop = false;
-  audio["switch"]();
-  return audio["switch"]();
+  if (device.platform === 'Android') {
+    audio["switch"]();
+    return audio["switch"]();
+  }
 });
 
 Touch.onTap("item-song-play").onStart((function(_this) {
@@ -2830,6 +2865,14 @@ miniPlayerHeight = miniPlayerNode.getBoundingClientRect().height;
 
 move = window.innerHeight - miniPlayerHeight + 20;
 
+if (typeof device !== "undefined" && device !== null) {
+  if (typeof appAvailability !== "undefined" && appAvailability !== null) {
+    if (device.platform === 'iOS') {
+      move = window.innerHeight - miniPlayerHeight;
+    }
+  }
+}
+
 open = false;
 
 top.style.transition = "all 0s";
@@ -2842,6 +2885,13 @@ setTimeout(function() {
 
 window.addEventListener('resize', function() {
   move = window.innerHeight - miniPlayerHeight + 20;
+  if (typeof device !== "undefined" && device !== null) {
+    if (typeof appAvailability !== "undefined" && appAvailability !== null) {
+      if (device.platform === 'iOS') {
+        move = window.innerHeight - miniPlayerHeight;
+      }
+    }
+  }
   if (open === true) {
     setSlideShowPosition(0);
   } else {
@@ -3049,8 +3099,8 @@ failedUpdateSegments = function(data) {
 };
 
 updatePlayer = function(musicData) {
-  titlesNode.children[0].innerHTML = musicData.songname;
-  titlesNode.children[1].innerHTML = "<span data-artist-id=" + musicData.artist_id + " id=\"item-artist\">" + musicData.artist + "</span>";
+  titlesNode.children[0].innerHTML = "<span>" + musicData.songname + "</span>";
+  titlesNode.children[1].innerHTML = "<span>" + musicData.artist + "</span>";
   miniTitlesNode.children[0].innerHTML = musicData.songname;
   miniTitlesNode.children[1].innerHTML = musicData.artist;
   if (cover.children[0].children[0].src !== musicData.poster) {
@@ -3191,18 +3241,16 @@ queue.onChange(function(data, id) {
   updateQueue(data, id);
 });
 
+playQueueHolder = playQueue.querySelector(".top-tab-queue-holder");
+
 updateQueue = function(data, id) {
-  var d, div, i, j, len, msgTxt;
-  msgTxt = "Hold To Clear Queue";
-  if (window.lang === "fa") {
-    msgTxt = "برای پاک کردن صف نگه دارید";
-  }
-  div = "<div class=\"queue-item\" id=\"item-queue-clear\">" + msgTxt + "</div>";
+  var d, div, i, j, len;
+  div = "";
   for (i = j = 0, len = data.length; j < len; i = ++j) {
     d = data[i];
     div = div + QueueItem(d, i, id);
   }
-  playQueue.innerHTML = div;
+  playQueueHolder.innerHTML = div;
 };
 
 selects = document.querySelectorAll(".top-tab-slide-selects-select");
@@ -3413,28 +3461,23 @@ Touch.onTap("item-queue-song-play").onStart((function(_this) {
   };
 })(this));
 
-timeoutToRemoveAll = null;
-
 Touch.onTap("item-queue-clear").onStart((function(_this) {
   return function(event) {
-    var div;
-    event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
-    div = event.listener;
-    return timeoutToRemoveAll = setTimeout(function() {
-      div.style.backgroundColor = '';
-      return queue.removeAllExceptPlaying();
-    }, 700);
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
   };
 })(this)).onEnd((function(_this) {
   return function(event) {
-    event.listener.style.backgroundColor = '';
-    return clearTimeout(timeoutToRemoveAll);
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onTap((function(_this) {
+  return function(event) {
+    return queue.removeAllExceptPlaying();
   };
 })(this));
 
 
 
-},{"./AudioManager":2,"./BackButton":3,"./FlashMessage":4,"./Item/QueueItem":14,"./MenuManagement":22,"./MenuRequest":23,"./Queue":25,"./Tools/SettingStorage":27,"./ad":31,"./findMusicInPlaylist":33,"./getPlaylists":35,"./historyManage":36,"./loadTrackDetail":40,"./musicDataCache":50,"./repeatShuffle":58,"./setTransform":61,"./setTransition":62,"./subtitle":65,"simple-touch":74}],27:[function(require,module,exports){
+},{"./AudioManager":2,"./BackButton":3,"./FlashMessage":4,"./Item/QueueItem":14,"./MenuManagement":22,"./MenuRequest":23,"./Queue":25,"./Tools/SettingStorage":27,"./ad":31,"./findMusicInPlaylist":35,"./getPlaylists":37,"./historyManage":38,"./loadTrackDetail":42,"./musicDataCache":52,"./repeatShuffle":60,"./setTransform":63,"./setTransition":64,"./subtitle":67,"simple-touch":76}],27:[function(require,module,exports){
 var SettingsStorage, settingsStorage;
 
 SettingsStorage = (function() {
@@ -3479,9 +3522,18 @@ gotDir = (function(_this) {
 
 gotFs = (function(_this) {
   return function(fileSystem) {
+    var dirAddr;
     window.fs = fileSystem;
     tries = 0;
-    fileSystem.root.getDirectory("Wikiseda/", {
+    dirAddr = "Wikiseda/";
+    if (typeof device !== "undefined" && device !== null) {
+      if (typeof appAvailability !== "undefined" && appAvailability !== null) {
+        if (device.platform === 'iOS') {
+          dirAddr = "wikiseda/";
+        }
+      }
+    }
+    fileSystem.root.getDirectory(dirAddr, {
       create: true,
       exclusive: false
     }, gotDir, function(event) {
@@ -3546,13 +3598,9 @@ module.exports = function(address) {
 
 
 },{}],31:[function(require,module,exports){
-var adPublisherIds, adUnit, adUnitFullScreen, admobid, isAppForeground, isOverlap, isTest, network;
+var adPublisherIds, admobid;
 
-network = require('./network');
-
-isAppForeground = true;
-
-if (window.admob != null) {
+if (typeof AdMob !== "undefined" && AdMob !== null) {
   adPublisherIds = {
     ios: {
       banner: "ca-app-pub-3850619128711801/1412784928",
@@ -3564,25 +3612,15 @@ if (window.admob != null) {
     }
   };
   admobid = /(android)/i.test(navigator.userAgent) ? adPublisherIds.android : adPublisherIds.ios;
-  adUnit = admobid.banner;
-  adUnitFullScreen = admobid.interstitial;
-  isOverlap = false;
-  isTest = false;
-  window.admob.setUp(adUnit, adUnitFullScreen, isOverlap, isTest);
-  window.admob.onBannerAdPreloaded = function() {};
-  window.admob.onBannerAdLoaded = function() {};
-  window.admob.onFullScreenAdPreloaded = function() {};
-  window.admob.onFullScreenAdLoaded = function() {};
-  window.admob.onFullScreenAdShown = function() {};
-  window.admob.onFullScreenAdHidden = function() {};
 }
 
 module.exports = {
   interstitial: function() {
-    if (typeof admob !== "undefined" && admob !== null) {
-      if (network.status) {
-        return window.admob.showFullScreenAd();
-      }
+    if (typeof AdMob !== "undefined" && AdMob !== null) {
+      return AdMob.prepareInterstitial({
+        adId: admobid.interstitial,
+        autoShow: true
+      });
     }
   },
   banner: function() {},
@@ -3591,7 +3629,135 @@ module.exports = {
 
 
 
-},{"./network":51}],32:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
+var ArtistAlbumSongFilter,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
+  function ArtistAlbumSongFilter() {
+    this.changeAlbumFilterState = bind(this.changeAlbumFilterState, this);
+    this.changeSongFilterState = bind(this.changeSongFilterState, this);
+    this.songState = true;
+    this.albumState = true;
+  }
+
+  ArtistAlbumSongFilter.prototype.getNodes = function() {
+    this.song = document.getElementById("artist-song-filter").querySelector("input");
+    this.album = document.getElementById("artist-album-filter").querySelector("input");
+    this.applyOldState();
+    this.song.addEventListener("change", this.changeSongFilterState);
+    return this.album.addEventListener("change", this.changeAlbumFilterState);
+  };
+
+  ArtistAlbumSongFilter.prototype.applyOldState = function() {
+    this.song.checked = this.songState;
+    return this.album.checked = this.albumState;
+  };
+
+  ArtistAlbumSongFilter.prototype.changeSongFilterState = function() {
+    if (this.song == null) {
+      return false;
+    }
+    if (!this.song.checked) {
+      this.album.checked = true;
+      this.albumState = true;
+    }
+    this.songState = this.song.checked;
+    if (this.cb != null) {
+      return this.cb();
+    }
+  };
+
+  ArtistAlbumSongFilter.prototype.changeAlbumFilterState = function() {
+    if (this.album == null) {
+      return false;
+    }
+    if (!this.album.checked) {
+      this.song.checked = true;
+      this.songState = true;
+    }
+    this.albumState = this.album.checked;
+    if (this.cb != null) {
+      return this.cb();
+    }
+  };
+
+  ArtistAlbumSongFilter.prototype.getSongFilter = function() {
+    if (this.song == null) {
+      return false;
+    }
+    return this.song.checked;
+  };
+
+  ArtistAlbumSongFilter.prototype.getAlbumFilter = function() {
+    if (this.album == null) {
+      return false;
+    }
+    return this.album.checked;
+  };
+
+  ArtistAlbumSongFilter.prototype.onChange = function(cb) {
+    this.cb = cb;
+  };
+
+  return ArtistAlbumSongFilter;
+
+})());
+
+
+
+},{}],33:[function(require,module,exports){
+module.exports = function(artistHeader, data) {
+  var album, albumsText, artistName, fansCount, fansText, followingIcon, posterHolder, song, tracksText;
+  posterHolder = document.querySelector(".main-item-poster-holder");
+  artistName = document.querySelector(".main-item-titles-title");
+  followingIcon = document.querySelector(".main-item-titles-become");
+  fansCount = document.querySelector(".main-item-artist-header-desc-field-fans");
+  song = document.getElementById("artist-song-filter-text");
+  album = document.getElementById("artist-album-filter-text");
+  if (data.fans == null) {
+    data.fans = "--";
+  }
+  if (data.albums == null) {
+    data.albums = "--";
+  }
+  if (data.tracks == null) {
+    data.tracks = "--";
+  }
+  if (data.thumb == null) {
+    data.thumb = "./assets/images/logo.png";
+  }
+  if (parseInt(data.following) === 1) {
+    followingIcon.classList.add("main-item-titles-isfan");
+  } else {
+    followingIcon.classList.remove("main-item-titles-isfan");
+  }
+  posterHolder.children[0].src = data.thumb;
+  fansText = "" + data.fans;
+  if (data.fans > 1000) {
+    fansText = (Math.floor(data.fans / 1000)) + "K";
+  }
+  fansCount.innerHTML = fansText;
+  if ((data.shouldUpdate != null) && data.shouldUpdate) {
+    artistHeader.classList.add("shouldUpdate");
+  } else {
+    artistHeader.classList.remove("shouldUpdate");
+  }
+  albumsText = data.albums + " <small>Albums</small>";
+  if (window.lang === "fa") {
+    albumsText = data.albums + " <small>آلبوم</small>";
+  }
+  tracksText = data.tracks + " <small>Songs</small>";
+  if (window.lang === "fa") {
+    tracksText = data.tracks + " <small>موسیقی</small>";
+  }
+  album.innerHTML = albumsText;
+  return song.innerHTML = tracksText;
+};
+
+
+
+},{}],34:[function(require,module,exports){
 var Downloader, MenuManagement, SongDownloading, Touch, beingSync, dl, downloadSong, downloadingDivs, flashMessage, getFS, menuRequest, musicDataCache, network, playlistManager, playlistSync, settingStorage, syncSong;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -4180,7 +4346,7 @@ module.exports = function() {
 
 
 
-},{"./FlashMessage":4,"./Item/SongDownloading":18,"./MenuManagement":22,"./MenuRequest":23,"./Tools/SettingStorage":27,"./Tools/getFS":28,"./getPlaylists":35,"./musicDataCache":50,"./network":51,"./playlistSync":53,"simple-touch":74}],33:[function(require,module,exports){
+},{"./FlashMessage":4,"./Item/SongDownloading":18,"./MenuManagement":22,"./MenuRequest":23,"./Tools/SettingStorage":27,"./Tools/getFS":28,"./getPlaylists":37,"./musicDataCache":52,"./network":53,"./playlistSync":55,"simple-touch":76}],35:[function(require,module,exports){
 var playlists;
 
 playlists = require('./getPlaylists');
@@ -4209,7 +4375,7 @@ module.exports = function(plName, songId, cb) {
 
 
 
-},{"./getPlaylists":35}],34:[function(require,module,exports){
+},{"./getPlaylists":37}],36:[function(require,module,exports){
 var FollowArtist, MenuManagement, Touch, artist, cache, flashMessage, login, menuRequest, musicDataCache, serialize;
 
 Touch = require('simple-touch');
@@ -4301,7 +4467,7 @@ FollowArtist = (function() {
 
 artist = new FollowArtist;
 
-Touch.onTap("artist-page-header").onStart((function(_this) {
+Touch.onTap("artist-page-follow").onStart((function(_this) {
   return function(event) {
     return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
   };
@@ -4312,7 +4478,7 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
 })(this)).onTap((function(_this) {
   return function(event) {
     var artistHeader, become, fans, id;
-    artistHeader = event.target;
+    artistHeader = event.target.parentNode;
     id = artistHeader.getAttribute("data-artist-id");
     while (id === null) {
       artistHeader = artistHeader.parentNode;
@@ -4339,7 +4505,10 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
           if (window.lang === "fa") {
             elText = " <small>طرفدار</small>";
           }
-          fans.innerHTML = following + elText;
+          if (following > 1000) {
+            following = (Math.floor(following / 1000)) + "K";
+          }
+          fans.innerHTML = following;
           artistHeader.setAttribute("data-following", 1);
           return;
         }
@@ -4370,7 +4539,10 @@ Touch.onTap("artist-page-header").onStart((function(_this) {
           if (window.lang === "fa") {
             elText = " <small>طرفدار</small>";
           }
-          fans.innerHTML = following + elText;
+          if (following > 1000) {
+            following = (Math.floor(following / 1000)) + "K";
+          }
+          fans.innerHTML = following;
           artistHeader.setAttribute("data-following", 0);
           return;
         }
@@ -4453,7 +4625,7 @@ Touch.onTap("menu-box-follow").onStart((function(_this) {
 
 
 
-},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./login":41,"./musicDataCache":50,"js-cache":68,"simple-touch":74}],35:[function(require,module,exports){
+},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./login":43,"./musicDataCache":52,"js-cache":70,"simple-touch":76}],37:[function(require,module,exports){
 var Playlists, login, playlists, serialize;
 
 login = require('./login');
@@ -4656,7 +4828,7 @@ module.exports = playlists;
 
 
 
-},{"./Tools/serialize":29,"./login":41}],36:[function(require,module,exports){
+},{"./Tools/serialize":29,"./login":43}],38:[function(require,module,exports){
 var HistoryManage, settingStorage;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -4702,7 +4874,7 @@ module.exports = new (HistoryManage = (function() {
 
 
 
-},{"./Tools/SettingStorage":27}],37:[function(require,module,exports){
+},{"./Tools/SettingStorage":27}],39:[function(require,module,exports){
 var Forms, backButton, forms, setTransform, setTransition;
 
 setTransition = require('./setTransition');
@@ -4843,7 +5015,7 @@ module.exports = forms;
 
 
 
-},{"./BackButton":3,"./setTransform":61,"./setTransition":62}],38:[function(require,module,exports){
+},{"./BackButton":3,"./setTransform":63,"./setTransition":64}],40:[function(require,module,exports){
 var MenuManagement, Touch, failedUpdateSegments, flashMessage, loadTrackDetail, menuRequest, musicData, musicDataCache, updateSegments;
 
 loadTrackDetail = require('./loadTrackDetail');
@@ -4922,7 +5094,7 @@ failedUpdateSegments = function(data) {
 
 
 
-},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./loadTrackDetail":40,"./musicDataCache":50,"simple-touch":74}],39:[function(require,module,exports){
+},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./loadTrackDetail":42,"./musicDataCache":52,"simple-touch":76}],41:[function(require,module,exports){
 var Touch, changeStatics, enTexts, readTexts, settingStorage;
 
 Touch = require('simple-touch');
@@ -5055,6 +5227,10 @@ enTexts = {};
   enTexts["label-menu-box-sync-album"] = document.getElementById("label-menu-box-sync-album").innerHTML;
   enTexts["label-menu-box-album-share"] = document.getElementById("label-menu-box-album-share").innerHTML;
   enTexts[".label-multi-album#label-menu-box-cancel"] = document.querySelector(".label-multi-album#label-menu-box-cancel").innerHTML;
+  enTexts["label-menu-box-artist-page"] = document.getElementById("label-menu-box-artist-page").innerHTML;
+  enTexts["label-menu-box-now-add-to-playlist"] = document.getElementById("label-menu-box-now-add-to-playlist").innerHTML;
+  enTexts["label-menu-box-now-music-share"] = document.getElementById("label-menu-box-now-music-share").innerHTML;
+  enTexts[".label-multi-music#label-now-menu-box-cancel"] = document.querySelector(".label-multi-music#label-now-menu-box-cancel").innerHTML;
   enTexts[".label-multi-playlist#label-menu-box-play-album"] = document.querySelector(".label-multi-playlist#label-menu-box-play-album").innerHTML;
   enTexts[".label-multi-playlist#label-menu-box-album-add-to-queue"] = document.querySelector(".label-multi-playlist#label-menu-box-album-add-to-queue").innerHTML;
   enTexts[".label-multi-playlist#label-menu-box-album-play-next"] = document.querySelector(".label-multi-playlist#label-menu-box-album-play-next").innerHTML;
@@ -5100,6 +5276,10 @@ enTexts = {};
     document.getElementById("label-menu-box-music-share").innerHTML = "اشتراک گذاری";
     document.getElementById("label-menu-box-info").innerHTML = "جزییات";
     document.querySelector(".label-multi-music#label-menu-box-cancel").innerHTML = "خروج";
+    document.getElementById("label-menu-box-artist-page").innerHTML = "صفحه هنرمند";
+    document.getElementById("label-menu-box-now-add-to-playlist").innerHTML = "اضافه به لیست پخش";
+    document.getElementById("label-menu-box-now-music-share").innerHTML = "اشتراک گذاری";
+    document.querySelector(".label-multi-music#label-now-menu-box-cancel").innerHTML = "خروج";
     document.getElementById("label-menu-box-follow").innerHTML = "دنبال کردن";
     document.getElementById("label-menu-box-play-top").innerHTML = "بخش بهترین موسیقی ها";
     document.getElementById("label-menu-box-artist-share").innerHTML = "اشتراک گذاری";
@@ -5153,6 +5333,10 @@ enTexts = {};
     document.getElementById("label-menu-box-music-share").innerHTML = enTexts["label-menu-box-music-share"];
     document.getElementById("label-menu-box-info").innerHTML = enTexts["label-menu-box-info"];
     document.querySelector(".label-multi-music#label-menu-box-cancel").innerHTML = enTexts[".label-multi-music#label-menu-box-cancel"];
+    document.getElementById("label-menu-box-artist-page").innerHTML = enTexts["label-menu-box-artist-page"];
+    document.getElementById("label-menu-box-now-add-to-playlist").innerHTML = enTexts["label-menu-box-now-add-to-playlist"];
+    document.getElementById("label-menu-box-now-music-share").innerHTML = enTexts["label-menu-box-now-music-share"];
+    document.querySelector(".label-multi-music#label-now-menu-box-cancel").innerHTML = enTexts[".label-multi-music#label-now-menu-box-cancel"];
     document.getElementById("label-menu-box-follow").innerHTML = enTexts["label-menu-box-follow"];
     document.getElementById("label-menu-box-play-top").innerHTML = enTexts["label-menu-box-play-top"];
     document.getElementById("label-menu-box-artist-share").innerHTML = enTexts["label-menu-box-artist-share"];
@@ -5180,7 +5364,7 @@ enTexts = {};
 
 
 
-},{"./Tools/SettingStorage":27,"simple-touch":74}],40:[function(require,module,exports){
+},{"./Tools/SettingStorage":27,"simple-touch":76}],42:[function(require,module,exports){
 var lastRequest, request;
 
 request = require('superagent');
@@ -5215,7 +5399,7 @@ module.exports = (function(_this) {
 
 
 
-},{"superagent":75}],41:[function(require,module,exports){
+},{"superagent":77}],43:[function(require,module,exports){
 var Login, login, request, serialize, settingStorage;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -5445,7 +5629,7 @@ module.exports = login;
 
 
 
-},{"./Tools/SettingStorage":27,"./Tools/serialize":29,"superagent":75}],42:[function(require,module,exports){
+},{"./Tools/SettingStorage":27,"./Tools/serialize":29,"superagent":77}],44:[function(require,module,exports){
 var Touch, login;
 
 login = require("./login");
@@ -5488,8 +5672,8 @@ Touch.onTap("setting-logout").onStart((function(_this) {
 
 
 
-},{"./login":41,"simple-touch":74}],43:[function(require,module,exports){
-var BianLian, MenuManagement, PageManager, SongManagement, Touch, _lastType, _lastTypeBeforeLoadSongs, _query, _segment, _type, ad, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, closeGenre, flashMessage, followArtist, getFS, handleScrollCallback, i, id, initPage, len, loadSongs, login, main, morePage, musicDataCache, network, openArtist, openGenre, pm, reachedEnd, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedGenre, selectedMenuItem, selectedSegmented, settingStorage, types;
+},{"./login":43,"simple-touch":76}],45:[function(require,module,exports){
+var BianLian, MenuManagement, PageManager, SongManagement, Touch, _lastType, _lastTypeBeforeLoadSongs, _query, _segment, _type, ad, artistFilter, artistHeaderUpdate, artists, backButton, bottomIconDoneTouchHandler, bottomIconEndTouchHandler, bottomIconIds, bottomIconStartTouchHandler, closeArtist, closeGenre, flashMessage, followArtist, getFS, handleScrollCallback, i, id, initPage, len, loadSongs, login, main, morePage, musicDataCache, network, openArtist, openGenre, pm, reachedEnd, searchEvent, searchEverything, searchHistory, searchQuerySegmented, segmented, segmentedTypes, selectedArtist, selectedGenre, selectedMenuItem, selectedSegmented, settingStorage, types;
 
 window.TIMEOUT = 6000;
 
@@ -5556,6 +5740,14 @@ searchHistory = require('./searchHistory');
 searchEvent = require('./searchEvent');
 
 MenuManagement = require('./MenuManagement');
+
+artistFilter = require('./artistAlbumSongFilter');
+
+artistHeaderUpdate = require('./artistHeaderUpdate');
+
+artistFilter.onChange(function() {
+  return initPage();
+});
 
 network = require('./network');
 
@@ -5849,8 +6041,9 @@ pm = new PageManager((function(_this) {
       if (_type === "artistExpanded") {
         shouldUpdateHeader = main.querySelector(".shouldUpdate");
         if (shouldUpdateHeader != null) {
-          shouldUpdateHeader.outerHTML = types.artistExpanded(selectedArtist);
+          artistHeaderUpdate(shouldUpdateHeader, selectedArtist);
         }
+        artistFilter.getNodes();
       }
     }
     return searchEvent();
@@ -5898,6 +6091,7 @@ pm = new PageManager((function(_this) {
     }
     if (segmentedTypes[_type] != null) {
       main.innerHTML = segmentedTypes[_type]() + types.artistExpanded(selectedArtist) + BianLian.node(elText, 'load-more');
+      artistFilter.getNodes();
     }
   } else if (_type === "genreExpanded") {
     elText = 'Loading';
@@ -6013,7 +6207,7 @@ loadSongs = (function(_this) {
     }
     _lastTypeBeforeLoadSongs = _type;
     if (_type === "artistExpanded") {
-      return pm[_type](_segment, selectedArtist.id, _query);
+      return pm[_type](_segment, selectedArtist.id, artistFilter.getSongFilter(), artistFilter.getAlbumFilter(), _query);
     } else if (_type === "genreExpanded") {
       return pm[_type](_segment, selectedGenre.id, _query);
     } else {
@@ -6152,7 +6346,7 @@ closeArtist = function() {
 };
 
 openArtist = function(div) {
-  var artist, found, j, len1;
+  var artist, artistname, found, j, len1;
   id = div.getAttribute("data-artist-id");
   if (id == null) {
     return;
@@ -6184,9 +6378,13 @@ openArtist = function(div) {
       _segment = "new";
       backButton.activate('artist');
     }
+    artistname = div.getAttribute("data-artist-name");
+    if ((artistname == null) || artistname === "") {
+      artistname = div.innerHTML;
+    }
     selectedArtist = {
       id: id,
-      artist: div.innerHTML,
+      artist: artistname,
       shouldUpdate: true
     };
     return initPage();
@@ -6322,7 +6520,7 @@ network.onConnectionStatus(function(status) {
 
 
 
-},{"./AlbumManagement":1,"./BackButton":3,"./FlashMessage":4,"./Item/Album":5,"./Item/Artist":6,"./Item/ArtistHeader":7,"./Item/BianLian":8,"./Item/Genre":9,"./Item/GenreHeader":10,"./Item/Other":12,"./Item/Playlist":13,"./Item/Segmented":15,"./Item/Settings":16,"./Item/Song":17,"./Item/searchQuerySegmented":20,"./MenuManagement":22,"./PageManager":24,"./SongManagement":26,"./Tools/SettingStorage":27,"./Tools/getFS":28,"./ad":31,"./followArtist":34,"./infoInMenu":38,"./login":41,"./logout":42,"./morePage":44,"./musicDataCache":50,"./network":51,"./playlist":52,"./removePlaylist":56,"./removeSongFromDevice":57,"./searchEvent":59,"./searchHistory":60,"./share":63,"simple-touch":74}],44:[function(require,module,exports){
+},{"./AlbumManagement":1,"./BackButton":3,"./FlashMessage":4,"./Item/Album":5,"./Item/Artist":6,"./Item/ArtistHeader":7,"./Item/BianLian":8,"./Item/Genre":9,"./Item/GenreHeader":10,"./Item/Other":12,"./Item/Playlist":13,"./Item/Segmented":15,"./Item/Settings":16,"./Item/Song":17,"./Item/searchQuerySegmented":20,"./MenuManagement":22,"./PageManager":24,"./SongManagement":26,"./Tools/SettingStorage":27,"./Tools/getFS":28,"./ad":31,"./artistAlbumSongFilter":32,"./artistHeaderUpdate":33,"./followArtist":36,"./infoInMenu":40,"./login":43,"./logout":44,"./morePage":46,"./musicDataCache":52,"./network":53,"./playlist":54,"./removePlaylist":58,"./removeSongFromDevice":59,"./searchEvent":61,"./searchHistory":62,"./share":65,"simple-touch":76}],46:[function(require,module,exports){
 var About, Downloads, History, MenuManagement, Playlists, Settings, Touch, morePage;
 
 Touch = require('simple-touch');
@@ -6432,7 +6630,7 @@ module.exports = new morePage;
 
 
 
-},{"./MenuManagement":22,"./more/about":45,"./more/downloads":46,"./more/history":47,"./more/playlists":48,"./more/settings":49,"simple-touch":74}],45:[function(require,module,exports){
+},{"./MenuManagement":22,"./more/about":47,"./more/downloads":48,"./more/history":49,"./more/playlists":50,"./more/settings":51,"simple-touch":76}],47:[function(require,module,exports){
 var About, Touch, fbLink, fbLinks, historyManage, insta, instaLinks, schemeFb, schemeInsta;
 
 historyManage = require('../historyManage');
@@ -6523,7 +6721,7 @@ Touch.onTap("about-link-insta").onStart((function(_this) {
 
 
 
-},{"../historyManage":36,"simple-touch":74}],46:[function(require,module,exports){
+},{"../historyManage":38,"simple-touch":76}],48:[function(require,module,exports){
 var Downloads, album, downloadingList, settingStorage, song;
 
 settingStorage = require('../Tools/SettingStorage');
@@ -6674,7 +6872,7 @@ module.exports = Downloads;
 
 
 
-},{"../Item/Album":5,"../Item/Song":17,"../Tools/SettingStorage":27,"../download":32}],47:[function(require,module,exports){
+},{"../Item/Album":5,"../Item/Song":17,"../Tools/SettingStorage":27,"../download":34}],49:[function(require,module,exports){
 var History, Touch, album, albumTimeout, historyManage, musicDataCache, song, timeout;
 
 historyManage = require('../historyManage');
@@ -6895,7 +7093,7 @@ module.exports = History;
 
 
 
-},{"../Item/Album":5,"../Item/Song":17,"../historyManage":36,"../musicDataCache":50,"simple-touch":74}],48:[function(require,module,exports){
+},{"../Item/Album":5,"../Item/Song":17,"../historyManage":38,"../musicDataCache":52,"simple-touch":76}],50:[function(require,module,exports){
 var Playlists, Touch, album, playlist, playlistManager, playlistSong, playlistSync, settingStorage, song;
 
 settingStorage = require('../Tools/SettingStorage');
@@ -7080,7 +7278,7 @@ module.exports = Playlists;
 
 
 
-},{"../Item/Album":5,"../Item/Playlist":13,"../Item/Song":17,"../Item/playlistSong":19,"../Tools/SettingStorage":27,"../getPlaylists":35,"../playlistSync":53,"simple-touch":74}],49:[function(require,module,exports){
+},{"../Item/Album":5,"../Item/Playlist":13,"../Item/Song":17,"../Item/playlistSong":19,"../Tools/SettingStorage":27,"../getPlaylists":37,"../playlistSync":55,"simple-touch":76}],51:[function(require,module,exports){
 var Settings, Touch, historyManage, settingsText;
 
 historyManage = require('../historyManage');
@@ -7105,7 +7303,7 @@ module.exports = Settings = (function() {
 
 
 
-},{"../Item/Settings":16,"../historyManage":36,"simple-touch":74}],50:[function(require,module,exports){
+},{"../Item/Settings":16,"../historyManage":38,"simple-touch":76}],52:[function(require,module,exports){
 module.exports = {
   data: {},
   more: {}
@@ -7113,7 +7311,7 @@ module.exports = {
 
 
 
-},{}],51:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 var Network, network;
 
 Network = (function() {
@@ -7171,7 +7369,7 @@ module.exports = network;
 
 
 
-},{}],52:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 var MenuManagement, MenuPlaylist, Playlist, Touch, cache, fav, flashMessage, login, menuRequest, musicData, musicDataCache, playlists, request, serialize;
 
 login = require('./login');
@@ -7464,7 +7662,7 @@ Touch.onTap("menu-playlist-item").onStart((function(_this) {
 
 
 
-},{"./FlashMessage":4,"./Item/MenuPlaylist":11,"./Item/Playlist":13,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./getPlaylists":35,"./login":41,"./musicDataCache":50,"js-cache":68,"simple-touch":74,"superagent":75}],53:[function(require,module,exports){
+},{"./FlashMessage":4,"./Item/MenuPlaylist":11,"./Item/Playlist":13,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./getPlaylists":37,"./login":43,"./musicDataCache":52,"js-cache":70,"simple-touch":76,"superagent":77}],55:[function(require,module,exports){
 var ActivePlaylistSync, MenuManagement, PlaylistSync, Touch, menuRequest, musicDataCache, playlistManager, settingStorage;
 
 Touch = require('simple-touch');
@@ -7572,7 +7770,7 @@ module.exports = new PlaylistSync;
 
 
 
-},{"./MenuManagement":22,"./MenuRequest":23,"./Tools/SettingStorage":27,"./getPlaylists":35,"./musicDataCache":50,"./playlistSync/ActivePlaylistSync":54,"simple-touch":74}],54:[function(require,module,exports){
+},{"./MenuManagement":22,"./MenuRequest":23,"./Tools/SettingStorage":27,"./getPlaylists":37,"./musicDataCache":52,"./playlistSync/ActivePlaylistSync":56,"simple-touch":76}],56:[function(require,module,exports){
 var ActivePlaylistSync, ActiveSongSync, flashMessage, settingStorage;
 
 ActiveSongSync = require('./ActiveSongSync');
@@ -7613,7 +7811,7 @@ module.exports = ActivePlaylistSync = (function() {
 
 
 
-},{"../FlashMessage":4,"../Tools/SettingStorage":27,"./ActiveSongSync":55}],55:[function(require,module,exports){
+},{"../FlashMessage":4,"../Tools/SettingStorage":27,"./ActiveSongSync":57}],57:[function(require,module,exports){
 var ActiveSongSync, flashMessage;
 
 flashMessage = require('../FlashMessage');
@@ -7681,7 +7879,7 @@ module.exports = ActiveSongSync = (function() {
 
 
 
-},{"../FlashMessage":4}],56:[function(require,module,exports){
+},{"../FlashMessage":4}],58:[function(require,module,exports){
 var MenuManagement, Touch, flashMessage, login, menuRequest, musicDataCache, playlistManager, remove, serialize;
 
 musicDataCache = require('./musicDataCache');
@@ -7785,7 +7983,7 @@ Touch.onTap("menu-box-remove-playlist").onStart((function(_this) {
 
 
 
-},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./getPlaylists":35,"./login":41,"./musicDataCache":50,"simple-touch":74}],57:[function(require,module,exports){
+},{"./FlashMessage":4,"./MenuManagement":22,"./MenuRequest":23,"./Tools/serialize":29,"./getPlaylists":37,"./login":43,"./musicDataCache":52,"simple-touch":76}],59:[function(require,module,exports){
 var Touch, flashMessage, musicDataCache, remove, settingStorage, timeout, timeoutAlbum;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -7971,7 +8169,7 @@ module.exports = remove;
 
 
 
-},{"./FlashMessage":4,"./Tools/SettingStorage":27,"./musicDataCache":50,"simple-touch":74}],58:[function(require,module,exports){
+},{"./FlashMessage":4,"./Tools/SettingStorage":27,"./musicDataCache":52,"simple-touch":76}],60:[function(require,module,exports){
 var Touch, flashMessage, repeat, repeatDiv, settingsStorage, shuffle;
 
 settingsStorage = require('./Tools/SettingStorage');
@@ -8079,7 +8277,7 @@ Touch.onTap("shuffle").onStart((function(_this) {
 
 
 
-},{"./FlashMessage":4,"./Tools/SettingStorage":27,"simple-touch":74}],59:[function(require,module,exports){
+},{"./FlashMessage":4,"./Tools/SettingStorage":27,"simple-touch":76}],61:[function(require,module,exports){
 var Touch, cancelBlur, searchHistory, updateList;
 
 Touch = require('simple-touch');
@@ -8170,7 +8368,7 @@ Touch.onTap("history-item-remove").onStart((function(_this) {
 
 
 
-},{"./searchHistory":60,"simple-touch":74}],60:[function(require,module,exports){
+},{"./searchHistory":62,"simple-touch":76}],62:[function(require,module,exports){
 var SearchHistory, settingStorage;
 
 settingStorage = require('./Tools/SettingStorage');
@@ -8226,7 +8424,7 @@ module.exports = new (SearchHistory = (function() {
 
 
 
-},{"./Tools/SettingStorage":27}],61:[function(require,module,exports){
+},{"./Tools/SettingStorage":27}],63:[function(require,module,exports){
 module.exports = function(node, value) {
   if (value == null) {
     value = "";
@@ -8237,7 +8435,7 @@ module.exports = function(node, value) {
 
 
 
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 module.exports = function(node, prop, duration) {
   if (prop == null) {
     node.style.transition = "";
@@ -8253,8 +8451,8 @@ module.exports = function(node, prop, duration) {
 
 
 
-},{}],63:[function(require,module,exports){
-var MenuManagement, Touch, loadTrackDetail, menuRequest, musicDataCache;
+},{}],65:[function(require,module,exports){
+var MenuManagement, Touch, loadTrackDetail, menuRequest, musicDataCache, shareArtist;
 
 loadTrackDetail = require('./loadTrackDetail');
 
@@ -8324,20 +8522,42 @@ Touch.onTap("menu-box-artist-share").onStart((function(_this) {
   };
 })(this)).onTap((function(_this) {
   return function(event) {
-    var artistData, shareTxt;
+    var artistData;
     MenuManagement.closeMenu();
     artistData = musicDataCache.data["artist" + menuRequest.data.getAttribute('data-artist-id')];
-    shareTxt = "Download musicha va albumhaye " + artistData.artist + "            ";
-    if (window.lang === "fa") {
-      shareTxt = "دانلود آهنگ ها و آلبوم های " + artistData.artist + "            ";
-    }
-    return window.plugins.socialsharing.share(shareTxt, "Wikiseda", null, artistData.url || "http://www.wikiseda.com");
+    return shareArtist(artistData);
   };
 })(this));
 
+Touch.onTap("artist-share").onStart((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+  };
+})(this)).onEnd((function(_this) {
+  return function(event) {
+    return event.listener.style.backgroundColor = '';
+  };
+})(this)).onTap((function(_this) {
+  return function(event) {
+    var artistData;
+    console.log(musicDataCache.data, event.listener.parentNode.getAttribute('data-artist-id'));
+    artistData = musicDataCache.data["artist" + event.listener.parentNode.getAttribute('data-artist-id')];
+    return shareArtist(artistData);
+  };
+})(this));
+
+shareArtist = function(artistData) {
+  var shareTxt;
+  shareTxt = "Download " + artistData.artist + " musics and albums                      ";
+  if (window.lang === "fa") {
+    shareTxt = "دانلود آهنگ ها و آلبوم های " + artistData.artist + "            ";
+  }
+  return window.plugins.socialsharing.share(shareTxt, "Wikiseda", null, artistData.url || "http://www.wikiseda.com");
+};
 
 
-},{"./MenuManagement":22,"./MenuRequest":23,"./loadTrackDetail":40,"./musicDataCache":50,"simple-touch":74}],64:[function(require,module,exports){
+
+},{"./MenuManagement":22,"./MenuRequest":23,"./loadTrackDetail":42,"./musicDataCache":52,"simple-touch":76}],66:[function(require,module,exports){
 var flashMessage, login, network;
 
 network = require('./network');
@@ -8362,12 +8582,19 @@ module.exports = function(needLogin) {
   loginRegisterPage.style.display = "none";
   appPage = document.querySelector('.app-page');
   appPage.style.display = "block";
-  return main = require('./main');
+  main = require('./main');
+  if (typeof device !== "undefined" && device !== null) {
+    if (typeof appAvailability !== "undefined" && appAvailability !== null) {
+      if (device.platform === 'iOS') {
+        return document.body.classList.add("ios");
+      }
+    }
+  }
 };
 
 
 
-},{"./FlashMessage":4,"./login":41,"./main":43,"./network":51}],65:[function(require,module,exports){
+},{"./FlashMessage":4,"./login":43,"./main":45,"./network":53}],67:[function(require,module,exports){
 var Subtitle, Touch, request,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -8462,7 +8689,7 @@ module.exports = new Subtitle;
 
 
 
-},{"simple-touch":74,"superagent":75}],66:[function(require,module,exports){
+},{"simple-touch":76,"superagent":77}],68:[function(require,module,exports){
 var app, deviceReady, flashMessage, indexForms, launched, login, onOffline, startApp, startPoint;
 
 require('./modules/language');
@@ -8578,7 +8805,7 @@ setTimeout((function(_this) {
 
 
 
-},{"./modules/FlashMessage":4,"./modules/indexForms":37,"./modules/language":39,"./modules/login":41,"./modules/startPoint":64}],67:[function(require,module,exports){
+},{"./modules/FlashMessage":4,"./modules/indexForms":39,"./modules/language":41,"./modules/login":43,"./modules/startPoint":66}],69:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -8643,9 +8870,9 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],68:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 module.exports = require('./lib/cache');
-},{"./lib/cache":69}],69:[function(require,module,exports){
+},{"./lib/cache":71}],71:[function(require,module,exports){
 (function (process){
 var timeout = require('infinite-timeout');
 var events = require('backbone-events-standalone');
@@ -8821,7 +9048,7 @@ for(var key in _){
 module.exports = constructor;
 
 }).call(this,require("VCmEsw"))
-},{"VCmEsw":67,"backbone-events-standalone":71,"infinite-timeout":72}],70:[function(require,module,exports){
+},{"VCmEsw":69,"backbone-events-standalone":73,"infinite-timeout":74}],72:[function(require,module,exports){
 /**
  * Standalone extraction of Backbone.Events, no external dependency required.
  * Degrades nicely when Backone/underscore are already available in the current
@@ -9099,12 +9326,12 @@ module.exports = constructor;
   }
 })(this);
 
-},{}],71:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 module.exports = require('./backbone-events-standalone');
 
-},{"./backbone-events-standalone":70}],72:[function(require,module,exports){
+},{"./backbone-events-standalone":72}],74:[function(require,module,exports){
 module.exports = require('./lib/timeout');
-},{"./lib/timeout":73}],73:[function(require,module,exports){
+},{"./lib/timeout":75}],75:[function(require,module,exports){
 (function(exports){
     var MAX_INT = 2147483647;
     var timeouts = {};
@@ -9139,7 +9366,7 @@ module.exports = require('./lib/timeout');
     exports._timeouts = timeouts;
 
 })(typeof module === 'undefined' && typeof exports === 'undefined'? this.timeout = {} : exports);
-},{}],74:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 var PanListener, SimpleTouch, TapListener;
 
 SimpleTouch = (function() {
@@ -9537,7 +9764,7 @@ PanListener = (function() {
 
 module.exports = new SimpleTouch(document.body);
 
-},{}],75:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -10615,7 +10842,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":76,"reduce":77}],76:[function(require,module,exports){
+},{"emitter":78,"reduce":79}],78:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -10781,7 +11008,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],77:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -10806,4 +11033,4 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}]},{},[66])
+},{}]},{},[68])
