@@ -9386,7 +9386,7 @@ SimpleTouch = (function() {
       this.node.addEventListener('MSPointerDown', (function(_this) {
         return function(event) {
           _this.touchDown = true;
-          return _this._handleTouchStart();
+          return _this._handleTouchStart(event);
         };
       })(this));
       this.node.addEventListener('MSPointerMove', (function(_this) {
@@ -9394,29 +9394,29 @@ SimpleTouch = (function() {
           if (_this.touchDown === false) {
             return;
           }
-          return _this._handleTouchMove();
+          return _this._handleTouchMove(event);
         };
       })(this));
       this.node.addEventListener('MSPointerUp', (function(_this) {
         return function(event) {
           _this.touchDown = false;
-          return _this._handleTouchEnd();
+          return _this._handleTouchEnd(event);
         };
       })(this));
     }
     this.node.addEventListener('touchstart', (function(_this) {
       return function(event) {
-        return _this._handleTouchStart();
+        return _this._handleTouchStart(event);
       };
     })(this));
     this.node.addEventListener('touchmove', (function(_this) {
       return function(event) {
-        return _this._handleTouchMove();
+        return _this._handleTouchMove(event);
       };
     })(this));
     this.node.addEventListener('touchend', (function(_this) {
       return function(event) {
-        return _this._handleTouchEnd();
+        return _this._handleTouchEnd(event);
       };
     })(this));
     if (window.ontouchstart === void 0) {
@@ -9424,7 +9424,7 @@ SimpleTouch = (function() {
       this.node.addEventListener('mousedown', (function(_this) {
         return function(event) {
           _this.touchSimulateDown = true;
-          return _this._handleTouchStart();
+          return _this._handleTouchStart(event);
         };
       })(this));
       this.node.addEventListener('mousemove', (function(_this) {
@@ -9432,19 +9432,19 @@ SimpleTouch = (function() {
           if (_this.touchSimulateDown === false) {
             return;
           }
-          return _this._handleTouchMove();
+          return _this._handleTouchMove(event);
         };
       })(this));
       this.node.addEventListener('mouseup', (function(_this) {
         return function(event) {
           _this.touchSimulateDown = false;
-          return _this._handleTouchEnd();
+          return _this._handleTouchEnd(event);
         };
       })(this));
     }
   }
 
-  SimpleTouch.prototype._handleTouchStart = function() {
+  SimpleTouch.prototype._handleTouchStart = function(event) {
     var i, j, len, len1, listener, panListener, prospect, tapListener;
     prospect = this._checkProspect(event.target, this._tapListeners);
     if (prospect !== false) {
@@ -9467,7 +9467,7 @@ SimpleTouch = (function() {
     }
   };
 
-  SimpleTouch.prototype._handleTouchMove = function() {
+  SimpleTouch.prototype._handleTouchMove = function(event) {
     var i, j, k, len, len1, len2, listener, panListener, prospect, tapListener;
     prospect = this._checkProspect(event.target, this._tapListeners);
     if (prospect !== false) {
@@ -9497,7 +9497,7 @@ SimpleTouch = (function() {
     }
   };
 
-  SimpleTouch.prototype._handleTouchEnd = function() {
+  SimpleTouch.prototype._handleTouchEnd = function(event) {
     var i, j, k, len, len1, len2, listener, panListener, prospect, tapListener;
     prospect = this._checkProspect(event.target, this._tapListeners);
     if (prospect !== false) {
