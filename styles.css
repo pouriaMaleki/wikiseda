@@ -1048,6 +1048,7 @@ html, body {
         position: relative;
         top: 3px; }
       .app-page .artist-page-item .main-item-artist-header-desc-field small {
+        padding: 2px;
         color: #b3b9bb;
         font-family: RobotoCondensedRegular; }
       .app-page .artist-page-item .main-item-artist-header-desc-field label input {
@@ -1057,7 +1058,7 @@ html, body {
         width: 0;
         position: absolute;
         overflow: hidden; }
-      .app-page .artist-page-item .main-item-artist-header-desc-field label span {
+      .app-page .artist-page-item .main-item-artist-header-desc-field .clean {
         height: 100%;
         width: 100%;
         display: block;
@@ -1067,13 +1068,14 @@ html, body {
         right: 0;
         bottom: 0;
         box-sizing: border-box; }
-      .app-page .artist-page-item .main-item-artist-header-desc-field [type=checkbox]:checked + span {
+      .app-page .artist-page-item .main-item-artist-header-desc-field [type=checkbox]:checked + .clean {
         border-bottom: 5px solid #00A1EB; }
     .app-page .artist-page-item .main-item-artist-header-desc-field-fans {
       height: inherit;
-      font-size: 18px;
+      font-size: 16px;
       display: inline-block;
-      font-family: Roboto; }
+      font-family: Roboto;
+      color: #576971; }
       .app-page .artist-page-item .main-item-artist-header-desc-field-fans small {
         color: #b3b9bb;
         font-family: RobotoCondensedRegular; }
@@ -2113,3 +2115,6 @@ html, body {
     background: transparent url("./assets/icons/settings.png") no-repeat 0 0/contain; }
   .app-page #more-option-About_us .more-select-icon {
     background: transparent url("./assets/icons/about.png") no-repeat 0 0/contain; }
+
+.fa .main-item-artist-header-desc-field {
+  direction: rtl !important; }
