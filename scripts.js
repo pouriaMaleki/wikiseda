@@ -894,7 +894,7 @@ module.exports = function(data) {
   if (data.shouldUpdate != null) {
     shouldUpdate = "shouldUpdate";
   }
-  return "<div class=\"main-item maxWidth artist-page-item " + shouldUpdate + "\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-fan-holder\" id=\"artist-page-follow\">\n			<div class=\"main-item-titles-become " + following + "\"></div>\n			<div class=\"main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		</div>\n	</div>\n	<div class=\"main-item-artist-header-share\" id=\"artist-share\"></div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums main-item-artist-header-desc-field-selected\" id=\"artist-album-filter\">\n			<label>\n				<input type='checkbox' checked>\n				<span class=\"clean\"></span>\n				<span id=\"artist-album-filter-text\">" + albumsText + "</span>\n			</label>\n		</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs main-item-artist-header-desc-field-selected\" id=\"artist-song-filter\">\n			<label>\n				<input type='checkbox' checked>\n				<span class=\"clean\"></span>\n				<span id=\"artist-song-filter-text\">" + tracksText + "</span>\n			</label>\n		</div>\n	</div>\n</div>";
+  return "<div class=\"main-item maxWidth artist-page-item " + shouldUpdate + "\" id=\"artist-page-header\" data-artist-id=\"" + data.id + "\" data-following=\"" + data.following + "\">\n	<div class=\"main-item-artist-header-back\" id=\"segmented-back\"></div>\n	<div class=\"main-item-poster\"><div class=\"main-item-poster-holder\"><img src=\"" + data.thumb + "\"/></div></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.artist + "</div>\n		<div class=\"main-item-titles-fan-holder\" id=\"artist-page-follow\">\n			<div class=\"main-item-titles-become " + following + "\"></div>\n			<div class=\"main-item-artist-header-desc-field-fans\">" + fansText + "</div>\n		</div>\n	</div>\n	<div class=\"main-item-artist-header-share\" id=\"artist-share\"></div>\n	<div class=\"main-item-artist-header-desc\">\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-albums main-item-artist-header-desc-field-selected\" id=\"artist-album-filter\">\n			<label>\n				<span class=\"clean\"></span>\n				<span id=\"artist-album-filter-text\">" + albumsText + "</span>\n			</label>\n		</div>\n		<div class=\"main-item-artist-header-desc-field main-item-artist-header-desc-field-songs main-item-artist-header-desc-field-selected\" id=\"artist-song-filter\">\n			<label>\n				<span class=\"clean\"></span>\n				<span id=\"artist-song-filter-text\">" + tracksText + "</span>\n			</label>\n		</div>\n	</div>\n</div>";
 };
 
 
@@ -1378,7 +1378,7 @@ module.exports = function(data, downloaded, history) {
   data.poster = url(data.poster);
   data.poster_big = url(data.poster_big) || data.poster;
   musicDataCache.data[data.id] = data;
-  return "<div class=\"main-item\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-song-id=\"" + data.id + "\" " + downloadedText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(data.poster)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.songname + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"menu-item-pause-icon\" id=\"item-song-pause\"></div>\n</div>";
+  return "<div class=\"main-item\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-song-id=\"" + data.id + "\" " + downloadedText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(data.poster)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.songname + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"main-item-poster menu-item-pause-icon\" id=\"item-song-pause\"></div>\n</div>";
 };
 
 
@@ -1649,7 +1649,7 @@ showMenu = function(number) {
     };
   })(this), 10);
   if (number === 6) {
-    menu.style.bottom = "67px";
+    menu.style.bottom = "57px";
   } else {
     menu.style.bottom = "";
   }
@@ -3630,8 +3630,10 @@ module.exports = {
 
 
 },{}],32:[function(require,module,exports){
-var ArtistAlbumSongFilter,
+var ArtistAlbumSongFilter, Touch,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Touch = require('simple-touch');
 
 module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
   function ArtistAlbumSongFilter() {
@@ -3639,30 +3641,63 @@ module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
     this.changeSongFilterState = bind(this.changeSongFilterState, this);
     this.songState = true;
     this.albumState = true;
+    Touch.onTap("artist-song-filter").onStart((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+      };
+    })(this)).onEnd((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = '';
+      };
+    })(this)).onTap((function(_this) {
+      return function(event) {
+        return _this.changeSongFilterState(event);
+      };
+    })(this));
+    Touch.onTap("artist-album-filter").onStart((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+      };
+    })(this)).onEnd((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = '';
+      };
+    })(this)).onTap((function(_this) {
+      return function(event) {
+        return _this.changeAlbumFilterState(event);
+      };
+    })(this));
   }
 
   ArtistAlbumSongFilter.prototype.getNodes = function() {
-    this.song = document.getElementById("artist-song-filter").querySelector("input");
-    this.album = document.getElementById("artist-album-filter").querySelector("input");
-    this.applyOldState();
-    this.song.addEventListener("change", this.changeSongFilterState);
-    return this.album.addEventListener("change", this.changeAlbumFilterState);
+    this.song = document.getElementById("artist-song-filter").querySelector(".clean");
+    this.album = document.getElementById("artist-album-filter").querySelector(".clean");
+    return this.applyOldState();
   };
 
   ArtistAlbumSongFilter.prototype.applyOldState = function() {
-    this.song.checked = this.songState;
-    return this.album.checked = this.albumState;
+    this.changeState(this.song, this.songState);
+    return this.changeState(this.album, this.albumState);
+  };
+
+  ArtistAlbumSongFilter.prototype.changeState = function(element, state) {
+    if (state) {
+      return element.classList.add("clean-checked");
+    } else {
+      return element.classList.remove("clean-checked");
+    }
   };
 
   ArtistAlbumSongFilter.prototype.changeSongFilterState = function() {
     if (this.song == null) {
       return false;
     }
-    if (!this.song.checked) {
-      this.album.checked = true;
+    this.songState = !this.songState;
+    this.changeState(this.song, this.songState);
+    if (!this.songState) {
       this.albumState = true;
+      this.changeState(this.album, this.albumState);
     }
-    this.songState = this.song.checked;
     if (this.cb != null) {
       return this.cb();
     }
@@ -3672,11 +3707,12 @@ module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
     if (this.album == null) {
       return false;
     }
-    if (!this.album.checked) {
-      this.song.checked = true;
+    this.albumState = !this.albumState;
+    this.changeState(this.album, this.albumState);
+    if (!this.albumState) {
       this.songState = true;
+      this.changeState(this.song, this.songState);
     }
-    this.albumState = this.album.checked;
     if (this.cb != null) {
       return this.cb();
     }
@@ -3686,14 +3722,14 @@ module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
     if (this.song == null) {
       return false;
     }
-    return this.song.checked;
+    return this.songState;
   };
 
   ArtistAlbumSongFilter.prototype.getAlbumFilter = function() {
     if (this.album == null) {
       return false;
     }
-    return this.album.checked;
+    return this.albumState;
   };
 
   ArtistAlbumSongFilter.prototype.onChange = function(cb) {
@@ -3706,7 +3742,7 @@ module.exports = window.x = new (ArtistAlbumSongFilter = (function() {
 
 
 
-},{}],33:[function(require,module,exports){
+},{"simple-touch":76}],33:[function(require,module,exports){
 module.exports = function(artistHeader, data) {
   var album, albumsText, artistName, fansCount, fansText, followingIcon, posterHolder, song, tracksText;
   posterHolder = document.querySelector(".main-item-poster-holder");
@@ -5849,10 +5885,16 @@ Touch.onTap("segmented-top").onStart((function(_this) {
   };
 })(this));
 
-morePage.onSelect(function() {
-  selectedMenuItem.style.backgroundColor = '';
-  selectedMenuItem = document.getElementById("icon-playlist");
-  selectedMenuItem.style.backgroundColor = '#00a1eb';
+morePage.onSelect(function(pageName) {
+  if (pageName === "Downloaded Media") {
+    selectedMenuItem.style.backgroundColor = '';
+    selectedMenuItem = document.getElementById("more-option-Downloaded_Media");
+    selectedMenuItem.style.backgroundColor = '#00a1eb';
+  } else {
+    selectedMenuItem.style.backgroundColor = '';
+    selectedMenuItem = document.getElementById("icon-playlist");
+    selectedMenuItem.style.backgroundColor = '#00a1eb';
+  }
   _type = "playlist";
   _segment = "downloads";
   backButton.activate('home');
@@ -6599,7 +6641,7 @@ morePage = (function() {
             return event.listener.style.backgroundColor = '';
           }).onTap(function(event) {
             MenuManagement.closeMenu();
-            _this.selectCb();
+            _this.selectCb(item.name);
             _this.node.innerHTML = "";
             return _this.node.appendChild(item.page.getNode());
           });
@@ -8297,7 +8339,7 @@ updateList = function(element, val) {
       continue;
     }
     count++;
-    itemsDivText = itemsDivText + ("<div class=\"history-item\" id=\"history-item\" data-history-id=\"" + id + "\"><span class=\"history-item-text\">" + item + "</span><span class=\"history-item-remove\" id=\"history-item-remove\"></span></div>");
+    itemsDivText = itemsDivText + ("<div class=\"history-item\" id=\"history-item\" data-history-id=\"" + id + "\"><span class=\"history-item-text\">" + item + "</span><span class=\"history-item-icon history-item-search\"></span><span class=\"history-item-icon history-item-remove\" id=\"history-item-remove\"></span></div>");
     if (count > 4) {
       break;
     }

@@ -692,7 +692,7 @@ html, body {
       width: 33.3%; } }
   .app-page .main-item {
     position: relative;
-    height: 90px;
+    height: 65px;
     display: inline-block;
     background-color: #fff;
     border-bottom: 1px solid #eaecec;
@@ -706,47 +706,50 @@ html, body {
     transition: background 0.15s; }
   .app-page .main-item-poster {
     position: absolute;
-    top: 15px;
+    top: 8px;
     left: 15px;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     overflow: hidden;
     -webkit-transition: opacity 0.7s;
     -moz-transition: opacity 0.7s;
     -ms-transition: opacity 0.7s;
     -o-transition: opacity 0.7s;
-    transition: opacity 0.7s; }
+    transition: opacity 0.7s;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 1px #eee;
+    border-radius: 3px; }
     .app-page .main-item-poster img {
       height: inherit;
       width: inherit; }
   .app-page .main-item-titles {
     position: absolute;
-    left: 95px;
+    left: 85px;
     right: 25px;
     top: 0;
     overflow: hidden;
     white-space: nowrap;
     text-transform: capitalize;
     color: #454648;
-    height: 90px; }
+    height: 65px; }
   .app-page .main-item-titles-title {
     font-family: RobotoCondensedRegular;
     position: absolute;
-    top: 50px;
+    top: 32px;
     right: 20px;
     left: 0;
     overflow: hidden;
-    font-size: 18px;
+    font-size: 16px;
     color: #7a8082;
     text-overflow: ellipsis; }
   .app-page .main-item-titles-artist {
     font-family: RobotoLight;
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
     left: 0;
     overflow: hidden;
-    font-size: 22px;
+    font-size: 18px;
     color: #576971;
     text-overflow: ellipsis; }
   .app-page .main-item-titles-view {
@@ -754,26 +757,26 @@ html, body {
     position: absolute;
     right: 0;
     bottom: 5px;
-    font-size: 14px;
+    font-size: 12px;
     color: #bec2c4;
     direction: rtl; }
   .app-page .main-item-titles-view-icon {
     display: inline-block;
     position: relative;
     top: 3px;
-    height: 16px;
-    width: 22px;
-    margin-left: 10px;
+    height: 14px;
+    width: 20px;
     background: transparent url("./assets/icons/view.png") no-repeat center center/cover; }
   .app-page .main-item-titles-view-songs {
-    height: 14px;
+    height: 11px;
+    top: 0;
     background: transparent url("./assets/icons/icon-songs.png") no-repeat center center/contain; }
   .app-page .main-item-humberger-icon {
     position: absolute;
     top: 0px;
     right: 0px;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background: transparent url("./assets/icons/humberger_center.png") no-repeat center center/cover;
     -webkit-transition: background 0.15s;
     -moz-transition: background 0.15s;
@@ -781,18 +784,7 @@ html, body {
     -o-transition: background 0.15s;
     transition: background 0.15s; }
   .app-page .menu-item-pause-icon {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 1;
-    height: 60px;
-    width: 60px;
     visibility: hidden;
-    -webkit-transition: opacity 0.3s;
-    -moz-transition: opacity 0.3s;
-    -ms-transition: opacity 0.3s;
-    -o-transition: opacity 0.3s;
-    transition: opacity 0.3s;
     background: rgba(0, 0, 0, 0.5) url("./assets/icons/play-white.png") no-repeat center center/cover; }
   .app-page .menu-item-cancel-icon {
     position: absolute;
@@ -826,10 +818,10 @@ html, body {
     display: none; }
   .app-page .circleLoading {
     background: transparent url("./assets/icons/icon-loading.png") no-repeat center center/contain;
-    height: 40px;
+    height: 30px;
     width: 100%;
     position: absolute;
-    top: 10px;
+    top: 8px;
     left: 0;
     right: 0;
     -webkit-animation: spin-loader 4s infinite;
@@ -843,9 +835,9 @@ html, body {
   .app-page .circleLoading-text {
     color: #b7bdbe;
     font-family: RobotoCondensedRegular;
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
-    top: 55px; }
+    top: 40px; }
   .app-page #load-more {
     text-align: center; }
   .app-page #failed-refresh .circleLoading, .app-page #sync-not-find .circleLoading, .app-page #load-more-items .circleLoading {
@@ -881,20 +873,22 @@ html, body {
   .app-page #item-artist .main-item-poster {
     border-radius: 50%; }
   .app-page #item-artist .main-item-titles-title {
-    top: 20px;
-    font-size: 22px;
+    top: 10px;
+    font-size: 18px;
     font-family: RobotoLight; }
   .app-page #item-artist .main-item-titles-artist {
-    top: 50px;
-    font-size: 16px;
+    top: 35px;
+    font-size: 14px;
     font-family: Roboto; }
     .app-page #item-artist .main-item-titles-artist:before {
       content: " ";
       background: transparent url("./assets/icons/icon-fans.png") no-repeat 0 center/contain;
-      height: 15px;
-      width: 20px;
+      height: 12px;
+      width: 13px;
       display: inline-block;
-      float: left; }
+      float: left;
+      position: relative;
+      top: 2px; }
     .app-page #item-artist .main-item-titles-artist small {
       color: #b3b9bb;
       font-family: RobotoCondensedRegular; }
@@ -902,24 +896,27 @@ html, body {
     top: 65px;
     display: none; }
   .app-page #item-album {
-    padding-top: 90px; }
+    padding-top: 60px; }
+    .app-page #item-album .main-item-titles-view {
+      font-size: 14px; }
     .app-page #item-album .main-item-poster {
       border-radius: 10%; }
     .app-page #item-album .menu-item-pause-icon {
-      top: 17px;
+      position: relative;
+      top: 10px;
       left: -5px;
       right: auto;
       height: 30px;
       width: 30px;
       background: transparent url("./assets/icons/play-white.png") no-repeat center center/cover; }
     .app-page #item-album .main-item-album-song-humberger-icon {
-      border-top: 15px solid transparent;
+      border-top: 5px solid transparent;
       border-left: 20px solid transparent;
       border-bottom: 5px solid transparent;
       height: 30px;
       width: 30px; }
   .app-page .main-item-album-song {
-    height: 50px;
+    height: 40px;
     width: 100%;
     position: relative;
     -webkit-transition: background 0.15s;
@@ -929,7 +926,7 @@ html, body {
     transition: background 0.15s; }
   .app-page .menu-item-album-song-number {
     position: absolute;
-    top: 20px;
+    top: 5px;
     left: 40px;
     display: none; }
   .app-page .menu-item-album-song-title {
@@ -938,7 +935,7 @@ html, body {
     font-size: 18px;
     color: #5f7077;
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 20px;
     right: 100px;
     overflow: hidden;
@@ -952,7 +949,7 @@ html, body {
     font-size: 14px;
     color: #bec2c4;
     padding: 10px;
-    padding-top: 20px; }
+    padding-top: 10px; }
   .app-page .main-item-album-songs {
     display: none;
     display: block;
@@ -974,7 +971,7 @@ html, body {
   .app-page .main-item-titles-fans {
     float: left; }
   .app-page .artist-page-item {
-    height: 230px; }
+    height: 200px; }
     .app-page .artist-page-item .main-item-artist-header-back {
       background: transparent url("./assets/icons/back_.png") no-repeat center center/cover;
       height: 60px;
@@ -985,22 +982,24 @@ html, body {
       z-index: 1; }
     .app-page .artist-page-item .main-item-poster {
       position: absolute;
-      top: 20px;
+      top: 5px;
       height: auto;
       width: 100%;
       overflow: initial;
-      left: 0; }
+      left: 0;
+      border: 0px solid #eee;
+      box-shadow: 0 0px 0px #eee; }
       .app-page .artist-page-item .main-item-poster .main-item-poster-holder {
-        height: 130px;
-        width: 130px;
+        height: 120px;
+        width: 120px;
         margin: auto; }
         .app-page .artist-page-item .main-item-poster .main-item-poster-holder img {
           border-radius: 50%; }
     .app-page .artist-page-item .main-item-titles {
-      height: 230px;
       text-align: center;
       left: 0;
-      right: 0; }
+      right: 0;
+      height: 200px; }
     .app-page .artist-page-item .main-item-titles-artist {
       top: 50px; }
     .app-page .artist-page-item .main-item-titles-title {
@@ -1009,7 +1008,7 @@ html, body {
       color: #576971;
       font-family: RobotoLight;
       position: relative;
-      top: 160px; }
+      top: 130px; }
     .app-page .artist-page-item .main-item-titles-fan-holder {
       position: absolute;
       top: 20px;
@@ -1068,7 +1067,7 @@ html, body {
         right: 0;
         bottom: 0;
         box-sizing: border-box; }
-      .app-page .artist-page-item .main-item-artist-header-desc-field [type=checkbox]:checked + .clean {
+      .app-page .artist-page-item .main-item-artist-header-desc-field .clean-checked {
         border-bottom: 5px solid #00A1EB; }
     .app-page .artist-page-item .main-item-artist-header-desc-field-fans {
       height: inherit;
@@ -1131,17 +1130,18 @@ html, body {
     right: 20px;
     background: transparent url("./assets/icons/item-share.png") no-repeat center center/50px; }
   .app-page .main-item-search {
-    height: 40px;
+    height: 30px;
     width: 100%;
     background-color: #ccd2d3;
     color: #82888a;
-    font-family: RobotoCondensedLight; }
+    font-family: RobotoCondensedLight;
+    border-bottom: 0; }
   .app-page .main-item-search-btn {
     position: absolute;
     right: 10px;
     top: 0;
-    height: 40px;
-    width: 50px;
+    height: 30px;
+    width: 30px;
     background: transparent url("./assets/icons/search-icon.png") no-repeat center center/cover; }
   .app-page .main-item-search-input {
     position: absolute;
@@ -1154,7 +1154,7 @@ html, body {
       width: 100%;
       padding-left: 15px;
       font-family: RobotoCondensedLight;
-      font-size: 18px;
+      font-size: 16px;
       color: #7a8082; }
     .app-page .main-item-search-input ::-webkit-input-placeholder {
       color: #7a8082; }
@@ -1178,7 +1178,7 @@ html, body {
     color: #555; }
   .app-page .main-item-search-icon {
     position: absolute;
-    top: 0px;
+    top: cover;
     right: 50px;
     height: 30px;
     width: 30px;
@@ -1188,7 +1188,7 @@ html, body {
     background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/30px; }
   .app-page .main-item-search-history {
     position: absolute;
-    top: 40px;
+    top: 30px;
     width: 100%;
     background-color: #fff;
     z-index: 1000;
@@ -1201,8 +1201,7 @@ html, body {
       margin-right: 20px;
       position: relative;
       border-bottom: 1px #eee solid; }
-    .app-page .main-item-search-history .history-item-remove {
-      float: right;
+    .app-page .main-item-search-history .history-item-icon {
       padding-right: 20px;
       padding-left: 20px;
       color: #CCD2D3;
@@ -1211,8 +1210,13 @@ html, body {
       height: 34px;
       margin-top: 10px;
       margin-left: 2px;
-      margin-right: 2px;
+      margin-right: 2px; }
+    .app-page .main-item-search-history .history-item-remove {
+      float: right;
       background: transparent url("./assets/icons/item-cancel.png") no-repeat center center/50%; }
+    .app-page .main-item-search-history .history-item-search {
+      float: left;
+      background: transparent url("./assets/icons/search-icon.png") no-repeat center center/80%; }
   .app-page .setting-defaults {
     height: 62px;
     font-size: 18px;
@@ -1254,10 +1258,11 @@ html, body {
     font-size: 14px; }
   .app-page .main {
     position: absolute;
-    top: 76px;
+    top: 66px;
     left: 0;
     width: 100%;
-    bottom: 67px;
+    bottom: 0px;
+    padding-bottom: 57px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     font-size: 0; }
@@ -1513,15 +1518,15 @@ html, body {
   .app-page .mini-player {
     background-color: #fff;
     border-top: 20px white solid;
-    height: 76px;
+    height: 66px;
     width: 100%;
     position: absolute;
     bottom: 0;
     display: inline-block; }
   .app-page .mini-player-image {
     position: absolute;
-    top: 8px;
-    left: 15px;
+    top: 2px;
+    left: 10px;
     height: 60px;
     width: 60px; }
     .app-page .mini-player-image img {
@@ -1531,36 +1536,29 @@ html, body {
     position: relative;
     height: 100%;
     width: 100%;
-    text-align: center; }
+    text-align: left; }
   .app-page .mini-player-titles-song-name {
     position: absolute;
-    top: 5px;
+    top: 8px;
     overflow: hidden;
-    font-size: 22px;
+    font-size: 20px;
     font-family: RobotoLight;
     white-space: nowrap;
     text-transform: capitalize;
     overflow: hidden;
-    left: 85px;
+    left: 95px;
     right: 65px;
     color: #576971;
-    height: 45px;
-    line-height: 45px;
     text-overflow: ellipsis; }
   .app-page .mini-player-titles-artist {
     position: absolute;
     top: 35px;
-    left: 60px;
+    left: 95px;
     right: 55px;
     overflow: hidden;
-    height: 45px;
-    line-height: 35px;
     white-space: nowrap;
     text-transform: capitalize;
-    overflow: hidden;
-    left: 75px;
-    right: 55px;
-    font-size: 18px;
+    font-size: 16px;
     font-family: RobotoCondensedRegular;
     color: #7a8082;
     text-overflow: ellipsis; }
@@ -1568,7 +1566,7 @@ html, body {
       padding: 10px; }
   .app-page .mini-player-icons-play {
     position: absolute;
-    top: 11px;
+    top: 7px;
     right: 15px;
     height: 50px;
     width: 50px;
@@ -1733,7 +1731,7 @@ html, body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 2px;
     background-color: #e7e7e7; }
   .app-page .top-seekbar-move {
     position: absolute;
@@ -1777,22 +1775,22 @@ html, body {
     width: 40px; }
   .app-page .top-seekbar-handle-visual {
     position: relative;
-    top: 10px;
+    top: 16px;
     left: 10px;
-    height: 20px;
-    width: 20px;
+    height: 10px;
+    width: 10px;
     background-color: #3ab6e9;
     border-radius: 50%; }
   .app-page .bottom {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 67px;
+    height: 57px;
     width: 100%;
-    background: #45494b;
     color: #fff;
     text-align: center;
-    font-size: 0; }
+    font-size: 0;
+    background: rgba(69, 73, 75, 0.85); }
     .app-page .bottom:before {
       content: " ";
       display: block;
@@ -1812,7 +1810,7 @@ html, body {
     transition: background-color 0.7s; }
   @media screen and (max-width: 700px) {
     .app-page .bottom-complex-icon {
-      width: 20%; } }
+      width: 16.66%; } }
   @media screen and (min-width: 700px) {
     .app-page .bottom-complex-icon {
       width: 70px; } }
@@ -1824,15 +1822,15 @@ html, body {
     margin-left: 0px;
     width: 55px;
     position: relative;
-    top: 5px;
+    top: 3px;
     text-align: center;
     font-family: RobotoCondensedRegular;
     font-size: 12px; }
   .app-page .bottom-icon {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     position: relative;
-    top: 8px;
+    top: 4px;
     margin: auto; }
   .app-page .bottom-icon-home {
     background: transparent url("./assets/icons/home.png") no-repeat center center/cover; }
@@ -1842,6 +1840,8 @@ html, body {
     background: transparent url("./assets/icons/song.png") no-repeat center center/cover; }
   .app-page .bottom-icon-album {
     background: transparent url("./assets/icons/album.png") no-repeat center center/cover; }
+  .app-page .bottom-icon-download {
+    background: transparent url("./assets/icons/downloads-page.png") no-repeat center center/cover; }
   .app-page .bottom-icon-playlist {
     background: transparent url("./assets/icons/more.png") no-repeat center center/cover; }
   .app-page .menu-box-add-to-queue {
@@ -1980,9 +1980,10 @@ html, body {
   .app-page .menu-box::-webkit-scrollbar {
     display: none; }
   .app-page .main-item-segmented {
-    height: 40px;
+    height: 30px;
     width: 100%;
-    background-color: #e5e9ea; }
+    background-color: #e5e9ea;
+    border-bottom: 0; }
   .app-page .segmented {
     display: inline-block; }
   .app-page .segmented-label {
@@ -1991,11 +1992,10 @@ html, body {
     font-size: 18px;
     font-family: RobotoCondensedRegular;
     color: #919798;
-    line-height: 30px;
+    line-height: 25px;
     position: relative;
-    top: 4px;
+    top: 0;
     left: 10px;
-    border-radius: 3px;
     padding-left: 10px;
     padding-right: 10px;
     -webkit-transition: color 0.4s, background-color 0.4s;
@@ -2023,27 +2023,30 @@ html, body {
     position: relative;
     top: 11px; }
   .app-page .more-select {
+    position: relative;
     width: 100%;
-    height: 90px;
-    line-height: 90px;
+    height: 70px;
+    line-height: 70px;
     border-bottom: 1px solid #eaecec;
     font-size: 20px;
     transition: background-color 0.4s;
     font-family: RobotoLight;
     overflow: hidden;
-    font-size: 22px;
+    font-size: 16px;
     color: #576971;
     text-overflow: ellipsis; }
   .app-page .more-select-icon {
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
     height: 60px;
     width: 60px;
     display: inline-block;
     position: relative;
-    top: 20px; }
+    top: 5px; }
   .app-page .more-select-text {
-    padding-left: 50px;
+    position: absolute;
+    top: 0;
+    padding-left: 10px;
     padding-right: 50px; }
   .app-page .main-item-artist-header-back {
     background: transparent url("./assets/icons/back_.png") no-repeat center center/cover;
