@@ -6903,7 +6903,9 @@ Downloads = (function() {
               break;
             case "playlist":
               syncedPlaylists = settingStorage.get("synced-playlists");
-              _this.placePlaylists(syncedPlaylists);
+              if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
+                _this.placePlaylists(syncedPlaylists);
+              }
           }
           return _this.placeForItems.appendChild(_this.createDownloadedItems(filteredList));
         }
@@ -6979,7 +6981,9 @@ Downloads = (function() {
     downloaded = JSON.parse(settingStorage.get("downloaded"));
     this.placeForItems.appendChild(this.createDownloadedItems(downloaded));
     syncedPlaylists = settingStorage.get("synced-playlists");
-    return this.placePlaylists(syncedPlaylists);
+    if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
+      return this.placePlaylists(syncedPlaylists);
+    }
   };
 
   Downloads.prototype.placePlaylists = function(syncedPlaylists) {
@@ -7027,23 +7031,25 @@ Downloads = (function() {
       fuse = new Fuse(downloaded, options);
       this.placeForItems.appendChild(this.createDownloadedItems(fuse.search(filter)));
       syncedPlaylists = settingStorage.get("synced-playlists");
-      options = {
-        caseSensitive: false,
-        shouldSort: true,
-        threshold: 0.1,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        keys: ["songname", "album", "artist"]
-      };
-      playlistsFiltered = [];
-      for (i = 0, len = syncedPlaylists.length; i < len; i++) {
-        syncedPlaylist = syncedPlaylists[i];
-        fuse = new Fuse(syncedPlaylist.albumtracks, options);
-        syncedPlaylist.albumtracks = fuse.search(filter);
-        playlistsFiltered.push(syncedPlaylist);
+      if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
+        options = {
+          caseSensitive: false,
+          shouldSort: true,
+          threshold: 0.1,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          keys: ["songname", "album", "artist"]
+        };
+        playlistsFiltered = [];
+        for (i = 0, len = syncedPlaylists.length; i < len; i++) {
+          syncedPlaylist = syncedPlaylists[i];
+          fuse = new Fuse(syncedPlaylist.albumtracks, options);
+          syncedPlaylist.albumtracks = fuse.search(filter);
+          playlistsFiltered.push(syncedPlaylist);
+        }
+        return this.placePlaylists(playlistsFiltered);
       }
-      return this.placePlaylists(playlistsFiltered);
     } else {
       return this.placeAllItems();
     }
@@ -8341,7 +8347,7 @@ Touch.onTap("item-song-play").onStart((function(_this) {
             }
             settingStorage.set("downloaded", JSON.stringify(downloaded));
             syncedPlaylists = settingStorage.get("synced-playlists");
-            if (syncedPlaylists != null) {
+            if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
               found = null;
               for (i = l = 0, len1 = syncedPlaylists.length; l < len1; i = ++l) {
                 syncedPlaylist = syncedPlaylists[i];
@@ -8436,7 +8442,7 @@ Touch.onTap("item-album").onStart((function(_this) {
           }
           if (albumData.groupname != null) {
             syncedPlaylists = settingStorage.get("synced-playlists");
-            if (syncedPlaylists != null) {
+            if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
               found = null;
               for (i = m = 0, len2 = syncedPlaylists.length; m < len2; i = ++m) {
                 syncedPlaylist = syncedPlaylists[i];
