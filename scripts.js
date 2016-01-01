@@ -117,10 +117,10 @@ if (typeof cordova !== "undefined" && cordova !== null) {
                     "title": window.playingMusicData.songname || "Wikiseda",
                     "artist": window.playingMusicData.artist || "Wikiseda",
                     "image": {
-                      "url": window.playingMusicData.poster || ""
+                      "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
                     },
                     "imageThumbnail": {
-                      "url": window.playingMusicData.poster || ""
+                      "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
                     }
                   }, 0, {});
                   return;
@@ -226,10 +226,10 @@ if (typeof cordova !== "undefined" && cordova !== null) {
                     "title": window.playingMusicData.songname || "Wikiseda",
                     "artist": window.playingMusicData.artist || "Wikiseda",
                     "image": {
-                      "url": window.playingMusicData.poster || ""
+                      "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
                     },
                     "imageThumbnail": {
-                      "url": window.playingMusicData.poster || ""
+                      "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
                     }
                   }, 0, {});
                   return;
@@ -292,10 +292,10 @@ if (typeof cordova !== "undefined" && cordova !== null) {
           "title": window.playingMusicData.songname || "Wikiseda",
           "artist": window.playingMusicData.artist || "Wikiseda",
           "image": {
-            "url": window.playingMusicData.poster || ""
+            "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
           },
           "imageThumbnail": {
-            "url": window.playingMusicData.poster || ""
+            "url": window.playingMusicData.poster_big || window.playingMusicData.poster || ""
           }
         }, 0, {});
         this.playing = true;
@@ -781,7 +781,8 @@ module.exports = function(data, downloaded, history) {
   }
   songs = "";
   data.poster = url(data.poster);
-  data.poster_big = url(data.poster_big) || data.poster;
+  data.poster_big = data.poster_600x600 || url(data.poster_big) || data.poster;
+  data.poster_small = data.poster_60x60 || data.poster;
   ref = data.albumtracks;
   for (i = j = 0, len = ref.length; j < len; i = ++j) {
     song = ref[i];
@@ -794,7 +795,9 @@ module.exports = function(data, downloaded, history) {
     if (mp3 === void 0 || mp3 === null) {
       continue;
     }
-    song.poster_big = data.poster_big;
+    song.poster = url(data.poster);
+    song.poster_big = data.poster_600x600 || url(data.poster_big) || data.poster;
+    song.poster_small = data.poster_60x60 || data.poster;
     musicDataCache.data[song.id] = song;
     viewString = "<div class=\"main-item-titles-view-icon\"></div>" + song.view;
     downloadedText = "";
@@ -814,7 +817,7 @@ module.exports = function(data, downloaded, history) {
   if (data.view != null) {
     viewText = "<div class=\"main-item-titles-view-icon\"></div>" + data.view;
   }
-  return "<div class=\"main-item\" id=\"item-album\" data-album-id=\"" + data.id + "\" " + downloadedAlbumText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + data.poster + "\" onLoad=\"this.parentNode.style.opacity = '';\"  onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.album + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\"><div class=\"main-item-titles-view-icon main-item-titles-view-songs\"></div>" + data.trackcount + viewText + "</div>\n	</div>\n	<div class=\"main-item-titles-count\">" + data.trackcount + " Song</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-album-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n</div>";
+  return "<div class=\"main-item\" id=\"item-album\" data-album-id=\"" + data.id + "\" " + downloadedAlbumText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + data.poster_small + "\" onLoad=\"this.parentNode.style.opacity = '';\"  onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.album + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\"><div class=\"main-item-titles-view-icon main-item-titles-view-songs\"></div>" + data.trackcount + viewText + "</div>\n	</div>\n	<div class=\"main-item-titles-count\">" + data.trackcount + " Song</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-album-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n</div>";
 };
 
 
@@ -988,12 +991,21 @@ settingStorage = require('../Tools/SettingStorage');
 
 playlistSong = require('./playlistSong');
 
-module.exports = function(data) {
-  var count, elText, i, j, len, playlistPoster, ref, song, songText, songs, syncPlaylist;
+module.exports = function(data, downloaded) {
+  var count, downloadedText, elText, i, j, len, playlistPoster, ref, song, songText, songs, syncPlaylist;
+  if (downloaded == null) {
+    downloaded = false;
+  }
   data.albumtracks = data.albumtracks || data.tracks;
+  musicDataCache.data["playlist" + data.id] = data;
+  musicDataCache.more["playlist" + data.id] = data;
   playlistPoster = "./assets/images/logo.png";
   if (data.albumtracks.length > 3) {
     playlistPoster = "http://getsongg.com/dappimages/playlist_" + data.id + ".jpg";
+  }
+  downloadedText = "";
+  if (downloaded === true) {
+    downloadedText = "downloaded=\"true\"";
   }
   elText = "Song";
   if (window.lang === "fa") {
@@ -1005,7 +1017,7 @@ module.exports = function(data) {
   for (i = j = 0, len = ref.length; j < len; i = ++j) {
     song = ref[i];
     count++;
-    songText = playlistSong(song, i);
+    songText = playlistSong(song, downloaded);
     if (songText === "" || songText === false) {
       count--;
     }
@@ -1017,7 +1029,7 @@ module.exports = function(data) {
   if (settingStorage.get("playlist-" + data.id)) {
     syncPlaylist = " data-synced=\"true\" ";
   }
-  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" data-playlist-name=\"" + data.groupname + "\" " + syncPlaylist + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + count + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
+  return "<div class=\"main-item main-item-playlist\" id=\"item-album\" data-playlist-id=\"" + data.id + "\" data-playlist-name=\"" + data.groupname + "\" " + syncPlaylist + " " + downloadedText + ">\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\"><span class=\"main-item-titles-title-count\">" + count + "</span> " + elText + "</div>\n		<div class=\"main-item-titles-artist\">" + data.groupname + "</div>\n		<div class=\"main-item-playlist-sync\"></div>\n	</div>\n	<div></div><div></div>\n	<div class=\"main-item-humberger-icon\" id=\"item-playlist-humberger\"></div>\n	<div class=\"main-item-album-songs\">" + songs + "</div>\n	<img class=\"main-item-poster\" src=\"" + playlistPoster + "\">\n</div>";
 };
 
 
@@ -1031,6 +1043,9 @@ url = require('../Tools/url');
 
 module.exports = function(data, i, id) {
   var div, mp3;
+  if (data == null) {
+    return;
+  }
   mp3 = data.mp3;
   if (settingStorage.get("play-default-quality") === "high") {
     mp3 = data.mp3 || data.mp3_low;
@@ -1376,9 +1391,10 @@ module.exports = function(data, downloaded, history) {
     musicDataCache.more[data.id] = data;
   }
   data.poster = url(data.poster);
-  data.poster_big = url(data.poster_big) || data.poster;
+  data.poster_big = data.poster_600x600 || url(data.poster_big) || data.poster;
+  data.poster_small = data.poster_60x60 || data.poster;
   musicDataCache.data[data.id] = data;
-  return "<div class=\"main-item\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-song-id=\"" + data.id + "\" " + downloadedText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(data.poster)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.songname + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"main-item-poster menu-item-pause-icon\" id=\"item-song-pause\"></div>\n</div>";
+  return "<div class=\"main-item\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-song-id=\"" + data.id + "\" " + downloadedText + ">\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(data.poster_small)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n	<div class=\"main-item-titles\">\n		<div class=\"main-item-titles-title\">" + data.songname + "</div>\n		<div class=\"main-item-titles-artist\">" + data.artist + "</div>\n		<div class=\"main-item-titles-view\">" + viewString + "</div>\n	</div>\n	<div class=\"main-item-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"main-item-poster menu-item-pause-icon\" id=\"item-song-pause\"></div>\n</div>";
 };
 
 
@@ -1441,8 +1457,9 @@ module.exports = SongDownloading = (function() {
     if (this.mp3 === void 0 || this.mp3 === null) {
       return;
     }
-    this.data.poster = url(this.data.poster);
-    this.data.poster_big = url(this.data.poster_big) || this.data.poster;
+    this.data.poster = this.data.poster;
+    this.data.poster_big = this.data.poster_600x600 || this.data.poster_big || this.data.poster;
+    this.data.poster_small = this.data.poster_60x60 || this.data.poster;
     musicDataCache.data[this.data.id] = this.data;
     musicDataCache.more[this.data.id] = this.data;
     this.view = "Waiting for download";
@@ -1547,8 +1564,11 @@ musicDataCache = require('../musicDataCache');
 
 settingStorage = require('../Tools/SettingStorage');
 
-module.exports = function(song) {
-  var mp3;
+module.exports = function(song, downloaded) {
+  var downloadedText, mp3;
+  if (downloaded == null) {
+    downloaded = false;
+  }
   if (song == null) {
     return "";
   }
@@ -1558,12 +1578,19 @@ module.exports = function(song) {
   } else {
     mp3 = song.mp3_low || song.mp3;
   }
+  downloadedText = "";
+  if (downloaded === true) {
+    downloadedText = "downloaded=\"true\"";
+  }
   if (mp3 === void 0 || mp3 === null) {
     return false;
   }
   musicDataCache.data[song.id] = song;
   musicDataCache.more[song.id] = song;
-  return "<div class=\"main-item-album-song\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-kind=\"album-song\" data-song-id=\"" + song.id + "\">\n	<div class=\"menu-item-album-song-number\"></div>\n	<div class=\"menu-item-album-song-title\">" + song.songname + "</div>\n	<div class=\"menu-item-album-song-artist\">" + song.artist + "</div>\n	<div class=\"menu-item-pause-icon\" id=\"item-song-pause\"></div>\n	<div class=\"menu-item-album-song-view\"><div class=\"main-item-titles-view-icon\"></div>" + song.view + "</div>\n	<div class=\"main-item-humberger-icon main-item-album-song-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(song.poster)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n</div>";
+  song.poster = url(song.poster);
+  song.poster_big = song.poster_600x600 || url(song.poster_big) || song.poster;
+  song.poster_small = song.poster_60x60 || song.poster;
+  return "<div class=\"main-item-album-song\" data-mp3=\"" + mp3 + "\" id=\"item-song-play\" data-kind=\"album-song\" data-song-id=\"" + song.id + "\"  " + downloadedText + ">\n	<div class=\"menu-item-album-song-number\"></div>\n	<div class=\"menu-item-album-song-title\">" + song.songname + "</div>\n	<div class=\"menu-item-album-song-artist\">" + song.artist + "</div>\n	<div class=\"menu-item-pause-icon\" id=\"item-song-pause\"></div>\n	<div class=\"menu-item-album-song-view\"><div class=\"main-item-titles-view-icon\"></div>" + song.view + "</div>\n	<div class=\"main-item-humberger-icon main-item-album-song-humberger-icon\" id=\"item-song-humberger\"></div>\n	<div class=\"main-item-poster\" style=\"opacity: 0\"><img src=\"" + (url(song.poster_small)) + "\" onLoad=\"this.parentNode.style.opacity = '';\" onError=\"this.src='./assets/images/ws.jpg';\"/></div>\n</div>";
 };
 
 
@@ -2827,8 +2854,14 @@ Touch.onTap("play-all-downloaded").onStart((function(_this) {
   return function(event) {
     var downloadedSongDiv, downloadedSongs, i, j, len, musicData, otherMusicData, results;
     downloadedSongs = document.querySelectorAll('[downloaded="true"]');
+    if (downloadedSongs === null || downloadedSongs === void 0 || downloadedSongs.length === 0) {
+      downloadedSongs = document.querySelectorAll('[history="true"]');
+    }
     lastMp3Div = window.mp3Div;
     window.mp3Div = downloadedSongs[0];
+    if (downloadedSongs[0].id === "item-album") {
+      downloadedSongs = downloadedSongs[0].children[4].children;
+    }
     musicData = musicDataCache.data[downloadedSongs[0].getAttribute('data-song-id')];
     if (musicData == null) {
       musicData = musicDataCache.more[downloadedSongs[0].getAttribute('data-song-id')];
@@ -3103,13 +3136,13 @@ updatePlayer = function(musicData) {
   titlesNode.children[1].innerHTML = "<span>" + musicData.artist + "</span>";
   miniTitlesNode.children[0].innerHTML = musicData.songname;
   miniTitlesNode.children[1].innerHTML = musicData.artist;
-  if (cover.children[0].children[0].src !== musicData.poster) {
+  if (cover.children[0].children[0].src !== musicData.poster_big || musicData.poster) {
     cover.children[0].children[0].src = "./assets/images/ws.jpg";
     miniImageNode.src = "./assets/images/ws.jpg";
     repositionCover();
-    cover.children[0].children[1].src = musicData.poster;
+    cover.children[0].children[1].src = musicData.poster_big || musicData.poster;
   }
-  return miniImageNode.src = musicData.poster;
+  return miniImageNode.src = musicData.poster_big || musicData.poster;
 };
 
 cover.children[0].children[0].addEventListener("load", (function(_this) {
@@ -3125,7 +3158,7 @@ cover.children[0].children[1].addEventListener("error", (function(_this) {
     errorTimes++;
     if (errorTimes < 20) {
       cover.children[0].children[1].src = "./assets/images/ws.jpg";
-      cover.children[0].children[1].src = window.playingMusicData.poster;
+      cover.children[0].children[1].src = window.playingMusicData.poster_big || window.playingMusicData.poster;
     } else {
       cover.children[0].children[1].src = "./assets/images/ws.jpg";
     }
@@ -4183,7 +4216,34 @@ downloadSong = function(musicData, view, again) {
 };
 
 syncSong = function(musicData, playlist) {
-  var activeSongForSync, mp3;
+  var activeSongForSync, found, j, len, mp3, syncedPlaylist, syncedPlaylists;
+  syncedPlaylists = settingStorage.get("synced-playlists");
+  if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
+    found = false;
+    for (j = 0, len = syncedPlaylists.length; j < len; j++) {
+      syncedPlaylist = syncedPlaylists[j];
+      if (syncedPlaylist.id === playlist.data.id) {
+        syncedPlaylist.albumtracks.push(musicData);
+        found = true;
+        break;
+      }
+    }
+    if (found === false) {
+      syncedPlaylists.push({
+        id: playlist.data.id,
+        albumtracks: [musicData],
+        groupname: playlist.data.groupname
+      });
+    }
+  } else {
+    syncedPlaylists = [
+      {
+        id: playlist.data.id,
+        albumtracks: [musicData],
+        groupname: playlist.data.groupname
+      }
+    ];
+  }
   activeSongForSync = playlist.selectActiveSong(musicData);
   mp3 = musicData.mp3;
   if (settingStorage.get("download-default-quality") === "low") {
@@ -4204,6 +4264,7 @@ syncSong = function(musicData, playlist) {
     if (eve.done === true) {
       settingStorage.set(musicData.id, eve.address);
       activeSongForSync.done();
+      settingStorage.set("synced-playlists", syncedPlaylists);
     } else {
       cent = Math.round(eve.loaded / eve.total * 10000) / 100;
       activeSongForSync.inProgress(cent);
@@ -6764,7 +6825,9 @@ Touch.onTap("about-link-insta").onStart((function(_this) {
 
 
 },{"../historyManage":38,"simple-touch":76}],48:[function(require,module,exports){
-var Downloads, album, downloadingList, settingStorage, song;
+var Downloads, Touch, album, downloadingList, playlist, settingStorage, song;
+
+Touch = require('simple-touch');
 
 settingStorage = require('../Tools/SettingStorage');
 
@@ -6774,6 +6837,8 @@ song = require('../Item/Song');
 
 album = require('../Item/Album');
 
+playlist = require('../Item/Playlist');
+
 Downloads = (function() {
   function Downloads() {
     this.init();
@@ -6781,9 +6846,70 @@ Downloads = (function() {
 
   Downloads.prototype.init = function() {
     this.node = document.createElement("div");
-    this.node.appendChild(this.createPlayAll());
+    this.node.appendChild(this.createSegmented());
     this.node.appendChild(this.createSearchElement());
     return this.node.appendChild(this.createPlaceForItems());
+  };
+
+  Downloads.prototype.createSegmented = function() {
+    var albumsText, allText, div, playlistsText, songsText;
+    div = document.createElement("div");
+    div.className = "main-item main-item-segmented";
+    allText = "همه";
+    songsText = "موسیقی";
+    albumsText = "آلبوم";
+    playlistsText = "لیست پخش";
+    div.innerHTML = "<span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span><span class=\"segmented-label\" data-filter=\"playlist\" id=\"segmented-downloaded\">" + playlistsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = div.children[0].children[0];
+    Touch.onTap("segmented-downloaded").onStart((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+      };
+    })(this)).onEnd((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = '';
+      };
+    })(this)).onTap((function(_this) {
+      return function(event) {
+        var clicked, downloadedItem, downloadedList, filter, filteredList, i, j, len, len1, syncedPlaylists;
+        clicked = event.listener;
+        _this.selectedSegment.classList.remove("segmented-label-selected");
+        _this.selectedSegment = clicked;
+        _this.selectedSegment.classList.add("segmented-label-selected");
+        filter = _this.selectedSegment.getAttribute("data-filter");
+        if (filter === "all") {
+          return _this.placeAllItems();
+        } else {
+          _this.input.value = "";
+          filteredList = [];
+          _this.placeForItems.innerHTML = "";
+          downloadedList = JSON.parse(settingStorage.get("downloaded"));
+          switch (filter) {
+            case "album":
+              for (i = 0, len = downloadedList.length; i < len; i++) {
+                downloadedItem = downloadedList[i];
+                if (downloadedItem.album_id != null) {
+                  filteredList.push(downloadedItem);
+                }
+              }
+              break;
+            case "song":
+              for (j = 0, len1 = downloadedList.length; j < len1; j++) {
+                downloadedItem = downloadedList[j];
+                if (downloadedItem.album_id == null) {
+                  filteredList.push(downloadedItem);
+                }
+              }
+              break;
+            case "playlist":
+              syncedPlaylists = settingStorage.get("synced-playlists");
+              _this.placePlaylists(syncedPlaylists);
+          }
+          return _this.placeForItems.appendChild(_this.createDownloadedItems(filteredList));
+        }
+      };
+    })(this));
+    return div;
   };
 
   Downloads.prototype.createPlaceForItems = function() {
@@ -6836,28 +6962,45 @@ Downloads = (function() {
 
   Downloads.prototype.createPlayAll = function() {
     var elText, playAllDiv;
-    playAllDiv = document.createElement("div");
+    playAllDiv = document.createElement("span");
     playAllDiv.id = "playall";
     elText = 'Play all';
     if (window.lang === "fa") {
       elText = 'پخش همه';
     }
-    playAllDiv.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><div class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</div>";
+    playAllDiv.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
     return playAllDiv;
   };
 
   Downloads.prototype.placeAllItems = function() {
-    var downloaded;
+    var downloaded, syncedPlaylists;
     this.placeForItems.innerHTML = "";
     this.placeForItems.appendChild(downloadingList());
     downloaded = JSON.parse(settingStorage.get("downloaded"));
-    return this.placeForItems.appendChild(this.createDownloadedItems(downloaded));
+    this.placeForItems.appendChild(this.createDownloadedItems(downloaded));
+    syncedPlaylists = settingStorage.get("synced-playlists");
+    return this.placePlaylists(syncedPlaylists);
+  };
+
+  Downloads.prototype.placePlaylists = function(syncedPlaylists) {
+    var div, downloadedDivs, i, len, syncedPlaylist;
+    div = document.createElement("div");
+    div.id = "downloaded";
+    downloadedDivs = "";
+    for (i = 0, len = syncedPlaylists.length; i < len; i++) {
+      syncedPlaylist = syncedPlaylists[i];
+      if (syncedPlaylist.albumtracks.length > 0) {
+        downloadedDivs = playlist(syncedPlaylist, true) + downloadedDivs;
+      }
+    }
+    div.innerHTML = downloadedDivs;
+    return this.placeForItems.appendChild(div);
   };
 
   Downloads.prototype.getNode = function() {
     this.input.setAttribute("placeholder", "Tap to Filter Results");
     if (window.lang === "fa") {
-      this.input.setAttribute("placeholder", "برای محدود کردن جستجو ضربه بزنید");
+      this.input.setAttribute("placeholder", "برای جستجو ضربه بزنید");
     }
     this.input.value = "";
     this.placeAllItems();
@@ -6865,7 +7008,10 @@ Downloads = (function() {
   };
 
   Downloads.prototype.filterResults = function(filter) {
-    var downloaded, fuse, options;
+    var downloaded, fuse, i, len, options, playlistsFiltered, syncedPlaylist, syncedPlaylists;
+    this.selectedSegment.classList.remove("segmented-label-selected");
+    this.selectedSegment = this.segmentedAll;
+    this.selectedSegment.classList.add("segmented-label-selected");
     if (filter !== "") {
       this.placeForItems.innerHTML = "";
       downloaded = JSON.parse(settingStorage.get("downloaded"));
@@ -6879,7 +7025,25 @@ Downloads = (function() {
         keys: ["songname", "album", "artist"]
       };
       fuse = new Fuse(downloaded, options);
-      return this.placeForItems.appendChild(this.createDownloadedItems(fuse.search(filter)));
+      this.placeForItems.appendChild(this.createDownloadedItems(fuse.search(filter)));
+      syncedPlaylists = settingStorage.get("synced-playlists");
+      options = {
+        caseSensitive: false,
+        shouldSort: true,
+        threshold: 0.1,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        keys: ["songname", "album", "artist"]
+      };
+      playlistsFiltered = [];
+      for (i = 0, len = syncedPlaylists.length; i < len; i++) {
+        syncedPlaylist = syncedPlaylists[i];
+        fuse = new Fuse(syncedPlaylist.albumtracks, options);
+        syncedPlaylist.albumtracks = fuse.search(filter);
+        playlistsFiltered.push(syncedPlaylist);
+      }
+      return this.placePlaylists(playlistsFiltered);
     } else {
       return this.placeAllItems();
     }
@@ -6903,6 +7067,7 @@ Downloads = (function() {
         return _this.filterResults(_this.input.value);
       };
     })(this));
+    div.appendChild(this.createPlayAll());
     return div;
   };
 
@@ -6914,7 +7079,7 @@ module.exports = Downloads;
 
 
 
-},{"../Item/Album":5,"../Item/Song":17,"../Tools/SettingStorage":27,"../download":34}],49:[function(require,module,exports){
+},{"../Item/Album":5,"../Item/Playlist":13,"../Item/Song":17,"../Tools/SettingStorage":27,"../download":34,"simple-touch":76}],49:[function(require,module,exports){
 var History, Touch, album, albumTimeout, historyManage, musicDataCache, song, timeout;
 
 historyManage = require('../historyManage');
@@ -6998,15 +7163,74 @@ History = (function() {
 
   History.prototype.init = function() {
     this.node = document.createElement("div");
-    this.node.appendChild(this.createPlayAll());
+    this.node.appendChild(this.createSegmented());
     this.node.appendChild(this.createSearchElement());
     return this.node.appendChild(this.createPlaceForItems());
   };
 
+  History.prototype.createSegmented = function() {
+    var albumsText, allText, div, songsText;
+    div = document.createElement("div");
+    div.className = "main-item main-item-segmented";
+    allText = "همه";
+    songsText = "موسیقی";
+    albumsText = "آلبوم";
+    div.innerHTML = "<span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = div.children[0].children[0];
+    Touch.onTap("segmented-downloaded").onStart((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
+      };
+    })(this)).onEnd((function(_this) {
+      return function(event) {
+        return event.listener.style.backgroundColor = '';
+      };
+    })(this)).onTap((function(_this) {
+      return function(event) {
+        var clicked, downloadedItem, downloadedItems, downloadedList, filter, filteredList, i, j, len, len1;
+        clicked = event.listener;
+        _this.selectedSegment.classList.remove("segmented-label-selected");
+        _this.selectedSegment = clicked;
+        _this.selectedSegment.classList.add("segmented-label-selected");
+        filter = _this.selectedSegment.getAttribute("data-filter");
+        if (filter === "all") {
+          return _this.placeAllItems();
+        } else {
+          _this.input.value = "";
+          filteredList = [];
+          _this.placeForItems.innerHTML = "";
+          downloadedItems = historyManage.getList();
+          downloadedList = Object.keys(downloadedItems).map(function(key) {
+            return downloadedItems[key];
+          });
+          switch (filter) {
+            case "album":
+              for (i = 0, len = downloadedList.length; i < len; i++) {
+                downloadedItem = downloadedList[i];
+                if (downloadedItem.album_id != null) {
+                  filteredList.push(downloadedItem);
+                }
+              }
+              break;
+            case "song":
+              for (j = 0, len1 = downloadedList.length; j < len1; j++) {
+                downloadedItem = downloadedList[j];
+                if (downloadedItem.album_id == null) {
+                  filteredList.push(downloadedItem);
+                }
+              }
+          }
+          return _this.placeForItems.appendChild(_this.createHistoryItems(filteredList));
+        }
+      };
+    })(this));
+    return div;
+  };
+
   History.prototype.createPlaceForItems = function() {
-    this.plcaeForItems = document.createElement("div");
-    this.plcaeForItems.id = "place-for-items";
-    return this.plcaeForItems;
+    this.placeForItems = document.createElement("div");
+    this.placeForItems.id = "place-for-items";
+    return this.placeForItems;
   };
 
   History.prototype.createHistoryItems = function(items) {
@@ -7055,27 +7279,27 @@ History = (function() {
 
   History.prototype.createPlayAll = function() {
     var elText, playAllDiv;
-    playAllDiv = document.createElement("div");
+    playAllDiv = document.createElement("span");
     playAllDiv.id = "playall";
     elText = 'Play all';
     if (window.lang === "fa") {
       elText = 'پخش همه';
     }
-    playAllDiv.innerHTML = "<div class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</div>";
+    playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
     return playAllDiv;
   };
 
   History.prototype.placeAllItems = function() {
     var downloaded;
-    this.plcaeForItems.innerHTML = "";
+    this.placeForItems.innerHTML = "";
     downloaded = historyManage.getList();
-    return this.plcaeForItems.appendChild(this.createHistoryItems(downloaded));
+    return this.placeForItems.appendChild(this.createHistoryItems(downloaded));
   };
 
   History.prototype.getNode = function() {
     this.input.setAttribute("placeholder", "Tap to Filter Results");
     if (window.lang === "fa") {
-      this.input.setAttribute("placeholder", "برای محدود کردن جستجو ضربه بزنید");
+      this.input.setAttribute("placeholder", "برای جستجو ضربه بزنید");
     }
     this.input.value = "";
     this.placeAllItems();
@@ -7084,8 +7308,11 @@ History = (function() {
 
   History.prototype.filterResults = function(filter) {
     var downloaded, fuse, list, options;
+    this.selectedSegment.classList.remove("segmented-label-selected");
+    this.selectedSegment = this.segmentedAll;
+    this.selectedSegment.classList.add("segmented-label-selected");
     if (filter !== "") {
-      this.plcaeForItems.innerHTML = "";
+      this.placeForItems.innerHTML = "";
       downloaded = historyManage.getList();
       list = Object.keys(downloaded).map(function(key) {
         return downloaded[key];
@@ -7100,7 +7327,7 @@ History = (function() {
         keys: ["songname", "album", "artist"]
       };
       fuse = new Fuse(list, options);
-      return this.plcaeForItems.appendChild(this.createHistoryItems(fuse.search(filter)));
+      return this.placeForItems.appendChild(this.createHistoryItems(fuse.search(filter)));
     } else {
       return this.placeAllItems();
     }
@@ -7124,6 +7351,7 @@ History = (function() {
         return _this.filterResults(_this.input.value);
       };
     })(this));
+    div.appendChild(this.createPlayAll());
     return div;
   };
 
@@ -8086,7 +8314,7 @@ Touch.onTap("item-song-play").onStart((function(_this) {
       }
       div.style.backgroundColor = '';
       callBackConfirmFunction = function(button) {
-        var downl, downloaded, found, i, j, len, parent;
+        var downl, downloaded, found, i, j, k, l, len, len1, len2, m, parent, ref, syncedPlaylist, syncedPlaylists, track;
         if (button === 1) {
           parent = div.parentNode;
           parent.removeChild(div);
@@ -8101,7 +8329,7 @@ Touch.onTap("item-song-play").onStart((function(_this) {
           if (downloaded != null) {
             downloaded = JSON.parse(downloaded);
             found = null;
-            for (i = j = 0, len = downloaded.length; j < len; i = ++j) {
+            for (i = k = 0, len = downloaded.length; k < len; i = ++k) {
               downl = downloaded[i];
               if (downl.id === musicData.id) {
                 found = i;
@@ -8111,7 +8339,26 @@ Touch.onTap("item-song-play").onStart((function(_this) {
             if (found != null) {
               downloaded.splice(found, 1);
             }
-            return settingStorage.set("downloaded", JSON.stringify(downloaded));
+            settingStorage.set("downloaded", JSON.stringify(downloaded));
+            syncedPlaylists = settingStorage.get("synced-playlists");
+            if (syncedPlaylists != null) {
+              found = null;
+              for (i = l = 0, len1 = syncedPlaylists.length; l < len1; i = ++l) {
+                syncedPlaylist = syncedPlaylists[i];
+                ref = syncedPlaylist.albumtracks;
+                for (j = m = 0, len2 = ref.length; m < len2; j = ++m) {
+                  track = ref[j];
+                  if (track.id === musicData.id) {
+                    found = j;
+                    break;
+                  }
+                }
+                if (found != null) {
+                  syncedPlaylist.albumtracks.splice(found, 1);
+                }
+              }
+            }
+            return settingStorage.set("synced-playlists", syncedPlaylists);
           }
         }
       };
@@ -8152,23 +8399,29 @@ Touch.onTap("item-album").onStart((function(_this) {
       if (albumData == null) {
         albumData = musicDataCache.more["album" + div.getAttribute('data-album-id')];
       }
+      if (albumData == null) {
+        albumData = musicDataCache.data["playlist" + div.getAttribute('data-playlist-id')];
+        if (albumData == null) {
+          albumData = musicDataCache.more["playlist" + div.getAttribute('data-playlist-id')];
+        }
+        albumData.album = albumData.groupname;
+      }
       div.style.backgroundColor = '';
       callBackConfirmFunction = function(button) {
-        var downl, downloaded, found, i, j, k, len, len1, musicData, parent, ref, results;
+        var downl, downloaded, found, i, k, l, len, len1, len2, m, musicData, parent, ref, syncedPlaylist, syncedPlaylists;
         if (button === 1) {
           parent = div.parentNode;
           parent.removeChild(div);
           ref = albumData.albumtracks;
-          results = [];
-          for (j = 0, len = ref.length; j < len; j++) {
-            musicData = ref[j];
+          for (k = 0, len = ref.length; k < len; k++) {
+            musicData = ref[k];
             remove(musicData.mp3, musicData.artist, musicData.songname, function() {});
             settingStorage.remove(musicData.id);
             downloaded = settingStorage.get("downloaded");
             if (downloaded != null) {
               downloaded = JSON.parse(downloaded);
               found = null;
-              for (i = k = 0, len1 = downloaded.length; k < len1; i = ++k) {
+              for (i = l = 0, len1 = downloaded.length; l < len1; i = ++l) {
                 downl = downloaded[i];
                 if (downl.id === musicData.id) {
                   found = i;
@@ -8178,12 +8431,27 @@ Touch.onTap("item-album").onStart((function(_this) {
               if (found != null) {
                 downloaded.splice(found, 1);
               }
-              results.push(settingStorage.set("downloaded", JSON.stringify(downloaded)));
-            } else {
-              results.push(void 0);
+              settingStorage.set("downloaded", JSON.stringify(downloaded));
             }
           }
-          return results;
+          if (albumData.groupname != null) {
+            syncedPlaylists = settingStorage.get("synced-playlists");
+            if (syncedPlaylists != null) {
+              found = null;
+              for (i = m = 0, len2 = syncedPlaylists.length; m < len2; i = ++m) {
+                syncedPlaylist = syncedPlaylists[i];
+                console.log(syncedPlaylist, albumData);
+                if (syncedPlaylist.id === albumData.id) {
+                  found = i;
+                  break;
+                }
+              }
+              if (found != null) {
+                syncedPlaylists.splice(found, 1);
+              }
+            }
+            return settingStorage.set("synced-playlists", syncedPlaylists);
+          }
         }
       };
       msgTxt = "Remove";

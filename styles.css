@@ -75,8 +75,7 @@ input[type="week"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-  textarea::-webkit-outer-spin-button,
-  textarea::-webkit-inner-spin-button,
+  textarea::-webkit-outer-spin-button, textarea::-webkit-inner-spin-button,
   select::-webkit-outer-spin-button,
   select::-webkit-inner-spin-button,
   input[type="date"]::-webkit-outer-spin-button,
@@ -597,11 +596,14 @@ html, body {
     top: 0;
     color: #7a8082; }
   .app-page .main-item-playlist {
-    height: 100px;
+    height: 90px;
     padding-top: 80px !important; }
+    .app-page .main-item-playlist .main-item-titles {
+      left: 95px;
+      height: 85px; }
     .app-page .main-item-playlist .main-item-poster {
-      height: 70px;
-      width: 70px; }
+      height: 60px;
+      width: 60px; }
     .app-page .main-item-playlist .menu-item-pause-icon {
       position: absolute !important;
       top: 10px !important;
@@ -616,7 +618,7 @@ html, body {
       transition: opacity 0.3s !important;
       background: rgba(0, 0, 0, 0.5) url("./assets/icons/play-white.png") no-repeat center center/cover !important; }
     .app-page .main-item-playlist .main-item-album-songs {
-      margin-top: 20px; }
+      margin-top: 0px; }
       .app-page .main-item-playlist .main-item-album-songs .main-item-poster {
         top: 10px !important;
         border-radius: 0 !important;
@@ -644,6 +646,7 @@ html, body {
         white-space: nowrap;
         text-transform: capitalize;
         color: #454648;
+        font-size: 16px;
         height: 90px; }
       .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-artist {
         font-family: RobotoLight;
@@ -652,7 +655,7 @@ html, body {
         right: 65px;
         left: 75px;
         overflow: hidden;
-        font-size: 22px;
+        font-size: 18px;
         color: #576971;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -855,12 +858,13 @@ html, body {
     top: 35px; }
   .app-page #play-all-downloaded {
     height: 50px;
-    width: 100%;
+    width: 25%;
     color: #b7bdbe;
     font-family: RobotoCondensedRegular;
     font-size: 18px;
     padding-top: 15px;
-    text-align: center; }
+    text-align: center;
+    border-left: 1px solid #eee; }
   .app-page #refresh {
     height: 50px;
     text-align: center; }
@@ -2029,7 +2033,7 @@ html, body {
     line-height: 70px;
     border-bottom: 1px solid #eaecec;
     font-size: 20px;
-    transition: background-color 0.4s;
+    transition: background-color .4s;
     font-family: RobotoLight;
     overflow: hidden;
     font-size: 16px;
@@ -2071,7 +2075,7 @@ html, body {
     height: 50px; }
     .app-page .search-bar input {
       height: 100%;
-      width: 100%;
+      width: 75%;
       padding-left: 15px;
       font-family: RobotoCondensedLight;
       font-size: 18px;
