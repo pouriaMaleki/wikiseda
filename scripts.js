@@ -6852,15 +6852,21 @@ Downloads = (function() {
   };
 
   Downloads.prototype.createSegmented = function() {
-    var albumsText, allText, div, playlistsText, songsText;
-    div = document.createElement("div");
-    div.className = "main-item main-item-segmented";
-    allText = "همه";
-    songsText = "موسیقی";
-    albumsText = "آلبوم";
-    playlistsText = "لیست پخش";
-    div.innerHTML = "<span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span><span class=\"segmented-label\" data-filter=\"playlist\" id=\"segmented-downloaded\">" + playlistsText + "</span></span>";
-    this.segmentedAll = this.selectedSegment = div.children[0].children[0];
+    var albumsText, allText, playlistsText, songsText;
+    this.segmentedNode = document.createElement("div");
+    this.segmentedNode.className = "main-item main-item-segmented";
+    allText = "All";
+    songsText = "Song";
+    albumsText = "Album";
+    playlistsText = "Playlist";
+    if (window.lang === "fa") {
+      allText = "همه";
+      songsText = "موسیقی";
+      albumsText = "آلبوم";
+      playlistsText = "لیست پخش";
+    }
+    this.segmentedNode.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span><span class=\"segmented-label\" data-filter=\"playlist\" id=\"segmented-downloaded\">" + playlistsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = this.segmentedNode.children[1].children[0];
     Touch.onTap("segmented-downloaded").onStart((function(_this) {
       return function(event) {
         return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
@@ -6884,34 +6890,36 @@ Downloads = (function() {
           filteredList = [];
           _this.placeForItems.innerHTML = "";
           downloadedList = JSON.parse(settingStorage.get("downloaded"));
-          switch (filter) {
-            case "album":
-              for (i = 0, len = downloadedList.length; i < len; i++) {
-                downloadedItem = downloadedList[i];
-                if (downloadedItem.album_id != null) {
-                  filteredList.push(downloadedItem);
+          if ((downloadedList != null) && downloadedList.length > 0) {
+            switch (filter) {
+              case "album":
+                for (i = 0, len = downloadedList.length; i < len; i++) {
+                  downloadedItem = downloadedList[i];
+                  if (downloadedItem.album_id != null) {
+                    filteredList.push(downloadedItem);
+                  }
                 }
-              }
-              break;
-            case "song":
-              for (j = 0, len1 = downloadedList.length; j < len1; j++) {
-                downloadedItem = downloadedList[j];
-                if (downloadedItem.album_id == null) {
-                  filteredList.push(downloadedItem);
+                break;
+              case "song":
+                for (j = 0, len1 = downloadedList.length; j < len1; j++) {
+                  downloadedItem = downloadedList[j];
+                  if (downloadedItem.album_id == null) {
+                    filteredList.push(downloadedItem);
+                  }
                 }
-              }
-              break;
-            case "playlist":
-              syncedPlaylists = settingStorage.get("synced-playlists");
-              if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
-                _this.placePlaylists(syncedPlaylists);
-              }
+            }
+          }
+          if (filter === "playlist") {
+            syncedPlaylists = settingStorage.get("synced-playlists");
+            if ((syncedPlaylists != null) && (syncedPlaylists.length != null)) {
+              _this.placePlaylists(syncedPlaylists);
+            }
           }
           return _this.placeForItems.appendChild(_this.createDownloadedItems(filteredList));
         }
       };
     })(this));
-    return div;
+    return this.segmentedNode;
   };
 
   Downloads.prototype.createPlaceForItems = function() {
@@ -6963,15 +6971,15 @@ Downloads = (function() {
   };
 
   Downloads.prototype.createPlayAll = function() {
-    var elText, playAllDiv;
-    playAllDiv = document.createElement("span");
-    playAllDiv.id = "playall";
+    var elText;
+    this.playAllDiv = document.createElement("span");
+    this.playAllDiv.id = "playall";
     elText = 'Play all';
     if (window.lang === "fa") {
       elText = 'پخش همه';
     }
-    playAllDiv.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
-    return playAllDiv;
+    this.playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
+    return this.playAllDiv;
   };
 
   Downloads.prototype.placeAllItems = function() {
@@ -7002,10 +7010,24 @@ Downloads = (function() {
   };
 
   Downloads.prototype.getNode = function() {
+    var albumsText, allText, elText, playlistsText, songsText;
     this.input.setAttribute("placeholder", "Tap to Filter Results");
+    allText = "All";
+    songsText = "Song";
+    albumsText = "Album";
+    playlistsText = "Playlist";
+    elText = 'Play all';
     if (window.lang === "fa") {
+      allText = "همه";
+      songsText = "موسیقی";
+      albumsText = "آلبوم";
+      playlistsText = "لیست پخش";
       this.input.setAttribute("placeholder", "برای جستجو ضربه بزنید");
+      elText = 'پخش همه';
     }
+    this.segmentedNode.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span><span class=\"segmented-label\" data-filter=\"playlist\" id=\"segmented-downloaded\">" + playlistsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = this.segmentedNode.children[1].children[0];
+    this.playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
     this.input.value = "";
     this.placeAllItems();
     return this.node;
@@ -7175,15 +7197,20 @@ History = (function() {
   };
 
   History.prototype.createSegmented = function() {
-    var albumsText, allText, div, songsText;
-    div = document.createElement("div");
-    div.className = "main-item main-item-segmented";
-    allText = "همه";
-    songsText = "موسیقی";
-    albumsText = "آلبوم";
-    div.innerHTML = "<span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-downloaded\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-downloaded\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-downloaded\">" + albumsText + "</span></span>";
-    this.segmentedAll = this.selectedSegment = div.children[0].children[0];
-    Touch.onTap("segmented-downloaded").onStart((function(_this) {
+    var albumsText, allText, songsText;
+    this.segmentedNode = document.createElement("div");
+    this.segmentedNode.className = "main-item main-item-segmented";
+    allText = "All";
+    songsText = "Song";
+    albumsText = "Album";
+    if (window.lang === "fa") {
+      allText = "همه";
+      songsText = "موسیقی";
+      albumsText = "آلبوم";
+    }
+    this.segmentedNode.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-history\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-history\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-history\">" + albumsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = this.segmentedNode.children[1].children[0];
+    Touch.onTap("segmented-history").onStart((function(_this) {
       return function(event) {
         return event.listener.style.backgroundColor = 'rgba(0,0,0,.1)';
       };
@@ -7209,28 +7236,30 @@ History = (function() {
           downloadedList = Object.keys(downloadedItems).map(function(key) {
             return downloadedItems[key];
           });
-          switch (filter) {
-            case "album":
-              for (i = 0, len = downloadedList.length; i < len; i++) {
-                downloadedItem = downloadedList[i];
-                if (downloadedItem.album_id != null) {
-                  filteredList.push(downloadedItem);
+          if ((downloadedList != null) && downloadedList.length > 0) {
+            switch (filter) {
+              case "album":
+                for (i = 0, len = downloadedList.length; i < len; i++) {
+                  downloadedItem = downloadedList[i];
+                  if (downloadedItem.album_id != null) {
+                    filteredList.push(downloadedItem);
+                  }
                 }
-              }
-              break;
-            case "song":
-              for (j = 0, len1 = downloadedList.length; j < len1; j++) {
-                downloadedItem = downloadedList[j];
-                if (downloadedItem.album_id == null) {
-                  filteredList.push(downloadedItem);
+                break;
+              case "song":
+                for (j = 0, len1 = downloadedList.length; j < len1; j++) {
+                  downloadedItem = downloadedList[j];
+                  if (downloadedItem.album_id == null) {
+                    filteredList.push(downloadedItem);
+                  }
                 }
-              }
+            }
           }
           return _this.placeForItems.appendChild(_this.createHistoryItems(filteredList));
         }
       };
     })(this));
-    return div;
+    return this.segmentedNode;
   };
 
   History.prototype.createPlaceForItems = function() {
@@ -7284,15 +7313,15 @@ History = (function() {
   };
 
   History.prototype.createPlayAll = function() {
-    var elText, playAllDiv;
-    playAllDiv = document.createElement("span");
-    playAllDiv.id = "playall";
+    var elText;
+    this.playAllDiv = document.createElement("span");
+    this.playAllDiv.id = "playall";
     elText = 'Play all';
     if (window.lang === "fa") {
       elText = 'پخش همه';
     }
-    playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
-    return playAllDiv;
+    this.playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
+    return this.playAllDiv;
   };
 
   History.prototype.placeAllItems = function() {
@@ -7303,10 +7332,22 @@ History = (function() {
   };
 
   History.prototype.getNode = function() {
+    var albumsText, allText, elText, songsText;
     this.input.setAttribute("placeholder", "Tap to Filter Results");
+    allText = "All";
+    songsText = "Song";
+    albumsText = "Album";
+    elText = 'Play all';
     if (window.lang === "fa") {
       this.input.setAttribute("placeholder", "برای جستجو ضربه بزنید");
+      allText = "همه";
+      songsText = "موسیقی";
+      albumsText = "آلبوم";
+      elText = 'پخش همه';
     }
+    this.playAllDiv.innerHTML = "<span class=\"main-item maxWidth\" id=\"play-all-downloaded\">" + elText + "</span>";
+    this.segmentedNode.innerHTML = "<input type=\"submit\" autofocus=\"\" style=\"visibility: hidden; position: absolute;\"><span class=\"segmented\"><span class=\"segmented-label segmented-label-selected\" data-filter=\"all\" id=\"segmented-history\">" + allText + "</span><span class=\"segmented-label\" data-filter=\"song\" id=\"segmented-history\">" + songsText + "</span><span class=\"segmented-label\" data-filter=\"album\" id=\"segmented-history\">" + albumsText + "</span></span>";
+    this.segmentedAll = this.selectedSegment = this.segmentedNode.children[1].children[0];
     this.input.value = "";
     this.placeAllItems();
     return this.node;
