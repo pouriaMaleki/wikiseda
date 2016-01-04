@@ -573,6 +573,9 @@ html, body {
 .fa .artist-page-item .main-item-titles-title {
   text-align: center; }
 
+.fa .main-item-segmented .segmented-label {
+  line-height: 25px; }
+
 .ios .main {
   top: 96px !important; }
 
@@ -1262,10 +1265,10 @@ html, body {
     font-size: 14px; }
   .app-page .main {
     position: absolute;
-    top: 66px;
+    top: 56px;
     left: 0;
     width: 100%;
-    bottom: 0px;
+    bottom: 2px;
     padding-bottom: 57px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -1522,7 +1525,7 @@ html, body {
   .app-page .mini-player {
     background-color: #fff;
     border-top: 20px white solid;
-    height: 66px;
+    height: 56px;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -1531,8 +1534,8 @@ html, body {
     position: absolute;
     top: 2px;
     left: 10px;
-    height: 60px;
-    width: 60px; }
+    height: 50px;
+    width: 50px; }
     .app-page .mini-player-image img {
       height: 100%;
       width: 100%; }
@@ -1543,7 +1546,7 @@ html, body {
     text-align: left; }
   .app-page .mini-player-titles-song-name {
     position: absolute;
-    top: 8px;
+    top: 4px;
     overflow: hidden;
     font-size: 20px;
     font-family: RobotoLight;
@@ -1556,7 +1559,7 @@ html, body {
     text-overflow: ellipsis; }
   .app-page .mini-player-titles-artist {
     position: absolute;
-    top: 35px;
+    top: 25px;
     left: 95px;
     right: 55px;
     overflow: hidden;
@@ -1572,8 +1575,8 @@ html, body {
     position: absolute;
     top: 7px;
     right: 15px;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     -webkit-transition: background 0.15s;
     -moz-transition: background 0.15s;
     -ms-transition: background 0.15s;
@@ -1997,7 +2000,7 @@ html, body {
     font-size: 18px;
     font-family: RobotoCondensedRegular;
     color: #919798;
-    line-height: 25px;
+    line-height: 30px;
     position: relative;
     top: 0;
     left: 10px;

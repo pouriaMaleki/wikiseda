@@ -2467,14 +2467,14 @@ audio.onTimePercent(function(cent) {
   currentTime = cent;
   setTransform(seekBarMove, "scaleX(" + cent + ")");
   if (disableOpenTop === false) {
-    x = cent * (window.innerWidth - 20);
+    x = cent * (window.innerWidth - 10);
     return setTransform(seekBarHandle, "translateX(" + x + "px)");
   }
 });
 
 window.addEventListener('resize', function() {
   var resizeNewX;
-  resizeNewX = currentTime * (window.innerWidth - 20);
+  resizeNewX = currentTime * (window.innerWidth - 10);
   return setTransform(seekBarHandle, "translateX(" + resizeNewX + "px)");
 });
 
@@ -2491,11 +2491,11 @@ Touch.onPan("seekbar-handle").onStart(function(event) {
     return;
   }
   newX = x - event.totalX;
-  cent = newX / (window.innerWidth - 20);
+  cent = newX / (window.innerWidth - 10);
   if (cent < 0) {
     newX = 0;
   } else if (1 < cent) {
-    newX = window.innerWidth - 20;
+    newX = window.innerWidth - 10;
   }
   return setTransform(event.listener, "translateX(" + newX + "px)");
 }).onGeneralEnd(function() {
@@ -2504,7 +2504,7 @@ Touch.onPan("seekbar-handle").onStart(function(event) {
     return;
   }
   x = x - event.totalX;
-  seekPosX = newX / (window.innerWidth - 20);
+  seekPosX = newX / (window.innerWidth - 10);
   if ((0 < seekPosX && seekPosX < 1)) {
     audio.seekToPercent(seekPosX);
     setTransform(event.listener, "translateX(" + newX + "px)");
@@ -6616,6 +6616,9 @@ network.onConnectionStatus(function(status) {
       }
       flashMessage.show(msgTxt);
       morePage.jumpToDownloads();
+      selectedMenuItem.style.backgroundColor = '';
+      selectedMenuItem = document.getElementById("more-option-Downloaded_Media");
+      selectedMenuItem.style.backgroundColor = '#00a1eb';
       return ad.remove();
     }, 1000);
   }
