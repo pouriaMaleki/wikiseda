@@ -33,7 +33,7 @@ input[type="image"] {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 15px;
-  font-family: Arial, "Liberation Sans", FreeSans, sans-serif; }
+  font-family: IRANSans,  Arial, "Liberation Sans", FreeSans, sans-serif; }
 
 button,
 input[type="reset"],
@@ -64,7 +64,7 @@ input[type="week"] {
   text-align: left;
   vertical-align: top;
   font-size: 15px;
-  font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+  font-family: IRANSans,  Arial, "Liberation Sans", FreeSans, sans-serif;
   -webkit-appearance: none;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
@@ -129,7 +129,7 @@ textarea {
 optgroup {
   font-style: normal;
   font-weight: normal;
-  font-family: Arial, "Liberation Sans", FreeSans, sans-serif; }
+  font-family: IRANSans,  Arial, "Liberation Sans", FreeSans, sans-serif; }
 
 select::-ms-expand {
   display: none; }
@@ -251,12 +251,63 @@ input[type="checkbox"] {
   font-family: RobotoCondensed;
   src: url("./assets/fonts/Roboto/Roboto-Condensed.ttf"); }
 
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/eot/IRANSansWeb_Bold.eot');
+	src: url('../fonts/eot/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/woff2/IRANSansWeb_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/woff/IRANSansWeb_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/ttf/IRANSansWeb_Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 500;
+	src: url('../fonts/eot/IRANSansWeb_Medium.eot');
+	src: url('../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fonts/eot/IRANSansWeb_Light.eot');
+	src: url('../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/ttf/IRANSansWeb_Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 200;
+	src: url('../fonts/eot/IRANSansWeb_UltraLight.eot');
+	src: url('../fonts/eot/IRANSansWeb_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/woff2/IRANSansWeb_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/woff/IRANSansWeb_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/ttf/IRANSansWeb_UltraLight.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: normal;
+	src: url('../fonts/eot/IRANSansWeb.eot');
+	src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/woff2/IRANSansWeb.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/woff/IRANSansWeb.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/ttf/IRANSansWeb.ttf') format('truetype');
+}
+
 html, body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: RobotoLight;
+  font-family: IRANSans, RobotoLight;
   overflow-x: hidden;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
@@ -513,7 +564,7 @@ html, body {
       color: #7a8082;
       font-size: 18px;
       margin-top: 0px;
-      font-family: RobotoCondensedRegular; }
+      font-family: IRANSans,  RobotoCondensedRegular; }
   .login-register .form-holder {
     position: absolute;
     top: 240px;
@@ -531,7 +582,7 @@ html, body {
       margin-bottom: 7px;
       border-radius: 25px;
       width: 100%;
-      font-family: RobotoLight;
+      font-family: IRANSans,  RobotoLight;
       font-size: 16px; }
     .login-register .form-holder input[type="text"],
     .login-register .form-holder input[type="password"],
@@ -542,7 +593,7 @@ html, body {
       color: #fff;
       font-size: 18px; }
   .login-register .login-link {
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     font-size: 18px;
     margin-top: 30px;
     margin-bottom: 5px;
@@ -652,7 +703,7 @@ html, body {
         font-size: 16px;
         height: 90px; }
       .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-artist {
-        font-family: RobotoLight;
+        font-family: IRANSans,  RobotoLight;
         position: absolute;
         top: 8px;
         right: 65px;
@@ -664,7 +715,7 @@ html, body {
         white-space: nowrap;
         text-transform: capitalize; }
       .app-page .main-item-playlist .main-item-album-songs .menu-item-album-song-view {
-        font-family: RobotoCondensedLight;
+        font-family: IRANSans,  RobotoCondensedLight;
         position: absolute;
         right: 0;
         bottom: 0px;
@@ -739,7 +790,7 @@ html, body {
     color: #454648;
     height: 65px; }
   .app-page .main-item-titles-title {
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     position: absolute;
     top: 32px;
     right: 20px;
@@ -749,7 +800,7 @@ html, body {
     color: #7a8082;
     text-overflow: ellipsis; }
   .app-page .main-item-titles-artist {
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     position: absolute;
     top: 10px;
     right: 20px;
@@ -759,7 +810,7 @@ html, body {
     color: #576971;
     text-overflow: ellipsis; }
   .app-page .main-item-titles-view {
-    font-family: RobotoCondensedLight;
+    font-family: IRANSans,  RobotoCondensedLight;
     position: absolute;
     right: 0;
     bottom: 5px;
@@ -840,7 +891,7 @@ html, body {
     animation-timing-function: linear; }
   .app-page .circleLoading-text {
     color: #b7bdbe;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 16px;
     position: relative;
     top: 40px; }
@@ -863,7 +914,7 @@ html, body {
     height: 50px;
     width: 25%;
     color: #b7bdbe;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 18px;
     padding-top: 15px;
     text-align: center;
@@ -882,11 +933,11 @@ html, body {
   .app-page #item-artist .main-item-titles-title {
     top: 10px;
     font-size: 18px;
-    font-family: RobotoLight; }
+    font-family: IRANSans,  RobotoLight; }
   .app-page #item-artist .main-item-titles-artist {
     top: 35px;
     font-size: 14px;
-    font-family: Roboto; }
+    font-family: IRANSans,  Roboto; }
     .app-page #item-artist .main-item-titles-artist:before {
       content: " ";
       background: transparent url("./assets/icons/icon-fans.png") no-repeat 0 center/contain;
@@ -898,7 +949,7 @@ html, body {
       top: 2px; }
     .app-page #item-artist .main-item-titles-artist small {
       color: #b3b9bb;
-      font-family: RobotoCondensedRegular; }
+      font-family: IRANSans,  RobotoCondensedRegular; }
   .app-page #item-artist .main-item-titles-view {
     top: 65px;
     display: none; }
@@ -938,7 +989,7 @@ html, body {
     display: none; }
   .app-page .menu-item-album-song-title {
     overflow: hidden;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 18px;
     color: #5f7077;
     position: absolute;
@@ -950,7 +1001,7 @@ html, body {
     text-transform: capitalize;
     text-overflow: ellipsis; }
   .app-page .menu-item-album-song-view {
-    font-family: RobotoCondensedLight;
+    font-family: IRANSans,  RobotoCondensedLight;
     position: absolute;
     right: 30px;
     font-size: 14px;
@@ -1013,7 +1064,7 @@ html, body {
       top: 20px;
       font-size: 22px;
       color: #576971;
-      font-family: RobotoLight;
+      font-family: IRANSans,  RobotoLight;
       position: relative;
       top: 130px; }
     .app-page .artist-page-item .main-item-titles-fan-holder {
@@ -1041,7 +1092,7 @@ html, body {
       font-size: 18px;
       display: inline-block;
       position: relative;
-      font-family: Roboto;
+      font-family: IRANSans,  Roboto;
       margin-right: 10px;
       margin-left: 10px;
       box-sizing: border-box; }
@@ -1056,7 +1107,7 @@ html, body {
       .app-page .artist-page-item .main-item-artist-header-desc-field small {
         padding: 2px;
         color: #b3b9bb;
-        font-family: RobotoCondensedRegular; }
+        font-family: IRANSans,  RobotoCondensedRegular; }
       .app-page .artist-page-item .main-item-artist-header-desc-field label input {
         visibility: hidden;
         display: block;
@@ -1080,11 +1131,11 @@ html, body {
       height: inherit;
       font-size: 16px;
       display: inline-block;
-      font-family: Roboto;
+      font-family: IRANSans,  Roboto;
       color: #576971; }
       .app-page .artist-page-item .main-item-artist-header-desc-field-fans small {
         color: #b3b9bb;
-        font-family: RobotoCondensedRegular; }
+        font-family: IRANSans,  RobotoCondensedRegular; }
     .app-page .artist-page-item .main-item-artist-header-desc-field-albums:before {
       background: transparent url("./assets/icons/icon-albums.png") no-repeat 0 0/contain; }
     .app-page .artist-page-item .main-item-artist-header-desc-field-songs:before {
@@ -1092,7 +1143,7 @@ html, body {
   .app-page .main-item-username {
     font-size: 18px;
     color: #576971;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     line-height: 60px;
     margin-left: 10px; }
   .app-page .main-item-logout {
@@ -1107,7 +1158,7 @@ html, body {
     background-color: #b8bdbe;
     border-radius: 3px; }
   .app-page #item-genre .main-item-poster {
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 20px;
     color: #7a8082;
     margin-top: 10px;
@@ -1141,7 +1192,7 @@ html, body {
     width: 100%;
     background-color: #ccd2d3;
     color: #82888a;
-    font-family: RobotoCondensedLight;
+    font-family: IRANSans,  RobotoCondensedLight;
     border-bottom: 0; }
   .app-page .main-item-search-btn {
     position: absolute;
@@ -1160,7 +1211,7 @@ html, body {
       height: 100%;
       width: 100%;
       padding-left: 15px;
-      font-family: RobotoCondensedLight;
+      font-family: IRANSans,  RobotoCondensedLight;
       font-size: 16px;
       color: #7a8082; }
     .app-page .main-item-search-input ::-webkit-input-placeholder {
@@ -1228,7 +1279,7 @@ html, body {
     height: 62px;
     font-size: 18px;
     color: #919798;
-    font-family: RobotoCondensedRegular; }
+    font-family: IRANSans,  RobotoCondensedRegular; }
   .app-page .main-item-default {
     position: absolute;
     top: 20px;
@@ -1241,7 +1292,7 @@ html, body {
   .app-page .custom-about-text {
     font-size: 22px;
     color: #576971;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     position: relative;
     top: 20px; }
     .app-page .custom-about-text .segmented-label {
@@ -1260,7 +1311,7 @@ html, body {
       width: 100%; }
   .app-page .custom-about-link {
     text-decoration: underline;
-    font-family: Roboto;
+    font-family: IRANSans,  Roboto;
     color: #3ab6e9;
     font-size: 14px; }
   .app-page .main {
@@ -1296,12 +1347,12 @@ html, body {
     top: 35px;
     font-size: 18px;
     color: #7a8082;
-    font-family: RobotoCondensedRegular; }
+    font-family: IRANSans,  RobotoCondensedRegular; }
   .app-page .queue-item-artist {
     position: absolute;
     left: 80px;
     top: 10px;
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     font-size: 22px;
     color: #576971; }
   .app-page .queue-item-playing-icon {
@@ -1389,7 +1440,7 @@ html, body {
     display: inline-block;
     width: 50%;
     color: #f9f9f9;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     height: 100%;
     text-align: center; }
   .app-page .top-tab-selector-selected {
@@ -1549,7 +1600,7 @@ html, body {
     top: 4px;
     overflow: hidden;
     font-size: 20px;
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     white-space: nowrap;
     text-transform: capitalize;
     overflow: hidden;
@@ -1566,7 +1617,7 @@ html, body {
     white-space: nowrap;
     text-transform: capitalize;
     font-size: 16px;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     color: #7a8082;
     text-overflow: ellipsis; }
     .app-page .mini-player-titles-artist span {
@@ -1599,7 +1650,7 @@ html, body {
     top: 0;
     left: 0;
     color: #576971;
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     width: 100%;
     height: 25px;
     line-height: 45px;
@@ -1620,7 +1671,7 @@ html, body {
     top: 30px;
     left: 0;
     color: #7a8082;
-    font-family: Roboto;
+    font-family: IRANSans,  Roboto;
     width: 100%;
     height: 25px;
     line-height: 35px;
@@ -1831,7 +1882,7 @@ html, body {
     position: relative;
     top: 3px;
     text-align: center;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 12px; }
   .app-page .bottom-icon {
     height: 35px;
@@ -1872,7 +1923,7 @@ html, body {
     position: relative;
     border-bottom: 1px solid #eaecec; }
   .app-page .menu-playlist-item-title {
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     position: absolute;
     top: 10px;
     left: 20px;
@@ -1880,7 +1931,7 @@ html, body {
     font-size: 22px;
     color: #576971; }
   .app-page .menu-playlist-item-count {
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     position: absolute;
     top: 40px;
     left: 20px;
@@ -1917,7 +1968,7 @@ html, body {
     margin-top: 30px;
     margin-bottom: 30px;
     color: #00a1eb;
-    font-family: Roboto;
+    font-family: IRANSans,  Roboto;
     font-size: 18px; }
   .app-page .menu {
     position: absolute;
@@ -1998,7 +2049,7 @@ html, body {
     display: inline-block;
     height: 30px;
     font-size: 18px;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     color: #919798;
     line-height: 30px;
     position: relative;
@@ -2016,7 +2067,7 @@ html, body {
     color: #fff; }
   .app-page .main-item-segmented-left {
     font-size: 18px;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     color: #919798;
     float: left; }
   .app-page .main-item-segmented-left-icon {
@@ -2038,7 +2089,7 @@ html, body {
     border-bottom: 1px solid #eaecec;
     font-size: 20px;
     transition: background-color .4s;
-    font-family: RobotoLight;
+    font-family: IRANSans,  RobotoLight;
     overflow: hidden;
     font-size: 16px;
     color: #576971;
@@ -2068,7 +2119,7 @@ html, body {
     height: 50px;
     width: 100%;
     color: #b7bdbe;
-    font-family: RobotoCondensedRegular;
+    font-family: IRANSans,  RobotoCondensedRegular;
     font-size: 18px;
     padding-top: 15px;
     text-align: center;
@@ -2082,12 +2133,12 @@ html, body {
       margin-top: 10px;
       width: 75%;
       padding-left: 15px;
-      font-family: RobotoCondensedLight;
+      font-family: IRANSans,  RobotoCondensedLight;
       font-size: 16px;
       color: #7a8082; }
   .app-page #new-playlist, .app-page #failedDiv, .app-page #failed-load-playlist {
     height: 50px;
-    font-family: RobotoCondensedLight;
+    font-family: IRANSans,  RobotoCondensedLight;
     font-size: 18px;
     color: #7a8082;
     line-height: 50px;
