@@ -7664,7 +7664,7 @@ Network = (function() {
         return results;
       };
     })(this), false);
-    if (navigator.connection != null) {
+    if (navigator.connection != null && navigator.connection.type != null) {
       if (navigator.connection.type.toUpperCase() === "NONE" && navigator.connection.type.toUpperCase() === "UNKNOWN") {
         this.status = false;
       } else {
